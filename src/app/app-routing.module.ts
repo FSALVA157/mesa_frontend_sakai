@@ -28,6 +28,7 @@ import { LoginComponent } from './components/login/login.component';
 import { ErrorComponent } from './components/error/error.component';
 import { NotfoundComponent } from './components/notfound/notfound.component';
 import { AccessComponent } from './components/access/access.component';
+import { TramitesComponent } from './pages/tramites/tramites.component';
 @NgModule({
     imports: [
         RouterModule.forRoot([
@@ -35,6 +36,7 @@ import { AccessComponent } from './components/access/access.component';
                 path: '', component: AppMainComponent,
                 children: [
                     {path: '', component: DashboardComponent},
+                    {path: 'home/tramites', component: TramitesComponent},
                     {path: 'uikit/formlayout', component: FormLayoutComponent},
                     {path: 'uikit/input', component: InputComponent},
                     {path: 'uikit/floatlabel', component: FloatLabelComponent},
