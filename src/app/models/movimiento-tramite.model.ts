@@ -1,8 +1,5 @@
-import { SectorModel } from './sector.model';
-import { TipoTramiteModel } from './tipo-tramite.model';
-import { UsuarioModel } from './usuario.model';
 
-export class TramiteModel{
+export class MovimientoTramiteModel{
     constructor(
         public id_tramite?: number,
         public numero_tramite?: number,
@@ -13,11 +10,8 @@ export class TramiteModel{
         public fecha?: Date,
         public anio?: number,
         public tipo_tramite_id?: number,
-        public tipo_tramite?: TipoTramiteModel,
         public sector_id?: number,
-        public sector?: SectorModel,
-        public usuario_id?: number,
-        public usuario?: UsuarioModel
+        public usuario_id?: number
 
     ){}
 }

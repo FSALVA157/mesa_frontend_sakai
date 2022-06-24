@@ -2,14 +2,16 @@
 import { Component, OnInit, ViewChild, ChangeDetectorRef, ElementRef } from '@angular/core';
 import { Customer, Representative } from '../../api/customer';
 import { CustomerService } from '../../service/customerservice';
-import { Product } from '../../api/product';
-import { ProductService } from '../../service/productservice';
 import { Table } from 'primeng/table';
 import { MessageService, ConfirmationService } from 'primeng/api'
 import { TramiteModel } from '../../models/tramite.model';
 import { TramitesService } from '../../service/tramites.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { SectoresService } from 'src/app/service/sectores.service';
+import { SectorModel } from 'src/app/models/sector.model';
+import { TiposTramiteService } from '../../service/tipos-tramite.service';
+import { TipoTramiteModel } from 'src/app/models/tipo-tramite.model';
 
 @Component({
     selector: 'app-tramites',
@@ -54,6 +56,8 @@ export class TramitesComponent implements OnInit {
 
     @ViewChild('filter') filter: ElementRef;
 
+    
+
     //VARIABLES TRAMITE
     formaTramites: FormGroup;
     tramite: TramiteModel;
@@ -63,11 +67,16 @@ export class TramitesComponent implements OnInit {
     submitted: boolean;
 
   
+    //LISTAS
+    listaSectores: SectorModel[]=[];
+    listaTiposTramite: TipoTramiteModel[]=[];
 
     constructor(
     private customerService: CustomerService,
     private tramitesService: TramitesService,
-    private fb: FormBuilder,
+    private sectoresService: SectoresService,
+    private tiposTramiteService: TiposTramiteService,
+    private fb: FormBuilder
     ) {
         
     //FORMULARIO TRASLADO    
@@ -78,12 +87,12 @@ export class TramitesComponent implements OnInit {
         expediente_nota: [,[Validators.required,Validators.pattern(/^[A-Za-z0-9./\s]+$/), Validators.minLength(2), Validators.maxLength(50)]],
         persona_referencia: [,[Validators.required,Validators.pattern(/^[A-Za-z0-9./\s]+$/), Validators.minLength(2), Validators.maxLength(50)]],
         descripcion: [,[Validators.required,Validators.pattern(/^[A-Za-z0-9./\s]+$/), Validators.minLength(2), Validators.maxLength(500)]],
-        fecha: [,[Validators.required]],
-        anio: [,[Validators.required,Validators.pattern(/^[0-9]*$/), Validators.min(2000), Validators.max(2100)]],
+        // fecha: [,[Validators.required]],
+        // anio: [,[Validators.required,Validators.pattern(/^[0-9]*$/), Validators.min(2000), Validators.max(2100)]],
         
-        tipo_tramite_id: [8,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
-        sector_id: [8,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
-        usuario_id: [8,[Validators.required, Validators.pattern(/^[0-9]*$/)]]
+        tipo_tramite_id: [1,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+        // sector_id: [8,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+        // usuario_id: [8,[Validators.required, Validators.pattern(/^[0-9]*$/)]]
     });
     //FIN FORMULARIO TRASLADO
     }
@@ -121,87 +130,97 @@ export class TramitesComponent implements OnInit {
         ];
 
         this.listarTramites();
+        this.listarSectores();
+        this.listarTiposTramite();
     }
-
-    //LISTADO DE TRAMITES
-    listarTramites(){
-    
-    this.tramitesService.listarTramites().
-        subscribe(respuesta => {
-        this.listaTramites= respuesta,
-        console.log("tramites", this.listaTramites);
-
-    
-        });
-    }
-    //FIN LISTADO DE TRASLADOS    
+       
 
     //GUARDAR TRASLADO  
-  submitFormTraslado(){
-    if(this.formaTramites.invalid){
-      Swal.fire('Formulario Traslado con errores','Complete correctamente todos los campos del formulario',"warning");
-      return Object.values(this.formaTramites.controls).forEach(control => control.markAsTouched());
-    }
-
-    let data: Partial<TramiteModel>= new TramiteModel;
-     //poner destino en el personal y sin funcion 
-      //this.submitForm('cambioDestino');
-
-      data = {
-
-        // numero_tramite: parseInt(this.formaTraslados.get('legajo')?.value),
-        // asunto: parseInt(this.formaTraslados.get('dni_personal')?.value),
-        // expediente_nota: parseInt(this.formaTraslados.get('destino_id')?.value),
-        // persona_referencia: this.formaTraslados.get('instrumento')?.value,
-        // descripcion: this.formaTraslados.get('instrumento')?.value,
-        // fecha: this.changeFormatoFechaGuardar(this.formaTraslados.get('fecha')?.value),
-        // fojas: parseInt(this.formaTraslados.get('fojas')?.value),
-        // vigente: this.formaTraslados.get('vigente')?.value,
-        // confirmado: this.formaTraslados.get('confirmado')?.value,
-      }
-
-      //GUARDAR NUEVO TRASLADO
-      if(this.nuevoTramite){       
-        
-        this.tramitesService.guardarTramite(data)
-        .subscribe(resultado => {
-          
-          Swal.fire('Nuevo traslado',`El Traslado ha sido guardado con exito`,"success");
-          
-          this.listarTramites();          
-                    
-        },
-        error => {
-            
-            Swal.fire('Nuevo traslado',`Error al guardar el Traslado: ${error.error.message}`,"error")                          
-        });
-             
-        
-      }
-      //FIN GUARDAR NUEVO TRASLADO 
-
-      //ACTUALIZAR TRASLADO
-    //   if(this.editarTraslado){
-        
-    //     this.trasladoService.editarTraslado(data,parseInt(this.formaTraslados.get('id_traslado')?.value))
-    //     .subscribe(resultado => {
-          
-    //         Swal.fire('Actualizar traslado',`El Traslado ha sido actualizado con Exito`,"success");
-    //         this.listarTraslados();
-    //         this.ocultarDialogoTraslado();
-            
-    //     },
-    //     error => {
-            
-    //         Swal.fire('Actualizar Traslado',`Error al actualizar el Traslado: ${error.error.message}`,"error")                          
-    //     });
-        
-    //   }
-      //FIN ACTUALIZAR TRASLADO
-      
-  }
-  //FIN GUARDAR TRASLADO
+    submitFormTraslado(){
+        // if(this.formaTramites.invalid){
+        //     Swal.fire('Formulario Tramite con errores','Complete correctamente todos los campos del formulario',"warning");
+        //     return Object.values(this.formaTramites.controls).forEach(control => control.markAsTouched());
+        // }
     
+        // let data: Partial<TramiteModel>= new TramiteModel;
+        //     //poner destino en el personal y sin funcion 
+        //     //this.submitForm('cambioDestino');
+
+        // data = {
+
+        //     numero_tramite: parseInt(this.formaTramites.get('numero_tramite')?.value),
+        //     asunto: this.formaTramites.get('asunto')?.value,
+        //     expediente_nota: this.formaTramites.get('expediente_nota')?.value,
+        //     persona_referencia: this.formaTramites.get('persona_referencia')?.value,
+        //     descripcion: this.formaTramites.get('descripcion')?.value,
+        //     fecha: new Date("2022-01-01"),
+        //     anio: 2022,
+        //     tipo_tramite_id: parseInt(this.formaTramites.get('tipo_tramite_id')?.value),
+        //     sector_id: 64,
+        //     usuario_id: 1
+        // }
+
+        // this.tramitesService.guardarTramite(data);
+        //this.listarTramites();
+
+        //GUARDAR NUEVO TRASLADO
+        // if(this.nuevoTramite){       
+        //     this.tramitesService.guardarTramite(data);
+        //     this.listarTramites();
+        // this.tramitesService.guardarTramite(data).
+        // subscribe(resultado => {
+            
+        //     Swal.fire('Nuevo Tramite',`El Tramite ha sido guardado con exito`,"success");
+            
+        //     this.listarTramites();          
+                    
+        // },
+        // error => {
+            
+        //     Swal.fire('Nuevo traslado',`Error al guardar el Traslado: ${error.error.message}`,"error")                          
+        // });
+                
+        
+        }
+        //FIN GUARDAR NUEVO TRASLADO 
+
+        
+    //FIN GUARDAR TRASLADO
+    
+    //LISTADO DE TRAMITES
+    listarTramites(){    
+        this.tramitesService.listarTramites().
+            subscribe(respuesta => {
+            this.listaTramites= respuesta,
+            console.log("tramites", this.listaTramites);    
+        
+        });
+    }
+    //FIN LISTADO DE TRAMITES 
+
+
+
+    //LISTADO DE TRAMITES
+    listarSectores(){    
+        this.sectoresService.listarSectores().
+            subscribe(respuesta => {
+            this.listaSectores= respuesta,
+            console.log("sectores", this.listaSectores);    
+        
+        });
+    }
+    //FIN LISTADO DE TRAMITES
+
+    //LISTADO DE TIPO TRAMITES
+    listarTiposTramite(){    
+        this.tiposTramiteService.listarTiposTramite().
+            subscribe(respuesta => {
+            this.listaTiposTramite= respuesta,
+            console.log("tpos tramite", this.listaTiposTramite);    
+        
+        });
+    }
+    //FIN LISTADO DE TIPO TRAMITES
 
     clear(table: Table) {
         table.clear();
