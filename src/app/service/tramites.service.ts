@@ -9,7 +9,7 @@ const base_url = environment.URL_BASE
   providedIn: 'root'
 })
 export class TramitesService {
-  tramite: Partial<TramiteModel> = new TramiteModel();
+  tramite: TramiteModel = new TramiteModel();
   constructor(
     private readonly http: HttpClient
   ) { }
@@ -20,7 +20,6 @@ export class TramitesService {
 
   guardarTramite(data: any){    
     this.tramite={...data};
-
     return this.http.post(`${base_url}/tramites`, this.tramite);
   }
 }

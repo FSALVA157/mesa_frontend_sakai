@@ -90,7 +90,7 @@ export class TramitesComponent implements OnInit {
         // fecha: [,[Validators.required]],
         // anio: [,[Validators.required,Validators.pattern(/^[0-9]*$/), Validators.min(2000), Validators.max(2100)]],
         
-        tipo_tramite_id: [1,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+        tipo_tramite_id: [0,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
         // sector_id: [8,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
         // usuario_id: [8,[Validators.required, Validators.pattern(/^[0-9]*$/)]]
     });
@@ -142,26 +142,36 @@ export class TramitesComponent implements OnInit {
         //     return Object.values(this.formaTramites.controls).forEach(control => control.markAsTouched());
         // }
     
-        // let data: Partial<TramiteModel>= new TramiteModel;
-        //     //poner destino en el personal y sin funcion 
-        //     //this.submitForm('cambioDestino');
+        let data: any;
+            //poner destino en el personal y sin funcion 
+            //this.submitForm('cambioDestino');
 
-        // data = {
+        data = {
 
-        //     numero_tramite: parseInt(this.formaTramites.get('numero_tramite')?.value),
-        //     asunto: this.formaTramites.get('asunto')?.value,
-        //     expediente_nota: this.formaTramites.get('expediente_nota')?.value,
-        //     persona_referencia: this.formaTramites.get('persona_referencia')?.value,
-        //     descripcion: this.formaTramites.get('descripcion')?.value,
-        //     fecha: new Date("2022-01-01"),
-        //     anio: 2022,
-        //     tipo_tramite_id: parseInt(this.formaTramites.get('tipo_tramite_id')?.value),
-        //     sector_id: 64,
-        //     usuario_id: 1
-        // }
+            // numero_tramite: 0,
+            asunto: this.formaTramites.get('asunto')?.value,
+            expediente_nota: this.formaTramites.get('expediente_nota')?.value,
+            persona_referencia: this.formaTramites.get('persona_referencia')?.value,
+            descripcion: this.formaTramites.get('descripcion')?.value,
+            // fecha: new Date("2022-01-01"),
+            fecha: "2022-01-01",
+            anio: 2022,
+            tipo_tramite_id: parseInt(this.formaTramites.get('tipo_tramite_id')?.value),
+            sector_id: 64,
+            usuario_id: 1
+        }
 
-        // this.tramitesService.guardarTramite(data);
-        //this.listarTramites();
+        this.tramitesService.guardarTramite(data)
+            .subscribe(resultado => {
+                Swal.fire('Exito',`El Registro ha sido guardado con Exito`,"success");
+                this.listarTramites();
+            }
+            // , (error) => {
+            //     Swal.fire('Error',`Error al cargar el nuevo tramite: ${error.error.message}`,"error") 
+            // }
+            );            ;
+        
+        
 
         //GUARDAR NUEVO TRASLADO
         // if(this.nuevoTramite){       
@@ -181,11 +191,10 @@ export class TramitesComponent implements OnInit {
         // });
                 
         
-        }
-        //FIN GUARDAR NUEVO TRASLADO 
-
         
-    //FIN GUARDAR TRASLADO
+        //FIN GUARDAR NUEVO TRASLADO 
+    }    
+    //FIN GUARDAR TRASLADO......................................
     
     //LISTADO DE TRAMITES
     listarTramites(){    
@@ -239,8 +248,6 @@ export class TramitesComponent implements OnInit {
         this.tramiteDialog = false;
         this.submitted = false;
         this.nuevoTramite=false;
-    }
-
-    
+    }    
     //FIN MANEJO FORMULARIO DIALOG
 }
