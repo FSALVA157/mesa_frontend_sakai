@@ -84,12 +84,10 @@ export class TramitesComponent implements OnInit {
         id_tramite: [0,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
         numero_tramite: [,[Validators.required,Validators.pattern(/^[0-9]*$/), Validators.min(1), Validators.max(99000000)]],
         asunto: [,[Validators.required,Validators.pattern(/^[A-Za-z0-9./\s]+$/), Validators.minLength(2), Validators.maxLength(100)]],
-        expediente_nota: [,[Validators.required,Validators.pattern(/^[A-Za-z0-9./\s]+$/), Validators.minLength(2), Validators.maxLength(50)]],
+        expediente_nota: [,[Validators.required,Validators.pattern(/^[A-Za-z0-9./\s]+$/), Validators.minLength(0), Validators.maxLength(50)]],
         persona_referencia: [,[Validators.required,Validators.pattern(/^[A-Za-z0-9./\s]+$/), Validators.minLength(2), Validators.maxLength(50)]],
         descripcion: [,[Validators.required,Validators.pattern(/^[A-Za-z0-9./\s]+$/), Validators.minLength(2), Validators.maxLength(500)]],
-        // fecha: [,[Validators.required]],
-        // anio: [,[Validators.required,Validators.pattern(/^[0-9]*$/), Validators.min(2000), Validators.max(2100)]],
-        
+       
         tipo_tramite_id: [0,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
         // sector_id: [8,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
         // usuario_id: [8,[Validators.required, Validators.pattern(/^[0-9]*$/)]]
@@ -133,75 +131,67 @@ export class TramitesComponent implements OnInit {
         this.listarSectores();
         this.listarTiposTramite();
     }
+
+    //mensajes de validaciones
+    user_validation_messages = {
+    //datos laborales
+        'expediente_nota': [
+            { type: 'required', message: 'El expediente/nota es requerido' },
+            { type: 'pattern', message: 'Solo se pueden ingresar letras y espacios.' },
+            { type: 'minlength', message: 'La cantidad mínima de caracteres es 2.' },
+            { type: 'maxlength', message: 'La cantidad máxima de caracteres es 50.' }
+        ],
+    }
+
+    //validaciones formulario tramites
+    get expedienteNotaNoValido(){
+    return this.formaTramites.get('expediente_nota')?.invalid && this.formaTramites.get('expediente_nota')?.touched;
+    }
        
 
     //GUARDAR TRASLADO  
-    submitFormTraslado(){
+    submitFormTramite(){
         // if(this.formaTramites.invalid){
         //     Swal.fire('Formulario Tramite con errores','Complete correctamente todos los campos del formulario',"warning");
         //     return Object.values(this.formaTramites.controls).forEach(control => control.markAsTouched());
         // }
     
-        let data: any;
+        let data: Partial<TramiteModel>;
             //poner destino en el personal y sin funcion 
             //this.submitForm('cambioDestino');
 
         data = {
-
-            // numero_tramite: 0,
+            
             asunto: this.formaTramites.get('asunto')?.value,
             expediente_nota: this.formaTramites.get('expediente_nota')?.value,
             persona_referencia: this.formaTramites.get('persona_referencia')?.value,
             descripcion: this.formaTramites.get('descripcion')?.value,
-            // fecha: new Date("2022-01-01"),
-            fecha: "2022-01-01",
-            anio: 2022,
             tipo_tramite_id: parseInt(this.formaTramites.get('tipo_tramite_id')?.value),
             sector_id: 64,
             usuario_id: 1
         }
-
+        
+        //GUARDAR NUEVO TRAMITE
         this.tramitesService.guardarTramite(data)
             .subscribe(resultado => {
+                this.hideDialogTramite();
                 Swal.fire('Exito',`El Registro ha sido guardado con Exito`,"success");
                 this.listarTramites();
             }
             // , (error) => {
             //     Swal.fire('Error',`Error al cargar el nuevo tramite: ${error.error.message}`,"error") 
             // }
-            );            ;
-        
-        
+            );         
+        //FIN GUARDAR NUEVO TRAMITE 
 
-        //GUARDAR NUEVO TRASLADO
-        // if(this.nuevoTramite){       
-        //     this.tramitesService.guardarTramite(data);
-        //     this.listarTramites();
-        // this.tramitesService.guardarTramite(data).
-        // subscribe(resultado => {
-            
-        //     Swal.fire('Nuevo Tramite',`El Tramite ha sido guardado con exito`,"success");
-            
-        //     this.listarTramites();          
-                    
-        // },
-        // error => {
-            
-        //     Swal.fire('Nuevo traslado',`Error al guardar el Traslado: ${error.error.message}`,"error")                          
-        // });
-                
-        
-        
-        //FIN GUARDAR NUEVO TRASLADO 
     }    
-    //FIN GUARDAR TRASLADO......................................
+    //FIN GUARDAR TRAMITE......................................
     
     //LISTADO DE TRAMITES
     listarTramites(){    
         this.tramitesService.listarTramites().
             subscribe(respuesta => {
-            this.listaTramites= respuesta,
-            console.log("tramites", this.listaTramites);    
+            this.listaTramites= respuesta;  
         
         });
     }
@@ -249,5 +239,5 @@ export class TramitesComponent implements OnInit {
         this.submitted = false;
         this.nuevoTramite=false;
     }    
-    //FIN MANEJO FORMULARIO DIALOG
+    //FIN MANEJO FORMULARIO DIALOG....................................
 }

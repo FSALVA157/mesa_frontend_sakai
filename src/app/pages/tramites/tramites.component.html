@@ -186,7 +186,13 @@
                     <div class="field">
                         <label for="name">Expediente/Nota</label>
                         <input type="text" pInputText id="expediente_nota" formControlName="expediente_nota" />
-                        <!-- <small class="ng-dirty ng-invalid" *ngIf="submitted && !product.name">Name is required.</small> -->
+                        <small *ngIf="expedienteNotaNoValido" class="ng-dirty ng-invalidr">
+                            <div *ngFor="let validation of user_validation_messages.expediente_nota" >
+                                <div  *ngIf="formaTramites.get('expediente_nota')?.hasError(validation.type)">
+                                    {{validation.message}}
+                                </div>
+                            </div>
+                        </small>
                     </div>
                     <div class="field">
                         <label for="name">Persona Referencia</label>
@@ -210,7 +216,7 @@
 
             <ng-template pTemplate="footer">
                 <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="hideDialogTramite()"></button>
-                <button pButton pRipple label="Guardar" icon="pi pi-check" class="p-button-text" (click)="submitFormTraslado()"></button>
+                <button pButton pRipple label="Guardar" icon="pi pi-check" class="p-button-text" (click)="submitFormTramite()"></button>
             </ng-template>
         </p-dialog>
 
