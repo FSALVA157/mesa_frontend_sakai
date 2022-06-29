@@ -7,11 +7,43 @@
             <div class="h-full w-full m-0 py-7 px-4" style="border-radius:53px; background: linear-gradient(180deg, var(--surface-50) 38.9%, var(--surface-0));">
                 <div class="text-center mb-5">
                     <img src="assets/layout/images/logo_spps.jpeg" alt="Image" height="50" class="mb-3">
-                    <div class="text-900 text-3xl font-medium mb-3">Bienvenido</div>
-                    <span class="text-600 font-medium">Login para Continuar</span>
+                    <div class="text-900 text-3xl font-medium mb-3">Registro</div>
+                    <span class="text-600 font-medium">Alta de Usuario</span>
+                </div>
+
+                <div class="col-12">
+                    <div class="card">
+                        <h5>Advanced</h5>
+                        <div class="p-fluid p-formgrid grid">
+                            <div class="field col-12 md:col-6">
+                                <label htmlFor="firstname2">Firstname</label>
+                                <input pInputText id="firstname2" type="text" />
+                            </div>
+                            <div class="field col-12 md:col-6">
+                                <label htmlFor="lastname2">Lastname</label>
+                                <input pInputText id="lastname2" type="text" />
+                            </div>
+                            <div class="field col-12">
+                                <label htmlFor="address">Address</label>
+                                <input pInputTextarea id="address" rows="4" />
+                            </div>
+                            <div class="field col-12 md:col-6">
+                                <label htmlFor="city">City</label>
+                                <input pInputText id="city" type="text" />
+                            </div>
+                            <div class="field col-12 md:col-3">
+                                <label htmlFor="state">State</label>
+                                <p-dropdown [options]="dropdownItems" optionLabel="name" [(ngModel)]="selectedState"></p-dropdown>
+                            </div>
+                            <div class="field col-12 md:col-3">
+                                <label htmlFor="zip">Zip</label>
+                                <input pInputText id="zip" type="text" />
+                            </div>
+                        </div>
+                    </div>
                 </div>
             
-                <div class="w-full md:w-10 mx-auto">
+                <!-- <div class="w-full md:w-10 mx-auto">
                     <label for="email1" class="block text-900 text-xl font-medium mb-2">Email</label>
                     <input id="email1" type="text" placeholder="Email address" pInputText class="w-full mb-3" style="padding:1rem;">
             
@@ -26,7 +58,7 @@
                         <a class="font-medium no-underline ml-2 text-right cursor-pointer" style="color: var(--primary-color)">Forgot password?</a>
                     </div>
                     <button pButton pRipple label="Sign In" class="w-full p-3 text-xl"></button>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>

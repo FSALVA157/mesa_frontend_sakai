@@ -24,11 +24,13 @@ import { InvalidStateComponent } from './components/invalidstate/invalidstate.co
 import { TimelineComponent } from './components/timeline/timeline.component';
 import { IconsComponent } from './components/icons/icons.component';
 import { LandingComponent } from './components/landing/landing.component';
-import { LoginComponent } from './components/login/login.component';
+//import { LoginComponent } from './components/login/login.component';
 import { ErrorComponent } from './components/error/error.component';
 import { NotfoundComponent } from './components/notfound/notfound.component';
 import { AccessComponent } from './components/access/access.component';
 import { TramitesComponent } from './pages/tramites/tramites.component';
+import { LoginComponent } from './auth/login/login.component';
+import { RegistroComponent } from './auth/registro/registro.component';
 @NgModule({
     imports: [
         RouterModule.forRoot([
@@ -62,7 +64,8 @@ import { TramitesComponent } from './pages/tramites/tramites.component';
                 ],
             },
             {path:'pages/landing', component: LandingComponent},
-            {path:'pages/login', component: LoginComponent},
+            {path:'login', component: LoginComponent},
+            {path:'register', component: RegistroComponent},
             {path:'pages/error', component: ErrorComponent},
             {path:'pages/notfound', component: NotfoundComponent},
             {path:'pages/access', component: AccessComponent},
