@@ -168,9 +168,12 @@
             <!-- FIN TABLA DE TRAMITES -->
         </div>
         <!-- DIALOG FORMULARIO TRAMITE -->
-        <p-dialog [(visible)]="tramiteDialog" [style]="{width: '450px'}" header="Nuevo Tramite" [modal]="true" class="p-fluid">
+        <p-dialog id="formTramiteDialog" [(visible)]="tramiteDialog" [style]="{width: '450px'}" header="Nuevo Tramite" [closable]="false" [modal]="false" class="p-fluid">
             <ng-template pTemplate="content">
+                <!-- FORMULARIO TRAMITES -->
                 <form [formGroup]="formaTramites">
+                    <p-messages [value]="msgs" [showTransitionOptions]="'200ms'" [hideTransitionOptions]="'200ms'" [escape]="true"></p-messages>
+                    <p-toast key="tst" [baseZIndex]="99999"></p-toast>
                     <div class="field">
                         <label for="tipo_tramite_id">Tipo Tramite</label>
                         <p-dropdown id="tipo_tramite_id" [options]="listaTiposTramite" optionLabel="tipo_tramite" optionValue="id_tipo_tramite" formControlName="tipo_tramite_id" placeholder="Seleccionar...">
@@ -180,13 +183,19 @@
                     <div class="field">
                         <label for="name">Asunto</label>
                         <input type="text" pInputText id="asunto" formControlName="asunto" />
-                        <!-- <small class="ng-dirty ng-invalid" *ngIf="submitted && !product.name">Name is required.</small> -->
+                        <small *ngIf="asuntoNotaNoValido" class="p-error">
+                            <div *ngFor="let validation of user_validation_messages.asunto" >
+                                <div  *ngIf="formaTramites.get('asunto')?.hasError(validation.type)">
+                                    {{validation.message}}
+                                </div>
+                            </div>
+                        </small>
                     </div>
 
                     <div class="field">
                         <label for="name">Expediente/Nota</label>
                         <input type="text" pInputText id="expediente_nota" formControlName="expediente_nota" />
-                        <small *ngIf="expedienteNotaNoValido" class="ng-dirty ng-invalidr">
+                        <small *ngIf="expedienteNotaNoValido" class="p-error">
                             <div *ngFor="let validation of user_validation_messages.expediente_nota" >
                                 <div  *ngIf="formaTramites.get('expediente_nota')?.hasError(validation.type)">
                                     {{validation.message}}
@@ -197,26 +206,33 @@
                     <div class="field">
                         <label for="name">Persona Referencia</label>
                         <input type="text" pInputText id="persona_referencia" formControlName="persona_referencia" />
-                        <!-- <small class="ng-dirty ng-invalid" *ngIf="submitted && !product.name">Name is required.</small> -->
+                        <small *ngIf="personaReferenciaNotaNoValido" class="p-error">
+                            <div *ngFor="let validation of user_validation_messages.persona_referencia" >
+                                <div  *ngIf="formaTramites.get('persona_referencia')?.hasError(validation.type)">
+                                    {{validation.message}}
+                                </div>
+                            </div>
+                        </small>
                     </div>
                     <div class="field">
                         <label for="descripcion">Descripción</label>
                         <textarea pInputTextarea id="descripcion" formControlName="descripcion" rows="3" cols="20"></textarea>
+                        <small *ngIf="descripcionNotaNoValido" class="p-error">
+                            <div *ngFor="let validation of user_validation_messages.descripcion" >
+                                <div  *ngIf="formaTramites.get('descripcion')?.hasError(validation.type)">
+                                    {{validation.message}}
+                                </div>
+                            </div>
+                        </small>
                     </div>
-                    <!-- <div class="field">
-                        <label for="tipo_tramite_id">Tipo_Tramite_id</label>
-                        <input type="text" pInputText id="tipo_tramite_id" formControlName="tipo_tramite_id" />
-                        
-                    </div> -->
-
-
                 </form>
+                <!--  FIN FORMULARIO TRAMITES -->
 
             </ng-template>
 
             <ng-template pTemplate="footer">
-                <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="hideDialogTramite()"></button>
-                <button pButton pRipple label="Guardar" icon="pi pi-check" class="p-button-text" (click)="submitFormTramite()"></button>
+                <button pButton pRipple type="button" label="Cancelar" class="p-button-outlined mr-2 mb-2" (click)="hideDialogTramite()"></button>
+                <button pButton pRipple type="button" label="Guardar" class="p-button-outlined mr-2 mb-2" (click)="submitFormTramite()"></button>
             </ng-template>
         </p-dialog>
 
