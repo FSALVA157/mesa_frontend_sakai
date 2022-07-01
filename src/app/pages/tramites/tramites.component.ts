@@ -12,6 +12,8 @@ import { SectoresService } from 'src/app/service/sectores.service';
 import { SectorModel } from 'src/app/models/sector.model';
 import { TiposTramiteService } from '../../service/tipos-tramite.service';
 import { TipoTramiteModel } from 'src/app/models/tipo-tramite.model';
+import { MovimientoTramiteModel } from 'src/app/models/movimiento-tramite.model';
+import { MovimientosTramiteService } from '../../service/movimientos-tramite.service';
 
 @Component({
     selector: 'app-tramites',
@@ -73,11 +75,13 @@ export class TramitesComponent implements OnInit {
     //LISTAS
     listaSectores: SectorModel[]=[];
     listaTiposTramite: TipoTramiteModel[]=[];
+    listaMovimientosTramite: MovimientoTramiteModel[]=[];
 
     constructor(
         private serviceMensajes: MessageService,
         private customerService: CustomerService,
         private tramitesService: TramitesService,
+        private movimientosTramiteService: MovimientosTramiteService,
         private sectoresService: SectoresService,
         private tiposTramiteService: TiposTramiteService,
         private fb: FormBuilder
@@ -134,6 +138,7 @@ export class TramitesComponent implements OnInit {
         this.listarTramites();
         this.listarSectores();
         this.listarTiposTramite();
+        this.listarMovimientosTramite();
     }
 
     //MENSAJES DE VALIDACIONES
@@ -186,7 +191,7 @@ export class TramitesComponent implements OnInit {
     }
        
 
-    //GUARDAR TRASLADO  
+    //GUARDAR TRAMITE  
     submitFormTramite(){
         if(this.formaTramites.invalid){
                         
@@ -255,12 +260,23 @@ export class TramitesComponent implements OnInit {
     }
     //FIN LISTADO DE TRAMITES
 
+
+    //LISTADO MOVIMIENTOS DE TRAMITE
+    listarMovimientosTramite(){    
+        this.movimientosTramiteService.listarMovimientosTramite().
+            subscribe(respuesta => {
+            this.listaMovimientosTramite= respuesta; 
+            console.log("MovimientosTramite", this.listaMovimientosTramite);
+        
+        });
+    }
+    //FIN LISTADO MOVIMIENTO DE TRAMITE
+
     //LISTADO DE TIPO TRAMITES
     listarTiposTramite(){    
         this.tiposTramiteService.listarTiposTramite().
             subscribe(respuesta => {
-            this.listaTiposTramite= respuesta,
-            console.log("tpos tramite", this.listaTiposTramite);    
+            this.listaTiposTramite= respuesta;
         
         });
     }
