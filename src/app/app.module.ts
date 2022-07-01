@@ -142,7 +142,7 @@ import { NotfoundComponent } from './components/notfound/notfound.component';
 import { AccessComponent } from './components/access/access.component';
 import { TramitesComponent } from './pages/tramites/tramites.component';
 import { AuthModule } from './auth/auth.module';
-import { RegistroComponent } from './auth/registro/registro.component';
+
 @NgModule({
     imports: [
         AuthModule,

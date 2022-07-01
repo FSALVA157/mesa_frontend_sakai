@@ -3,10 +3,12 @@ import { CommonModule } from '@angular/common';
 import { LoginComponent } from './login/login.component';
 import { CheckboxModule } from 'primeng/checkbox';
 import { PasswordModule } from 'primeng/password';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { DropdownModule } from 'primeng/dropdown';
 import { RegistroComponent } from './registro/registro.component';
+//import { AppModule } from '../app.module';
+
 
 @NgModule({
   declarations: [
@@ -15,11 +17,13 @@ import { RegistroComponent } from './registro/registro.component';
   ],
   imports: [
     CommonModule,
+    //AppModule,
     PasswordModule,
-    CheckboxModule,
+  CheckboxModule,
     FormsModule,
     ButtonModule,
-    DropdownModule    
+    DropdownModule,
+    ReactiveFormsModule 
   ]
 })
 export class AuthModule { }
