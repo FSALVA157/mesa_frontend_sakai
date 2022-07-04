@@ -7,7 +7,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { DropdownModule } from 'primeng/dropdown';
 import { RegistroComponent } from './registro/registro.component';
-//import { AppModule } from '../app.module';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { InputTextModule } from 'primeng/inputtext';
 
 
 @NgModule({
@@ -19,11 +20,13 @@ import { RegistroComponent } from './registro/registro.component';
     CommonModule,
     //AppModule,
     PasswordModule,
-  CheckboxModule,
+    CheckboxModule,
     FormsModule,
     ButtonModule,
     DropdownModule,
-    ReactiveFormsModule 
+    ReactiveFormsModule,
+    InputNumberModule,
+    InputTextModule
   ]
 })
 export class AuthModule { }

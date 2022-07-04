@@ -13,37 +13,42 @@
             <div class="grid">
                 <div class="col-12">
                     <div class="card">
-                        <h5>Advanced</h5>
-                        <div class="p-fluid p-formgrid grid" [formGroup]="forma" >
+                        <form [formGroup]="forma" class="p-fluid p-formgrid grid">
+                            <div class="field col-12 md:col-6">
+                                <label htmlFor="name">Nombre</label>
+                                <input pInputText id="name" formControlName="nombre" type="text" />
+                            </div>
+                            <div class="field col-12 md:col-6">
+                                <label htmlFor="apel">Apellido</label>
+                                <input pInputText id="apel" formControlName="apellido" type="text" />
+                            </div>
+                            <div class="field col-12 md:col-6">
+                                <label htmlFor="sector">Sector</label>
+                                <p-dropdown formControlName="sector_id" id="sector" [options]="dropdownItems" optionLabel="name"  [(ngModel)]="selectedState"></p-dropdown>
+                            </div>
+                            <div class="field col-12 md:col-6">
+                                <label htmlFor="leg">Legajo</label>
+                                <input pInputText id="leg" formControlName="legajo" type="number" />
+                            </div>
+                            <div class="field col-12 md:col-6">
+                                <label htmlFor="user">Usuario</label>
+                                <input pInputText id="user" formControlName="usuario" type="text" />
+                            </div>
                         
-                                <div class="field col-12 md:col-6">
-                                    <label htmlFor="firstname2">Firstname</label>
-                                    <input pInputText formControName="nombre" type="text" />
-                                </div>
-                                <div class="field col-12 md:col-6">
-                                    <label htmlFor="lastname2">Lastname</label>
-                                    <input pInputText id="lastname2" type="text" />
-                                </div>
-                                <div class="field col-12">
-                                    <label htmlFor="address">Address</label>
-                                    <input pInputTextarea id="address" rows="4" />
-                                </div>
-                                <div class="field col-12 md:col-6">
-                                    <label htmlFor="city">City</label>
-                                    <input pInputText id="city" type="text" />
-                                </div>
-                                <div class="field col-12 md:col-3">
-                                    <label htmlFor="state">State</label>
-                                    <p-dropdown [options]="dropdownItems" optionLabel="name" [(ngModel)]="selectedState"></p-dropdown>
-                                </div>
+                            <button pButton pRipple label="Guardar" class="w-full p-3 text-xl" (click)="crearUsuario()" ></button>
+                          </form>
+                        <!-- <h5>Advanced</h5>
+                        <form class="p-fluid p-formgrid grid"  [formGroup]="forma">
+                                                            
+                            
                                 <div class="field col-12 md:col-3">
                                     <label htmlFor="zip">Zip</label>
                                     <input pInputText id="zip" type="text" />
                                 </div>
                                 
                         
-                            </div>
-                            <button pButton pRipple label="Guardar" class="w-full p-3 text-xl" (click)="crearUsuario()" ></button>
+                            </form> -->
+                            <!-- <button pButton pRipple label="Guardar" class="w-full p-3 text-xl" (click)="crearUsuario()" ></button> -->
                     </div>
                 </div>
             </div>       
