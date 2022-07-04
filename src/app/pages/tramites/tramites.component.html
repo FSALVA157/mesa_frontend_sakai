@@ -168,147 +168,263 @@
             <!-- FIN TABLA DE TRAMITES -->
 
             <!-- TABLA TRAMITES EXPANDE-->
-            <!-- <div class="col-12">
+            <div class="col-12">
                 <div class="card">
                     <h5>Row Expand</h5>
                     <p-toast></p-toast>
-                    <p-table [value]="products" dataKey="name" [expandedRowKeys]="expandedRows" responsiveLayout="scroll">
-                        <ng-template pTemplate="caption">
-                            <button pButton icon="pi pi-fw {{isExpanded ? 'pi-minus' : 'pi-plus'}}" label="{{isExpanded ? 'Collapse All' : 'Expand All'}}" (click)="expandAll()"></button>
-                            <div class="flex table-header">
-                            </div>
-                        </ng-template>
+                    <!-- <p-table [value]="listaTramites" dataKey="name" [expandedRowKeys]="expandedRows" responsiveLayout="scroll"> -->
+                    <p-table [value]="listaTramites" dataKey="id_tramite" responsiveLayout="scroll">
+
                         <ng-template pTemplate="header">
                             <tr>
                                 <th style="width: 3rem"></th>
-                                <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
-                                <th>Image</th>
-                                <th pSortableColumn="price">Price <p-sortIcon field="price"></p-sortIcon></th>
-                                <th pSortableColumn="category">Category <p-sortIcon field="category"></p-sortIcon></th>
-                                <th pSortableColumn="rating">Reviews <p-sortIcon field="rating"></p-sortIcon></th>
-                                <th pSortableColumn="inventoryStatus">Status <p-sortIcon field="inventoryStatus"></p-sortIcon></th>
+
+                                <th>
+                                    <div class="flex justify-content-between align-items-center">
+                                        Id
+                                        <p-columnFilter type="text" field="name" display="menu" placeholder="Search by name"></p-columnFilter>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div class="flex justify-content-between align-items-center">
+                                        N° Tramite
+                                        <p-columnFilter type="text" field="numero_tramite" display="menu" placeholder="Buscar por numero_tramite"></p-columnFilter>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div class="flex justify-content-between align-items-center">
+                                        Asunto
+                                        <p-columnFilter type="text" field="asunto" display="menu" placeholder="Buscar por asunto"></p-columnFilter>
+
+                                    </div>
+                                </th>
+                                <th>
+                                    <div class="flex justify-content-between align-items-center">
+                                        Expediente/Nota
+                                        <p-columnFilter type="text" field="expediente_nota" display="menu" placeholder="Buscar por exp/nota"></p-columnFilter>
+
+                                    </div>
+                                </th>
+                                <th>
+                                    <div class="flex justify-content-between align-items-center">
+                                        Persona Ref.
+                                        <p-columnFilter type="text" field="persona_referencia" display="menu" placeholder="Buscar por pers. ref."></p-columnFilter>
+
+                                    </div>
+                                </th>
+                                <th>
+                                    <div class="flex justify-content-between align-items-center">
+                                        Descripción
+                                        <p-columnFilter type="text" field="descripcion" display="menu" placeholder="Buscar por descripción"></p-columnFilter>
+
+                                    </div>
+                                </th>
+                                <th>
+                                    <div class="flex justify-content-between align-items-center">
+                                        Fecha
+                                        <p-columnFilter type="date" field="fecha" display="menu" placeholder="dd/mm/yyyy"></p-columnFilter>
+                                    </div>
+                                </th>
+
+                                <th>
+                                    <div class="flex justify-content-between align-items-center">
+                                        Sector
+                                        <!-- <p-columnFilter type="text" field="sector.sector" display="menu" placeholder="Buscar por sector"></p-columnFilter> -->
+
+                                        <p-columnFilter field="sector" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
+                                            <ng-template pTemplate="header">
+                                                <div class="px-3 pt-3 pb-0">
+                                                    <span class="font-bold">Sector</span>
+                                                </div>
+                                            </ng-template>
+                                            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                                <p-multiSelect [ngModel]="value" [options]="listaSectores" placeholder="--Elija sector--" (onChange)="filter($event.value)" optionLabel="sector">
+                                                    <ng-template let-option pTemplate="item">
+                                                        <div class="p-multiselect-sector-option">
+                                                            <span class="ml-2">{{option.sector}}</span>
+                                                        </div>
+                                                    </ng-template>
+                                                </p-multiSelect>
+                                            </ng-template>
+                                        </p-columnFilter>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div class="flex justify-content-between align-items-center">
+                                        Tipo
+
+                                    </div>
+                                </th>
+                                <th>
+                                    <div class="flex justify-content-between align-items-center">
+                                        Usuario
+                                        <p-columnFilter type="text" field="usuario.apellido" display="menu" placeholder="Buscar por apellido"></p-columnFilter>
+
+                                    </div>
+                                </th>
+
+
+
                             </tr>
+
                         </ng-template>
-                        <ng-template pTemplate="body" let-product let-expanded="expanded">
+                        <ng-template pTemplate="body" let-tramite let-expanded="expanded">
                             <tr>
                                 <td>
-                                    <button type="button" pButton pRipple [pRowToggler]="product" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+                                    <button type="button" pButton pRipple [pRowToggler]="tramite" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'" (click)="listarHistorialTramite(tramite)"></button>
                                 </td>
-                                <td style="min-width: 12rem;">{{product.name}}</td>
-                                <td><img [src]="'assets/demo/images/product/' + product.image" [alt]="product.name" width="100" class="shadow-4" /></td>
-                                <td style="min-width: 8rem;">{{product.price | currency:'USD'}}</td>
-                                <td style="min-width: 10rem;">{{product.category}}</td>
-                                <td style="min-width: 10rem;"><p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating></td>
-                                <td><span [class]="'product-badge status-' + product.inventoryStatus.toLowerCase()">{{product.inventoryStatus}}</span></td>
+                                <td style="min-width: 12rem;">
+                                    {{tramite.id_tramite}}
+                                </td>
+
+                                <td style="min-width: 10rem;">
+                                    {{tramite.numero_tramite}}
+                                </td>
+
+                                <td style="min-width: 10rem;">
+                                    {{tramite.asunto}}
+                                </td>
+                                <td style="min-width: 10rem;">
+                                    {{tramite.expediente_nota}}
+                                </td>
+                                <td style="min-width: 10rem;">
+                                    {{tramite.persona_referencia}}
+                                </td>
+                                <td style="min-width: 10rem;">
+                                    {{tramite.descripcion}}
+                                </td>
+
+                                <td style="min-width: 10rem;">
+                                    {{tramite.fecha| date: 'dd/MM/yyyy'}}
+                                </td>
+                                <td style="min-width: 10rem;">
+                                    {{tramite.sector.sector}}
+                                </td>
+                                <td style="min-width: 10rem;">
+                                    {{tramite.tipo_tramite.tipo_tramite}}
+                                </td>
+                                <td style="min-width: 10rem;">
+                                    {{tramite.usuario.apellido}} {{tramite.usuario.nombre}}
+                                </td>
+                                <!-- <td><span [class]="'product-badge status-' + product.inventoryStatus.toLowerCase()">{{product.inventoryStatus}}</span></td> -->
                             </tr>
                         </ng-template>
-                        <ng-template pTemplate="rowexpansion" let-product>
+                        <ng-template pTemplate="rowexpansion" let-tramite>
                             <tr>
                                 <td colspan="7">
                                     <div class="p-3">
-                                        <p-table [value]="product.orders" dataKey="id" responsiveLayout="scroll">
+                                        <p-table [value]="listaMovimientosTramite" dataKey="id_movimiento_tramite" responsiveLayout="scroll">
                                             <ng-template pTemplate="header">
-                            <tr>
-                                <th pSortableColumn="id">Id <p-sortIcon field="price"></p-sortIcon></th>
-                                <th pSortableColumn="customer">Customer <p-sortIcon field="customer"></p-sortIcon></th>
-                                <th pSortableColumn="date">Date <p-sortIcon field="date"></p-sortIcon></th>
-                                <th pSortableColumn="amount">Amount <p-sortIcon field="amount"></p-sortIcon></th>
-                                <th pSortableColumn="stats">Status <p-sortIcon field="status"></p-sortIcon></th>
-                                <th style="width: 4rem"></th>
+                                                <tr>
+                                                    <th pSortableColumn="id_movimiento_tramite">Id
+                                                        <p-sortIcon field="id_movimiento_tramite" style="width: 3rem"></p-sortIcon>
+                                                    </th>
+                                                    <th pSortableColumn="num_movimiento_tramite" style="width: 3rem">N° Movimiento
+                                                        <p-sortIcon field="num_movimiento_tramite"></p-sortIcon>
+                                                    </th>
+                                                    <th pSortableColumn="tramite_numero">N° Tramite
+                                                        <p-sortIcon field="tramite_numero"></p-sortIcon>
+                                                    </th>
+
+                                                </tr>
+                                            </ng-template>
+                                            <ng-template pTemplate="body" let-movimientoTramite>
+                                                <tr *ngIf="num_tramite_expand==13" [ngStyle]="{backgroundColor:'var(--bluegray-500)'}">
+                                                    <td>{{movimientoTramite.id_movimiento_tramite}}</td>
+                                                    <td>{{movimientoTramite.num_movimiento_tramite}}</td>
+                                                    <td>{{movimientoTramite.tramite_numero}}</td>
+                                                    <!-- <td>{{order.date}}</td>
+                                                    <td>{{order.amount | currency:'USD'}}</td>
+                                                    <td><span [class]="'order-badge order-' + order.status.toLowerCase()">{{order.status}}</span></td>
+                                                    <td>
+                                                        <p-button type="button" icon="pi pi-search"></p-button>
+                                                    </td> -->
+                                                </tr>
+                                            </ng-template>
+                                            <ng-template pTemplate="emptymessage">
+                                                <tr>
+                                                    <td colspan="6">There are no order for this product yet.</td>
+                                                </tr>
+                                            </ng-template>
+                                        </p-table>
+                                    </div>
+                                </td>
                             </tr>
-                        </ng-template>
-                        <ng-template pTemplate="body" let-order>
-                            <tr>
-                                <td>{{order.id}}</td>
-                                <td>{{order.customer}}</td>
-                                <td>{{order.date}}</td>
-                                <td>{{order.amount | currency:'USD'}}</td>
-                                <td><span [class]="'order-badge order-' + order.status.toLowerCase()">{{order.status}}</span></td>
-                                <td><p-button type="button" icon="pi pi-search"></p-button></td>
-                            </tr>
-                        </ng-template>
-                        <ng-template pTemplate="emptymessage">
-                            <tr>
-                                <td colspan="6">There are no order for this product yet.</td>
-                            </tr>
-                        </ng-template>
+                        </ng-template> -->
                     </p-table>
                 </div>
-                </td>
-                </tr>
-                </ng-template>
-                </p-table>
-            </div> -->
-        </div>
-        <!-- DIALOG FORMULARIO TRAMITE -->
-        <p-dialog id="formTramiteDialog" [(visible)]="tramiteDialog" [style]="{width: '450px'}" header="Nuevo Tramite" [closable]="false" [modal]="false" class="p-fluid">
-            <ng-template pTemplate="content">
-                <!-- FORMULARIO TRAMITES -->
-                <form [formGroup]="formaTramites">
-                    <p-messages [value]="msgs" [showTransitionOptions]="'200ms'" [hideTransitionOptions]="'200ms'" [escape]="true"></p-messages>
-                    <p-toast key="tst" [baseZIndex]="99999"></p-toast>
-                    <div class="field">
-                        <label for="tipo_tramite_id">Tipo Tramite</label>
-                        <p-dropdown id="tipo_tramite_id" [options]="listaTiposTramite" optionLabel="tipo_tramite" optionValue="id_tipo_tramite" formControlName="tipo_tramite_id" placeholder="Seleccionar...">
+            </div>
+            <!-- FIN TABLA TRAMITES EXPANDE -->
 
-                        </p-dropdown>
-                    </div>
-                    <div class="field">
-                        <label for="name">Asunto</label>
-                        <input type="text" pInputText id="asunto" formControlName="asunto" />
-                        <small *ngIf="asuntoNotaNoValido" class="p-error">
+            <!-- DIALOG FORMULARIO TRAMITE -->
+            <p-dialog id="formTramiteDialog" [(visible)]="tramiteDialog" [style]="{width: '450px'}" header="Nuevo Tramite" [closable]="false" [modal]="false" class="p-fluid">
+                <ng-template pTemplate="content">
+                    <!-- FORMULARIO TRAMITES -->
+                    <form [formGroup]="formaTramites">
+                        <p-messages [value]="msgs" [showTransitionOptions]="'200ms'" [hideTransitionOptions]="'200ms'" [escape]="true"></p-messages>
+                        <p-toast key="tst" [baseZIndex]="99999"></p-toast>
+                        <div class="field">
+                            <label for="tipo_tramite_id">Tipo Tramite</label>
+                            <p-dropdown id="tipo_tramite_id" [options]="listaTiposTramite" optionLabel="tipo_tramite" optionValue="id_tipo_tramite" formControlName="tipo_tramite_id" placeholder="Seleccionar...">
+
+                            </p-dropdown>
+                        </div>
+                        <div class="field">
+                            <label for="name">Asunto</label>
+                            <input type="text" pInputText id="asunto" formControlName="asunto" />
+                            <small *ngIf="asuntoNotaNoValido" class="p-error">
                             <div *ngFor="let validation of user_validation_messages.asunto" >
                                 <div  *ngIf="formaTramites.get('asunto')?.hasError(validation.type)">
                                     {{validation.message}}
                                 </div>
                             </div>
                         </small>
-                    </div>
+                        </div>
 
-                    <div class="field">
-                        <label for="name">Expediente/Nota</label>
-                        <input type="text" pInputText id="expediente_nota" formControlName="expediente_nota" />
-                        <small *ngIf="expedienteNotaNoValido" class="p-error">
+                        <div class="field">
+                            <label for="name">Expediente/Nota</label>
+                            <input type="text" pInputText id="expediente_nota" formControlName="expediente_nota" />
+                            <small *ngIf="expedienteNotaNoValido" class="p-error">
                             <div *ngFor="let validation of user_validation_messages.expediente_nota" >
                                 <div  *ngIf="formaTramites.get('expediente_nota')?.hasError(validation.type)">
                                     {{validation.message}}
                                 </div>
                             </div>
                         </small>
-                    </div>
-                    <div class="field">
-                        <label for="name">Persona Referencia</label>
-                        <input type="text" pInputText id="persona_referencia" formControlName="persona_referencia" />
-                        <small *ngIf="personaReferenciaNotaNoValido" class="p-error">
+                        </div>
+                        <div class="field">
+                            <label for="name">Persona Referencia</label>
+                            <input type="text" pInputText id="persona_referencia" formControlName="persona_referencia" />
+                            <small *ngIf="personaReferenciaNotaNoValido" class="p-error">
                             <div *ngFor="let validation of user_validation_messages.persona_referencia" >
                                 <div  *ngIf="formaTramites.get('persona_referencia')?.hasError(validation.type)">
                                     {{validation.message}}
                                 </div>
                             </div>
                         </small>
-                    </div>
-                    <div class="field">
-                        <label for="descripcion">Descripción</label>
-                        <textarea pInputTextarea id="descripcion" formControlName="descripcion" rows="3" cols="20"></textarea>
-                        <small *ngIf="descripcionNotaNoValido" class="p-error">
+                        </div>
+                        <div class="field">
+                            <label for="descripcion">Descripción</label>
+                            <textarea pInputTextarea id="descripcion" formControlName="descripcion" rows="3" cols="20"></textarea>
+                            <small *ngIf="descripcionNotaNoValido" class="p-error">
                             <div *ngFor="let validation of user_validation_messages.descripcion" >
                                 <div  *ngIf="formaTramites.get('descripcion')?.hasError(validation.type)">
                                     {{validation.message}}
                                 </div>
                             </div>
                         </small>
-                    </div>
-                </form>
-                <!--  FIN FORMULARIO TRAMITES -->
+                        </div>
+                    </form>
+                    <!--  FIN FORMULARIO TRAMITES -->
 
-            </ng-template>
+                </ng-template>
 
-            <ng-template pTemplate="footer">
-                <button pButton pRipple type="button" label="Cancelar" class="p-button-outlined mr-2 mb-2" (click)="hideDialogTramite()"></button>
-                <button pButton pRipple type="button" label="Guardar" class="p-button-outlined mr-2 mb-2" (click)="submitFormTramite()"></button>
-            </ng-template>
-        </p-dialog>
+                <ng-template pTemplate="footer">
+                    <button pButton pRipple type="button" label="Cancelar" class="p-button-outlined mr-2 mb-2" (click)="hideDialogTramite()"></button>
+                    <button pButton pRipple type="button" label="Guardar" class="p-button-outlined mr-2 mb-2" (click)="submitFormTramite()"></button>
+                </ng-template>
+            </p-dialog>
+
+        </div>
 
     </div>
-
-</div>

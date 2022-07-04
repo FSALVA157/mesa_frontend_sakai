@@ -57,6 +57,8 @@ export class TramitesComponent implements OnInit {
 
     loading:boolean = true;
 
+    isExpanded: boolean = false;
+
     @ViewChild('dt') table: Table;
 
     @ViewChild('filter') filter: ElementRef;
@@ -69,6 +71,7 @@ export class TramitesComponent implements OnInit {
     listaTramites: TramiteModel[]=[];
     tramiteDialog: boolean;
     nuevoTramite: boolean;
+    num_tramite_expand: number=0;
     submitted: boolean;
 
   
@@ -138,7 +141,6 @@ export class TramitesComponent implements OnInit {
         this.listarTramites();
         this.listarSectores();
         this.listarTiposTramite();
-        this.listarMovimientosTramite();
     }
 
     //MENSAJES DE VALIDACIONES
@@ -262,10 +264,11 @@ export class TramitesComponent implements OnInit {
 
 
     //LISTADO MOVIMIENTOS DE TRAMITE
-    listarMovimientosTramite(){    
-        this.movimientosTramiteService.listarMovimientosTramite().
+    listarHistorialTramite(tramite: TramiteModel){    
+        this.movimientosTramiteService.listarHistorialTramite(tramite.numero_tramite).
             subscribe(respuesta => {
-            this.listaMovimientosTramite= respuesta; 
+            this.listaMovimientosTramite= respuesta[0]; 
+            this.num_tramite_expand= tramite.numero_tramite;
             console.log("MovimientosTramite", this.listaMovimientosTramite);
         
         });

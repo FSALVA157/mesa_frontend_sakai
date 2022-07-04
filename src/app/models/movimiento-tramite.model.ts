@@ -1,17 +1,30 @@
+import { SectorModel } from './sector.model';
+import { TramiteModel } from './tramite.model';
+import { UsuarioModel } from './usuario.model';
 
 export class MovimientoTramiteModel{
     constructor(
-        public id_tramite?: number,
-        public numero_tramite?: number,
-        public asunto?: string,
-        public expediente_nota?: string,
-        public persona_referencia?: string,
-        public descripcion?: string,
-        public fecha?: Date,
-        public anio?: number,
-        public tipo_tramite_id?: number,
+        public id_movimiento_tramite?: number,
+        public num_movimiento_tramite?: number,
+        public tramite_numero?: number,        
+        public tramite?: TramiteModel,
+        public sector_origen_id?: number,
+        public sector_origen?: SectorModel,
+        public fecha_ingreso?: Date,
+        public fojas_ingreso?: number,
+        public descripcion_ingreso?: string,
+        public sector_destino_id?: number,
+        public sector_destino?: SectorModel,
+        public fecha_salida?: Date,
+        public fojas_salida?: number,
+        public descripcion_salida?: string,
+        public enviado?: boolean,
+        public recibido?: boolean,
+        public impreso?: boolean,
         public sector_id?: number,
-        public usuario_id?: number
+        public sector?: SectorModel,
+        public usuario_id?: number,
+        public usuario?: UsuarioModel
 
     ){}
 }

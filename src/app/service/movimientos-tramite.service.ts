@@ -14,8 +14,8 @@ export class MovimientosTramiteService {
     private readonly http: HttpClient
   ) { }
 
-  listarMovimientosTramite(){
-    return this.http.get<MovimientoTramiteModel[]>(`${base_url}/movimientos-tramite`)
+  listarHistorialTramite(num_tramite: number){
+    return this.http.get<[movimientosTramite:MovimientoTramiteModel[], total: number]>(`${base_url}/movimientos-tramite/historial-tramite/${num_tramite}`)
   }
 
   guardarMovimientoTramite(data: any){    
