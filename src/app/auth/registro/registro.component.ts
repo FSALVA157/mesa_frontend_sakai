@@ -28,9 +28,9 @@ import { FormBuilder, Validators } from '@angular/forms';
 })
 export class RegistroComponent implements OnInit, OnDestroy {
 
-  valCheck: string[] = ['remember'];
+//  valCheck: string[] = ['remember'];
 
-  password: string;
+ // password: string;
   
   config: AppConfig;
   
@@ -39,15 +39,17 @@ export class RegistroComponent implements OnInit, OnDestroy {
   selectedState:any;
 
   public forma = this.fb.group({
-    usuario: ['felipe',[Validators.required]],
-    correo:   ['felipe@hotmail.com',[Validators.required]],
-    clave1:    ['123456',[Validators.required]],
-    clave2:    ['123456',[Validators.required]],
-    legajo:   ['1212',[Validators.required]],
-    apellido: ['Huanca',[Validators.required]],
-    nombre:   ['Felipe',[Validators.required]],
-    sector_id:['1',[Validators.required]],
+    usuario: ['',[Validators.required, Validators.minLength(5)]],
+    correo:   ['',[Validators.required, Validators.pattern("[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$")]],
+    clave1:    ['',[Validators.required,  Validators.minLength(6)]],
+    clave2:    ['',[Validators.required,  Validators.minLength(6)]],
+    legajo:   ['',[Validators.required]],
+    apellido: ['',[Validators.required,  Validators.minLength(2)]],
+    nombre:   ['',[Validators.required,  Validators.minLength(2)]],
+    sector_id:['name',[Validators.required]],
   });
+
+public form_submitted: boolean = false;
     
     dropdownItems = [
         { name: 'Option 1', code: 'Option 1' },
@@ -75,7 +77,14 @@ export class RegistroComponent implements OnInit, OnDestroy {
 
   crearUsuario(){
     console.log(this.forma.value);
+    this.form_submitted = true;
   }
 
-
+  isValid(campo: string): boolean{
+    if (this.forma.get(campo).valid) {
+      return false;
+    }else{
+      return true;
+    }
+  }
 }

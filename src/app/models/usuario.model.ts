@@ -1,5 +1,4 @@
 
-
 interface UsuarioModel{
     usuario: string;
     correo: string;

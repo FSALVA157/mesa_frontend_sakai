@@ -9,6 +9,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { RegistroComponent } from './registro/registro.component';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
+import { AppRoutingModule } from '../app-routing.module';
 
 
 @NgModule({
@@ -18,7 +19,7 @@ import { InputTextModule } from 'primeng/inputtext';
   ],
   imports: [
     CommonModule,
-    //AppModule,
+    AppRoutingModule,
     PasswordModule,
     CheckboxModule,
     FormsModule,
