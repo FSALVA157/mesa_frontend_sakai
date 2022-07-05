@@ -42,21 +42,18 @@ export class TramitesComponent implements OnInit {
     msgs: Message[] = [];
     
     customers1: Customer[];  
-
     selectedCustomers1: Customer[];
-
     selectedCustomer: Customer;
 
     representatives: Representative[];
-
     statuses: any[];
 
     activityValues: number[] = [0, 100];
-
     idFrozen: boolean = false;
 
     loading:boolean = true;
 
+    expandedRows = {};
     isExpanded: boolean = false;
 
     @ViewChild('dt') table: Table;
@@ -71,7 +68,6 @@ export class TramitesComponent implements OnInit {
     listaTramites: TramiteModel[]=[];
     tramiteDialog: boolean;
     nuevoTramite: boolean;
-    num_tramite_expand: number=0;
     submitted: boolean;
 
   
@@ -264,14 +260,19 @@ export class TramitesComponent implements OnInit {
 
 
     //LISTADO MOVIMIENTOS DE TRAMITE
-    listarHistorialTramite(tramite: TramiteModel){    
-        this.movimientosTramiteService.listarHistorialTramite(tramite.numero_tramite).
-            subscribe(respuesta => {
-            this.listaMovimientosTramite= respuesta[0]; 
-            this.num_tramite_expand= tramite.numero_tramite;
-            console.log("MovimientosTramite", this.listaMovimientosTramite);
+    listarHistorialTramite(tramite: TramiteModel){ 
+        this.expandedRows={};
+        console.log("tramite movimientos", tramite);
+        if(tramite){
+                this.movimientosTramiteService.listarHistorialTramite(tramite.numero_tramite).
+                subscribe(respuesta => {
+                this.listaMovimientosTramite= respuesta[0];             
+                this.expandedRows[tramite.numero_tramite]=true;
+            });
+        } 
+       
         
-        });
+        
     }
     //FIN LISTADO MOVIMIENTO DE TRAMITE
 
@@ -288,7 +289,7 @@ export class TramitesComponent implements OnInit {
     clear(table: Table) {
         table.clear();
         this.filter.nativeElement.value = '';
-    }
+    }   
 
     //MANEJO DE FORMULARIO DIALOG
     openNewTramite() {
