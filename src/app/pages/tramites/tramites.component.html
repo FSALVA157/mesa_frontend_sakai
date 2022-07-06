@@ -16,7 +16,7 @@
                 </ng-template>
             </p-toolbar>
             <!-- TABLA DE TRAMITES -->
-            <p-table #dt1 [value]="listaTramites" dataKey="numero_tramite" [expandedRowKeys]="expandedRows" [rows]="10" [loading]="loading" [rowHover]="true" styleClass="p-datatable-gridlines" [paginator]="true" [globalFilterFields]="['asunto','sector.sector','expediente_nota','persona_referencia','descripcion']"
+            <p-table #dt1 [value]="listaTramites" dataKey="numero_tramite" [expandedRowKeys]="expandedRows" [rows]="10" [loading]="loading" [rowHover]="true" styleClass="p-datatable-striped" [paginator]="true" [globalFilterFields]="['asunto','sector.sector','expediente_nota','persona_referencia','descripcion']"
                 responsiveLayout="scroll">
                 <ng-template pTemplate="caption">
                     <div class="flex justify-content-between flex-column sm:flex-row">
@@ -155,27 +155,28 @@
                     <tr>
                         <td colspan="9">
                             <div class="p-3">
-                                <p-table [value]="listaMovimientosTramite" dataKey="id_movimiento_tramite" responsiveLayout="scroll">
+                                <p-table [value]="listaMovimientosTramite" dataKey="id_movimiento_tramite" [rowHover]="true" responsiveLayout="scroll" styleClass="p-datatable-gridlines">
                                     <ng-template pTemplate="header">
                                         <tr>
-                                            <th pSortableColumn="num_movimiento_tramite" [ngStyle]="{backgroundColor:'var(--bluegray-300)'}">
+                                            <th pSortableColumn="num_movimiento_tramite" [ngStyle]="{backgroundColor:'var(--bluegray-200)'}">
                                                 N° Movimiento
                                                 <p-sortIcon field="num_movimiento_tramite"></p-sortIcon>
                                             </th>
-                                            <th pSortableColumn="tramite_numero" [ngStyle]="{backgroundColor:'var(--bluegray-300)'}">N° Tramite
+                                            <th pSortableColumn="tramite_numero" [ngStyle]="{backgroundColor:'var(--bluegray-200)'}">N° Tramite
                                                 <p-sortIcon field="tramite_numero"></p-sortIcon>
                                             </th>
-                                            <th pSortableColumn="num_movimiento_tramite" [ngStyle]="{backgroundColor:'var(--bluegray-300)'}">Sector Origen
+                                            <th pSortableColumn="num_movimiento_tramite" [ngStyle]="{backgroundColor:'var(--bluegray-200)'}">Sector Origen
                                                 <p-sortIcon field="num_movimiento_tramite"></p-sortIcon>
                                             </th>
-                                            <th pSortableColumn="tramite_numero" [ngStyle]="{backgroundColor:'var(--bluegray-300)'}">Fecha Ingreso
+                                            <th pSortableColumn="tramite_numero" [ngStyle]="{backgroundColor:'var(--bluegray-200)'}">Fecha Ingreso
                                                 <p-sortIcon field="tramite_numero"></p-sortIcon>
                                             </th>
 
                                         </tr>
                                     </ng-template>
                                     <ng-template pTemplate="body" let-movimientoTramite>
-                                        <tr [ngStyle]="{backgroundColor:'var(--bluegray-200)'}">
+                                        <!-- <tr [ngStyle]="{backgroundColor:'var(--bluegray-100)'}"> -->
+                                        <tr>
                                             <td style="width: 160px;">{{movimientoTramite.num_movimiento_tramite}}</td>
                                             <td style="width: 130px;">{{movimientoTramite.tramite_numero}}</td>
                                             <td style="width: 120px;">{{movimientoTramite.sector_origen.sector}}</td>
@@ -192,6 +193,11 @@
                                         <tr [ngStyle]="{color:'var(--orange-600)'}">
                                             <td colspan="6">No se encontraron movimientos de éste tramite.</td>
                                         </tr>
+                                    </ng-template>
+                                    <ng-template pTemplate="summary" [ngStyle]="{backgroundColor:'var(--bluegray-200)'}">
+                                        <div class="flex align-items-center justify-content-between">
+                                            Total encontrado: {{listaMovimientosTramite ? listaMovimientosTramite.length : 0 }} movimiento/s.
+                                        </div>
                                     </ng-template>
                                 </p-table>
                             </div>
