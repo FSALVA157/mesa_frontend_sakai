@@ -18,7 +18,7 @@ export class TramitesService {
     return this.http.get<TramiteModel[]>(`${base_url}/tramites`)
   }
 
-  guardarTramite(data: any){    
+  guardarTramite(data: Partial<TramiteModel>){    
     this.tramite={...data};
     return this.http.post(`${base_url}/tramites`, this.tramite);
   }

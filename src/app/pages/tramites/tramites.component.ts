@@ -14,6 +14,11 @@ import { TiposTramiteService } from '../../service/tipos-tramite.service';
 import { TipoTramiteModel } from 'src/app/models/tipo-tramite.model';
 import { MovimientoTramiteModel } from 'src/app/models/movimiento-tramite.model';
 import { MovimientosTramiteService } from '../../service/movimientos-tramite.service';
+import { OrganismoModel } from '../../models/organismo.model';
+import { globalConstants } from '../../common/global-constants';
+import { organismos, sectores } from 'src/app/common/data-mockeada';
+
+globalCons: globalConstants;
 
 @Component({
     selector: 'app-tramites',
@@ -58,21 +63,23 @@ export class TramitesComponent implements OnInit {
 
     @ViewChild('dt') table: Table;
 
-    @ViewChild('filter') filter: ElementRef;
-
-    
+    @ViewChild('filter') filter: ElementRef;    
 
     //VARIABLES TRAMITE
     formaTramites: FormGroup;
     tramite: TramiteModel;
-    listaTramites: TramiteModel[]=[];
     tramiteDialog: boolean;
     nuevoTramite: boolean;
     submitted: boolean;
-
+    
+    //VARIABLES MOVIMIENTOS
+    formaMoviientosTramite: FormGroup;
+    movimientoTramite: MovimientoTramiteModel;
   
-    //LISTAS
+    //LISTAS    
+    listaTramites: TramiteModel[]=[];
     listaSectores: SectorModel[]=[];
+    listaOrganismos: OrganismoModel[]= [];
     listaTiposTramite: TipoTramiteModel[]=[];
     listaMovimientosTramite: MovimientoTramiteModel[]=[];
 
@@ -100,6 +107,17 @@ export class TramitesComponent implements OnInit {
         // usuario_id: [8,[Validators.required, Validators.pattern(/^[0-9]*$/)]]
     });
     //FIN FORMULARIO TRASLADO
+
+    //FORMULARIO MOVIMIENTOS    
+    this.formaMoviientosTramite = this.fb.group({
+        // id_tramite: [0,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+        organismo_origen_id: [globalConstants.organismo_usuario,[Validators.required,Validators.pattern(/^[0-9]*$/)]],
+        sector_origen_id: [,[Validators.required,Validators.pattern(/^[0-9]*$/)]],
+        fojas_ingreso: [,[Validators.required,Validators.pattern(/^[0-9]*$/)]],
+        descripcion_ingreso: [,[Validators.required, Validators.minLength(1), Validators.maxLength(500)]],
+       
+    });
+    //FIN FORMULARIO MOVIMIENTOS
     }
 
     
@@ -135,8 +153,10 @@ export class TramitesComponent implements OnInit {
         ];
 
         this.listarTramites();
-        this.listarSectores();
+        //this.listarSectores();
+        this.cargarSectores(globalConstants.organismo_usuario);
         this.listarTiposTramite();
+        this.listaOrganismos = organismos;
     }
 
     //MENSAJES DE VALIDACIONES
@@ -191,8 +211,7 @@ export class TramitesComponent implements OnInit {
 
     //GUARDAR TRAMITE  
     submitFormTramite(){
-        if(this.formaTramites.invalid){
-                        
+        if(this.formaTramites.invalid){                        
             this.msgs = [];
             this.msgs.push({ severity: 'warn', summary: 'Errores en formulario', detail: 'Cargue correctamente los datos' });
             this.serviceMensajes.add({key: 'tst', severity: 'warn', summary: 'Errores en formulario', detail: 'Cargue correctamente los dato'});
@@ -204,11 +223,11 @@ export class TramitesComponent implements OnInit {
             return Object.values(this.formaTramites.controls).forEach(control => control.markAsTouched());
         }
     
-        let data: Partial<TramiteModel>;
+        let dataTramite: Partial<TramiteModel>;
             //poner destino en el personal y sin funcion 
             //this.submitForm('cambioDestino');
 
-        data = {
+        dataTramite = {
             
             asunto: this.formaTramites.get('asunto')?.value,
             expediente_nota: this.formaTramites.get('expediente_nota')?.value,
@@ -220,8 +239,10 @@ export class TramitesComponent implements OnInit {
         }
         
         //GUARDAR NUEVO TRAMITE
-        this.tramitesService.guardarTramite(data)
+        this.tramitesService.guardarTramite(dataTramite)
             .subscribe(resultado => {
+                let tramiteRes: TramiteModel = resultado;
+                console.log("Reaultado ", tramiteRes);
                 this.hideDialogTramite();
                 Swal.fire('Exito',`El Tramite fue guardado con Exito`,"success");
                 this.listarTramites();
@@ -251,8 +272,7 @@ export class TramitesComponent implements OnInit {
     listarSectores(){    
         this.sectoresService.listarSectores().
             subscribe(respuesta => {
-            this.listaSectores= respuesta,
-            console.log("sectores", this.listaSectores);    
+            this.listaSectores= respuesta   
         
         });
     }
@@ -276,6 +296,23 @@ export class TramitesComponent implements OnInit {
     }
     //FIN LISTADO MOVIMIENTO DE TRAMITE
 
+    cargarSectores(id_organismo: number){
+        console.log("organismo_filtrar", id_organismo);
+        let mi_organismo = globalConstants.organismo_usuario;
+        if (id_organismo == mi_organismo)
+        {
+            this.listaSectores=sectores.filter(sector => {      
+                return sector.organismo_id == id_organismo;
+              });
+        }
+        else{
+            this.listaSectores=sectores.filter(sector => {      
+                return sector.organismo_id == id_organismo && sector.es_mesa_entrada == true;
+              });
+        }
+        
+      }
+
     //LISTADO DE TIPO TRAMITES
     listarTiposTramite(){    
         this.tiposTramiteService.listarTiposTramite().
@@ -293,10 +330,10 @@ export class TramitesComponent implements OnInit {
 
     //MANEJO DE FORMULARIO DIALOG
     openNewTramite() {
-    this.tramite = {};
-    this.submitted = false;
-    this.tramiteDialog = true;
-    this.nuevoTramite=true;
+        this.tramite = {};
+        this.submitted = false;
+        this.tramiteDialog = true;
+        this.nuevoTramite=true;
     }
 
     hideDialogTramite() {

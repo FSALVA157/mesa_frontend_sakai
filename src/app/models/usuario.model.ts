@@ -11,7 +11,8 @@ export class UsuarioModel{
         public apellido?: string,
         public nombre?: string,
         public vigente?: boolean,
-        public sector_id?: number
+        public sector_id?: number,
+        public sector?: SectorModel
 
     ){}
 }

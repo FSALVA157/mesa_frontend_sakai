@@ -279,6 +279,49 @@
                     </form>
                     <!--  FIN FORMULARIO TRAMITES -->
 
+                    <!-- FORMULARIO MOVIMIENTOS -->
+                    <form [formGroup]="formaMoviientosTramite">
+                        <p-messages [value]="msgs" [showTransitionOptions]="'200ms'" [hideTransitionOptions]="'200ms'" [escape]="true"></p-messages>
+                        <p-toast key="tst" [baseZIndex]="99999"></p-toast>
+                        <div class="field">
+                            <label for="organismo_id">Organismos</label>
+                            <p-dropdown id="organismo_id" [options]="listaOrganismos" optionLabel="organismo" optionValue="id_organismo" formControlName="organismo_origen_id" placeholder="Seleccionar...">
+
+                            </p-dropdown>
+                        </div>
+                        <div class="field">
+                            <label for="sector_id">Sectores</label>
+                            <p-dropdown id="sector_id" [options]="listaSectores" optionLabel="sector" optionValue="id_sector" formControlName="sector_origen_id" placeholder="Seleccionar...">
+
+                            </p-dropdown>
+                        </div>
+                        <div class="field">
+                            <label for="fojas_ingreso">Fojas Ingreso</label>
+                            <input type="text" pInputText id="fojas_ingreso" formControlName="fojas_ingreso" />
+                            <!-- <small *ngIf="asuntoNotaNoValido" class="p-error">
+                                <div *ngFor="let validation of user_validation_messages.asunto" >
+                                    <div  *ngIf="formaTramites.get('asunto')?.hasError(validation.type)">
+                                        {{validation.message}}
+                                    </div>
+                                </div>
+                            </small> -->
+                        </div>
+
+                        <div class="field">
+                            <label for="descripcion_ingreso">Descripcion Ingreso</label>
+                            <input type="text" pInputText id="descripcion_ingreso" formControlName="descripcion_ingreso" />
+                            <small *ngIf="expedienteNotaNoValido" class="p-error">
+                            <div *ngFor="let validation of user_validation_messages.expediente_nota" >
+                                <div  *ngIf="formaTramites.get('expediente_nota')?.hasError(validation.type)">
+                                    {{validation.message}}
+                                </div>
+                            </div>
+                        </small>
+                        </div>
+
+                    </form>
+                    <!--  FIN FORMULARIO MOVIMIENTOS -->
+
                 </ng-template>
 
                 <ng-template pTemplate="footer">
