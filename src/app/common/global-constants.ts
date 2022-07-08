@@ -7,12 +7,12 @@ export class globalConstants {
     public static usuario: UsuarioModel;
     public static nombreUsuario: string = "";
     public static inicialesUsuario: string = "";
-    public static emailUsuario: string = "";
-    public static sector_usuario: number;
+    public static emailUsuario: string = "";   
     public static organismo_usuario: number=9;
+    public static sector_usuario: number = 64;
     public static sector_corto: string;
     public static sector_largo: string;
     public static rol_usuario: string;
-    public static id_usuario: number;
+    public static id_usuario: number=1;
     
 }

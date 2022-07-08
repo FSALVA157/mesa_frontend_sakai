@@ -73,7 +73,7 @@ export class TramitesComponent implements OnInit {
     submitted: boolean;
     
     //VARIABLES MOVIMIENTOS
-    formaMoviientosTramite: FormGroup;
+    formaMovimientosTramite: FormGroup;
     movimientoTramite: MovimientoTramiteModel;
   
     //LISTAS    
@@ -102,17 +102,17 @@ export class TramitesComponent implements OnInit {
         persona_referencia: [,[Validators.required,Validators.pattern(/^[A-Za-z0-9./\s]+$/), Validators.minLength(1), Validators.maxLength(50)]],
         descripcion: [,[Validators.required,Validators.pattern(/^[A-Za-z0-9./\s]+$/), Validators.minLength(1), Validators.maxLength(500)]],
        
-        tipo_tramite_id: [0,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+        tipo_tramite_id: [1,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
         // sector_id: [8,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
         // usuario_id: [8,[Validators.required, Validators.pattern(/^[0-9]*$/)]]
     });
     //FIN FORMULARIO TRASLADO
 
     //FORMULARIO MOVIMIENTOS    
-    this.formaMoviientosTramite = this.fb.group({
+    this.formaMovimientosTramite = this.fb.group({
         // id_tramite: [0,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
         organismo_origen_id: [globalConstants.organismo_usuario,[Validators.required,Validators.pattern(/^[0-9]*$/)]],
-        sector_origen_id: [,[Validators.required,Validators.pattern(/^[0-9]*$/)]],
+        sector_origen_id: [1,[Validators.required,Validators.pattern(/^[0-9]*$/)]],
         fojas_ingreso: [,[Validators.required,Validators.pattern(/^[0-9]*$/)]],
         descripcion_ingreso: [,[Validators.required, Validators.minLength(1), Validators.maxLength(500)]],
        
@@ -224,9 +224,6 @@ export class TramitesComponent implements OnInit {
         }
     
         let dataTramite: Partial<TramiteModel>;
-            //poner destino en el personal y sin funcion 
-            //this.submitForm('cambioDestino');
-
         dataTramite = {
             
             asunto: this.formaTramites.get('asunto')?.value,
@@ -234,18 +231,33 @@ export class TramitesComponent implements OnInit {
             persona_referencia: this.formaTramites.get('persona_referencia')?.value,
             descripcion: this.formaTramites.get('descripcion')?.value,
             tipo_tramite_id: parseInt(this.formaTramites.get('tipo_tramite_id')?.value),
-            sector_id: 64,
-            usuario_id: 1
+            sector_id: globalConstants.sector_usuario,
+            usuario_id: globalConstants.id_usuario
         }
         
         //GUARDAR NUEVO TRAMITE
         this.tramitesService.guardarTramite(dataTramite)
             .subscribe(resultado => {
                 let tramiteRes: TramiteModel = resultado;
-                console.log("Reaultado ", tramiteRes);
-                this.hideDialogTramite();
-                Swal.fire('Exito',`El Tramite fue guardado con Exito`,"success");
-                this.listarTramites();
+                let dataMovimientoTramite: Partial <MovimientoTramiteModel>;
+                dataMovimientoTramite = {
+                    tramite_numero: tramiteRes.numero_tramite,
+                    sector_origen_id: parseInt(this.formaMovimientosTramite.get('sector_origen_id')?.value),                    
+                    fojas_ingreso: parseInt(this.formaMovimientosTramite.get('fojas_ingreso')?.value),
+                    descripcion_ingreso: this.formaMovimientosTramite.get('descripcion_ingreso')?.value,
+                    usuario_id: globalConstants.id_usuario,
+                    sector_id: globalConstants.sector_usuario
+                    
+                }
+                //GUARDAR MOVIMIENTO
+                    this.movimientosTramiteService.guardarMovimientoTramite(dataMovimientoTramite)
+                        .subscribe(resMovimiento => {
+                            this.hideDialogTramite();
+                            Swal.fire('Exito',`El Tramite fue guardado con Exito`,"success");
+                            this.listarTramites();
+                        })
+                //FIN GUARDAR MOVIMIENTO
+               
             }
             // , (error) => {
             //     Swal.fire('Error',`Error al cargar el nuevo tramite: ${error.error.message}`,"error") 
@@ -282,7 +294,6 @@ export class TramitesComponent implements OnInit {
     //LISTADO MOVIMIENTOS DE TRAMITE
     listarHistorialTramite(tramite: TramiteModel){ 
         this.expandedRows={};
-        console.log("tramite movimientos", tramite);
         if(tramite){
                 this.movimientosTramiteService.listarHistorialTramite(tramite.numero_tramite).
                 subscribe(respuesta => {
@@ -290,28 +301,13 @@ export class TramitesComponent implements OnInit {
                 this.expandedRows[tramite.numero_tramite]=true;
             });
         } 
-       
-        
         
     }
     //FIN LISTADO MOVIMIENTO DE TRAMITE
 
-    cargarSectores(id_organismo: number){
-        console.log("organismo_filtrar", id_organismo);
-        let mi_organismo = globalConstants.organismo_usuario;
-        if (id_organismo == mi_organismo)
-        {
-            this.listaSectores=sectores.filter(sector => {      
-                return sector.organismo_id == id_organismo;
-              });
-        }
-        else{
-            this.listaSectores=sectores.filter(sector => {      
-                return sector.organismo_id == id_organismo && sector.es_mesa_entrada == true;
-              });
-        }
-        
-      }
+    
+
+    
 
     //LISTADO DE TIPO TRAMITES
     listarTiposTramite(){    
@@ -342,4 +338,32 @@ export class TramitesComponent implements OnInit {
         this.nuevoTramite=false;
     }    
     //FIN MANEJO FORMULARIO DIALOG....................................
+
+    //CARGA DE LISTADOS DROP
+    cargarSectores(id_organismo: number){
+        let mi_organismo = globalConstants.organismo_usuario;
+        if (id_organismo == mi_organismo)
+        {
+            this.listaSectores=sectores.filter(sector => {      
+                return sector.id_sector == 1 || sector.organismo_id == id_organismo;
+              });
+        }
+        else{
+            this.listaSectores=sectores.filter(sector => {      
+                return sector.id_sector == 1 || sector.organismo_id == id_organismo && sector.es_mesa_entrada == true;
+              });
+        }
+        
+      }
+
+    onChangeOrganismos(){
+        const id = this.formaMovimientosTramite.get('organismo_origen_id')?.value;
+        if(id != null){               
+            this.cargarSectores(parseInt(id.toString()));
+            this.formaMovimientosTramite.get('sector_origen_id')?.setValue(1);               
+            this.formaMovimientosTramite.get('sector_origen_id')?.markAsUntouched();
+            
+        }
+    }
+    //FIN CARGAR ISTADOS DROP..................................................
 }

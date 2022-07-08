@@ -165,22 +165,34 @@
                                             <th pSortableColumn="tramite_numero" [ngStyle]="{backgroundColor:'var(--bluegray-200)'}">N° Tramite
                                                 <p-sortIcon field="tramite_numero"></p-sortIcon>
                                             </th>
-                                            <th pSortableColumn="num_movimiento_tramite" [ngStyle]="{backgroundColor:'var(--bluegray-200)'}">Sector Origen
-                                                <p-sortIcon field="num_movimiento_tramite"></p-sortIcon>
+                                            <th pSortableColumn="sector_origen" [ngStyle]="{backgroundColor:'var(--bluegray-200)'}">Sector Origen
+                                                <p-sortIcon field="sector_origen"></p-sortIcon>
                                             </th>
-                                            <th pSortableColumn="tramite_numero" [ngStyle]="{backgroundColor:'var(--bluegray-200)'}">Fecha Ingreso
-                                                <p-sortIcon field="tramite_numero"></p-sortIcon>
+                                            <th pSortableColumn="fecha_ingreso" [ngStyle]="{backgroundColor:'var(--bluegray-200)'}">Fecha Ingreso
+                                                <p-sortIcon field="fecha_ingreso"></p-sortIcon>
                                             </th>
+                                            <th pSortableColumn="sector_destino" [ngStyle]="{backgroundColor:'var(--bluegray-200)'}">Sector Destino
+                                                <p-sortIcon field="sector_destino"></p-sortIcon>
+                                            </th>
+                                            <th pSortableColumn="fecha_salida" [ngStyle]="{backgroundColor:'var(--bluegray-200)'}">Fecha Engreso
+                                                <p-sortIcon field="fecha_salida"></p-sortIcon>
+                                            </th>
+                                            <th pSortableColumn="fecha_salida" [ngStyle]="{backgroundColor:'var(--bluegray-200)'}">Estado
+                                                <p-sortIcon field="fecha_salida"></p-sortIcon>
+                                            </th>
+
 
                                         </tr>
                                     </ng-template>
                                     <ng-template pTemplate="body" let-movimientoTramite>
-                                        <!-- <tr [ngStyle]="{backgroundColor:'var(--bluegray-100)'}"> -->
                                         <tr>
                                             <td style="width: 160px;">{{movimientoTramite.num_movimiento_tramite}}</td>
                                             <td style="width: 130px;">{{movimientoTramite.tramite_numero}}</td>
-                                            <td style="width: 120px;">{{movimientoTramite.sector_origen.sector}}</td>
-                                            <td style="width: 170x;">{{movimientoTramite.fecha_ingreso| date: 'dd/MM/yyyy'}}</td>
+                                            <td style="width: 120px;">{{movimientoTramite.sector_origen.sector}} - {{movimientoTramite.sector_origen.organismo.organismo}}</td>
+                                            <td style="width: 120x;">{{movimientoTramite.fecha_ingreso| date: 'dd/MM/yyyy'}}</td>
+                                            <td style="width: 120px;">{{movimientoTramite.sector_destino.sector}} - {{movimientoTramite.sector_destino.organismo.organismo}}</td>
+                                            <td style="width: 170x;">{{movimientoTramite.fecha_salida| date: 'dd/MM/yyyy'}}</td>
+                                            <td style="width: 170x;">{{movimientoTramite.enviado?"finalizado": "Pendiente" }}</td>
                                             <!-- <td>{{order.date}}</td>
                                             <td>{{order.amount | currency:'USD'}}</td>
                                             <td><span [class]="'order-badge order-' + order.status.toLowerCase()">{{order.status}}</span></td>
@@ -194,9 +206,10 @@
                                             <td colspan="6">No se encontraron movimientos de éste tramite.</td>
                                         </tr>
                                     </ng-template>
-                                    <ng-template pTemplate="summary" [ngStyle]="{backgroundColor:'var(--bluegray-200)'}">
+                                    <ng-template pTemplate="summary">
                                         <div class="flex align-items-center justify-content-between">
-                                            Total encontrado: {{listaMovimientosTramite ? listaMovimientosTramite.length : 0 }} movimiento/s.
+                                            <!-- Total encontrado: {{listaMovimientosTramite ? listaMovimientosTramite.length>1?  : 0 }} movimiento/s. -->
+                                            Total encontrado: {{listaMovimientosTramite ? listaMovimientosTramite.length : 0 }} {{listaMovimientosTramite.length > 1 ? "movimientos" : "movimiento" }}
                                         </div>
                                     </ng-template>
                                 </p-table>
@@ -280,18 +293,18 @@
                     <!--  FIN FORMULARIO TRAMITES -->
 
                     <!-- FORMULARIO MOVIMIENTOS -->
-                    <form [formGroup]="formaMoviientosTramite">
+                    <form [formGroup]="formaMovimientosTramite">
                         <p-messages [value]="msgs" [showTransitionOptions]="'200ms'" [hideTransitionOptions]="'200ms'" [escape]="true"></p-messages>
                         <p-toast key="tst" [baseZIndex]="99999"></p-toast>
                         <div class="field">
-                            <label for="organismo_id">Organismos</label>
-                            <p-dropdown id="organismo_id" [options]="listaOrganismos" optionLabel="organismo" optionValue="id_organismo" formControlName="organismo_origen_id" placeholder="Seleccionar...">
+                            <label for="organismo_origen_id">Organismo origen</label>
+                            <p-dropdown id="organismo_origen_id" [options]="listaOrganismos" optionLabel="organismo" optionValue="id_organismo" formControlName="organismo_origen_id" (onChange)="onChangeOrganismos()" placeholder="Seleccionar...">
 
                             </p-dropdown>
                         </div>
                         <div class="field">
-                            <label for="sector_id">Sectores</label>
-                            <p-dropdown id="sector_id" [options]="listaSectores" optionLabel="sector" optionValue="id_sector" formControlName="sector_origen_id" placeholder="Seleccionar...">
+                            <label for="sector_origen_id">Sector origen</label>
+                            <p-dropdown id="sector_origen_id" [options]="listaSectores" optionLabel="sector" optionValue="id_sector" formControlName="sector_origen_id" placeholder="Seleccionar...">
 
                             </p-dropdown>
                         </div>
