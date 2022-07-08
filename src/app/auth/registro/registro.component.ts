@@ -81,10 +81,10 @@ public form_submitted: boolean = false;
   }
 
   isValid(campo: string): boolean{
-    if (this.forma.get(campo).valid) {
-      return false;
-    }else{
+    if (this.forma.get(campo).invalid && this.form_submitted) {
       return true;
+    }else{
+      return false;
     }
   }
 }

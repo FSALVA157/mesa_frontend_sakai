@@ -17,15 +17,17 @@
                             <div class="field col-12 md:col-6">
                                 <label htmlFor="name">Nombre</label>
                                 <input pInputText id="name" formControlName="nombre" type="text" />
-                                <small *ngIf="isValid('nombre')" id="username-help" class="p-error">El nombre de Usuario es obligatorio</small>
+                                <small *ngIf="isValid('nombre')"  class="p-error">El nombre es obligatorio</small>
                             </div>
                             <div class="field col-12 md:col-6">
                                 <label htmlFor="apel">Apellido</label>
                                 <input pInputText id="apel" formControlName="apellido" type="text" />
+                                <small *ngIf="isValid('apellido')" class="p-error">El Apellido es obligatorio</small>
                             </div>
                             <div class="field col-12 md:col-6">
                                 <label htmlFor="correo_usu">Correo</label>
                                 <input pInputText id="correo_usu" formControlName="correo" type="email" />
+                                <small *ngIf="isValid('correo')" class="p-error">El correo ingresado no es válido</small>
                             </div>
                             <div class="field col-12 md:col-6">
                                 <label htmlFor="sector">Sector</label>
@@ -34,14 +36,17 @@
                             <div class="field col-12 md:col-6">
                                 <label htmlFor="leg">Legajo</label>
                                 <input pInputText id="leg" formControlName="legajo" type="number" />
+                                <small *ngIf="isValid('legajo')" class="p-error">El legajo ingresado no es válido</small>
                             </div>
                             <div class="field col-12 md:col-6">
                                 <label htmlFor="user">Usuario</label>
                                 <input pInputText id="user" formControlName="usuario" type="text" />
+                                <small *ngIf="isValid('usuario')" class="p-error">El usuario ingresado no es válido</small>
                             </div>
                             <div class="field col-12 md:col-6">
                                 <label htmlFor="clave">Clave</label>
                                 <input pInputText id="clave" formControlName="clave1" type="password" />
+                                <small *ngIf="isValid('clave1')" class="p-error">la clave ingresada no es válido</small>
                             </div>
                             <div class="field col-12 md:col-6">
                                 <label htmlFor="clave_repit">Repite Clave</label>
