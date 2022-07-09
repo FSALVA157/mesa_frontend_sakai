@@ -3,6 +3,7 @@ import { ConfigService } from '../../service/app.config.service';
 import { AppConfig } from '../../api/appconfig';
 import { Subscription } from 'rxjs';
 import { FormBuilder, Validators } from '@angular/forms';
+import { ValidadoresService } from 'src/app/service/validadores.service';
 @Component({
   selector: 'app-login',
   templateUrl: './registro.component.html',
@@ -47,6 +48,8 @@ export class RegistroComponent implements OnInit, OnDestroy {
     apellido: ['',[Validators.required,  Validators.minLength(2)]],
     nombre:   ['',[Validators.required,  Validators.minLength(2)]],
     sector_id:['name',[Validators.required]],
+  }, {
+    validators: [this.validatorsService.passwordsIguales('clave1', 'clave2')]
   });
 
 public form_submitted: boolean = false;
@@ -59,7 +62,8 @@ public form_submitted: boolean = false;
 
   constructor(
     public configService: ConfigService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private validatorsService: ValidadoresService
     ){ }
 
   ngOnInit(): void {
@@ -76,8 +80,12 @@ public form_submitted: boolean = false;
   }
 
   crearUsuario(){
-    console.log(this.forma.value);
-    this.form_submitted = true;
+      this.form_submitted = true;
+      if(this.forma.valid){
+        console.log('posteando data');
+      }else{
+        console.log('formulario no válido');
+      }
   }
 
   isValid(campo: string): boolean{
@@ -86,5 +94,10 @@ public form_submitted: boolean = false;
     }else{
       return false;
     }
+  }
+
+  clavesValidation(): boolean{
+    return ((this.forma.get('clave1').value === this.forma.get('clave2').value))?  false: true;
+        
   }
 }

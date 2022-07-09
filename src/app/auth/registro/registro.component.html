@@ -46,11 +46,12 @@
                             <div class="field col-12 md:col-6">
                                 <label htmlFor="clave">Clave</label>
                                 <input pInputText id="clave" formControlName="clave1" type="password" />
-                                <small *ngIf="isValid('clave1')" class="p-error">la clave ingresada no es válido</small>
+                                <small *ngIf="isValid('clave1')" class="p-error">la clave ingresada no es válida</small>
                             </div>
                             <div class="field col-12 md:col-6">
                                 <label htmlFor="clave_repit">Repite Clave</label>
                                 <input pInputText id="clave_repit" formControlName="clave2" type="password" />
+                                <small *ngIf="clavesValidation()" class="p-error">La verificación de clave ha fallado</small>
                             </div>
 
                                                     
