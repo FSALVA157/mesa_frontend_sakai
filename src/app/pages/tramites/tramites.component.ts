@@ -65,16 +65,21 @@ export class TramitesComponent implements OnInit {
 
     @ViewChild('filter') filter: ElementRef;    
 
-    //VARIABLES TRAMITE
+    //FORMULARIOS
     formaTramites: FormGroup;
+    formaMovimientosTramite: FormGroup;
+    formaSalidaTramite: FormGroup;
+    formaIngresoTramite: FormGroup;
+
+    //VARIABLES TRAMITE    
     tramite: TramiteModel;
     tramiteDialog: boolean;
     nuevoTramite: boolean;
     submitted: boolean;
     
-    //VARIABLES MOVIMIENTOS
-    formaMovimientosTramite: FormGroup;
+    //VARIABLES MOVIMIENTOS    
     movimientoTramite: MovimientoTramiteModel;
+    tramiteSalidaDialog: boolean;
   
     //LISTAS    
     listaTramites: TramiteModel[]=[];
@@ -93,31 +98,46 @@ export class TramitesComponent implements OnInit {
         private fb: FormBuilder
     ) {
         
-    //FORMULARIO TRASLADO    
-    this.formaTramites = this.fb.group({
-        // id_tramite: [0,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
-        // numero_tramite: [,[Validators.required,Validators.pattern(/^[0-9]*$/), Validators.min(1), Validators.max(99000000)]],
-        asunto: [,[Validators.required, Validators.minLength(2), Validators.maxLength(100)]],
-        expediente_nota: [,[Validators.pattern(/^[A-Za-z0-9./\s]+$/), Validators.minLength(2), Validators.maxLength(50)]],
-        persona_referencia: [,[Validators.required,Validators.pattern(/^[A-Za-z0-9./\s]+$/), Validators.minLength(1), Validators.maxLength(50)]],
-        descripcion: [,[Validators.required,Validators.pattern(/^[A-Za-z0-9./\s]+$/), Validators.minLength(1), Validators.maxLength(500)]],
-       
-        tipo_tramite_id: [1,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
-        // sector_id: [8,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
-        // usuario_id: [8,[Validators.required, Validators.pattern(/^[0-9]*$/)]]
-    });
-    //FIN FORMULARIO TRASLADO
+        //FORMULARIO TRASLADO    
+        this.formaTramites = this.fb.group({
+            // id_tramite: [0,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+            // numero_tramite: [,[Validators.required,Validators.pattern(/^[0-9]*$/), Validators.min(1), Validators.max(99000000)]],
+            asunto: [,[Validators.required, Validators.minLength(2), Validators.maxLength(100)]],
+            expediente_nota: [,[Validators.pattern(/^[A-Za-z0-9./\s]+$/), Validators.minLength(2), Validators.maxLength(50)]],
+            persona_referencia: [,[Validators.required,Validators.pattern(/^[A-Za-z0-9./\s]+$/), Validators.minLength(1), Validators.maxLength(50)]],
+            descripcion: [,[Validators.required,Validators.pattern(/^[A-Za-z0-9./\s]+$/), Validators.minLength(1), Validators.maxLength(500)]],
+           
+            tipo_tramite_id: [1,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+            // sector_id: [8,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+            // usuario_id: [8,[Validators.required, Validators.pattern(/^[0-9]*$/)]]
+        });
+        //FIN FORMULARIO TRASLADO
+    
+        //FORMULARIO MOVIMIENTOS    
+        this.formaMovimientosTramite = this.fb.group({
+            tramite_numero: [0,[Validators.required,Validators.pattern(/^[0-9]*$/)]],
+            num_movimiento_tramite: [0,[Validators.required,Validators.pattern(/^[0-9]*$/)]],
+            organismo_id: [globalConstants.organismo_usuario,[Validators.required,Validators.pattern(/^[0-9]*$/)]],
+            sector_id: [1,[Validators.required,Validators.pattern(/^[0-9]*$/)]],
+            fojas: [0,[Validators.required,Validators.pattern(/^[0-9]*$/)]],
+            descripcion: [,[Validators.required, Validators.minLength(1), Validators.maxLength(500)]],
+           
+        });
+        //FIN FORMULARIO MOVIMIENTOS
 
-    //FORMULARIO MOVIMIENTOS    
-    this.formaMovimientosTramite = this.fb.group({
-        // id_tramite: [0,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
-        organismo_origen_id: [globalConstants.organismo_usuario,[Validators.required,Validators.pattern(/^[0-9]*$/)]],
-        sector_origen_id: [1,[Validators.required,Validators.pattern(/^[0-9]*$/)]],
-        fojas_ingreso: [,[Validators.required,Validators.pattern(/^[0-9]*$/)]],
-        descripcion_ingreso: [,[Validators.required, Validators.minLength(1), Validators.maxLength(500)]],
-       
-    });
-    //FIN FORMULARIO MOVIMIENTOS
+        //FORMULARIO SALIDA TRAMITE    
+        this.formaSalidaTramite = this.fb.group({
+            tramite_numero: [0,[Validators.required,Validators.pattern(/^[0-9]*$/)]],
+            num_movimiento_tramite: [0,[Validators.required,Validators.pattern(/^[0-9]*$/)]],
+            organismo_destino_id: [globalConstants.organismo_usuario,[Validators.required,Validators.pattern(/^[0-9]*$/)]],
+            sector_destino_id: [1,[Validators.required,Validators.pattern(/^[0-9]*$/)]],
+            fojas_salida: [0,[Validators.required,Validators.pattern(/^[0-9]*$/)]],
+            descripcion_salida: [,[Validators.required, Validators.minLength(1), Validators.maxLength(500)]],
+           
+        });
+        //FIN FORMULARIO SALIDA TRAMITE
+
+
     }
 
     
@@ -288,7 +308,7 @@ export class TramitesComponent implements OnInit {
         
         });
     }
-    //FIN LISTADO DE TRAMITES
+    //FIN LISTADO DE TRAMITES.................................................................
 
 
     //LISTADO MOVIMIENTOS DE TRAMITE
@@ -303,9 +323,44 @@ export class TramitesComponent implements OnInit {
         } 
         
     }
-    //FIN LISTADO MOVIMIENTO DE TRAMITE
+    //FIN LISTADO MOVIMIENTO DE TRAMITE...................................................
 
-    
+    //GUARDAR SALIDA TRAMITE  
+    submitFormSalidaTramite(){
+        //if(this.formaTramites.invalid){                        
+        //    this.msgs = [];
+        //    this.msgs.push({ severity: 'warn', summary: 'Errores en formulario', detail: 'Cargue correctamente los datos' });
+        //    this.serviceMensajes.add({key: 'tst', severity: 'warn', summary: 'Errores en formulario', detail: 'Cargue correctamente los dato'});
+            // Swal.fire(
+                
+            //     {target: document.getElementById('form-modal')},
+            //     'Formulario Tramite con errores','Complete correctamente todos los campos del formulario',"warning"
+            //     );
+        //    return Object.values(this.formaTramites.controls).forEach(control => control.markAsTouched());
+        //}
+        
+        let dataMovimientoTramite: Partial <MovimientoTramiteModel>;
+        dataMovimientoTramite = {                     
+            tramite_numero: parseInt(this.formaMovimientosTramite.get('tramite_numero')?.value),
+            num_movimiento_tramite: parseInt(this.formaMovimientosTramite.get('num_movimiento_tramite')?.value),
+            sector_destino_id: parseInt(this.formaMovimientosTramite.get('sector_id')?.value),                    
+            fojas_salida: parseInt(this.formaMovimientosTramite.get('fojas')?.value),
+            descripcion_salida: this.formaMovimientosTramite.get('descripcion')?.value,
+            usuario_id: globalConstants.id_usuario,
+            sector_id: globalConstants.sector_usuario
+            
+        }
+        //GUARDAR SALIDA MOVIMIENTO
+        this.movimientosTramiteService.salidaMovimientoTramite(dataMovimientoTramite)
+            .subscribe(resMovimiento => {
+                this.hideDialogTramite();
+                Swal.fire('Exito',`El Tramite fue guardado con Exito`,"success");
+                this.listarTramites();
+            })
+        //FIN GUARDAR SALIDA MOVIMIENTO
+
+    }    
+    //FIN GUARDAR SALIDA TRAMITE............................................................................
 
     
 
@@ -339,6 +394,23 @@ export class TramitesComponent implements OnInit {
     }    
     //FIN MANEJO FORMULARIO DIALOG....................................
 
+    //MANEJO DE FORMULARIO SALIDA DIALOG
+    openDialogSalida(movimiento: MovimientoTramiteModel) {
+        //this.movimientoTramite = {};
+        this.submitted = false;
+        this.tramiteSalidaDialog = true;
+        this.formaMovimientosTramite.get('tramite_numero')?.setValue(movimiento.tramite_numero);               
+        this.formaMovimientosTramite.get('num_movimiento_tramite')?.setValue(movimiento.num_movimiento_tramite);  
+        //this.nuevoTramite=true;
+    }
+
+    hideDialogSalida() {
+        this.tramiteSalidaDialog = false;
+        this.submitted = false;
+        //this.nuevoTramite=false;
+    }    
+    //FIN MANEJO FORMULARIO SALIDA DIALOG....................................
+
     //CARGA DE LISTADOS DROP
     cargarSectores(id_organismo: number){
         let mi_organismo = globalConstants.organismo_usuario;
@@ -357,11 +429,11 @@ export class TramitesComponent implements OnInit {
       }
 
     onChangeOrganismos(){
-        const id = this.formaMovimientosTramite.get('organismo_origen_id')?.value;
+        const id = this.formaMovimientosTramite.get('organismo_id')?.value;
         if(id != null){               
             this.cargarSectores(parseInt(id.toString()));
-            this.formaMovimientosTramite.get('sector_origen_id')?.setValue(1);               
-            this.formaMovimientosTramite.get('sector_origen_id')?.markAsUntouched();
+            this.formaMovimientosTramite.get('sector_id')?.setValue(1);               
+            this.formaMovimientosTramite.get('sector_id')?.markAsUntouched();
             
         }
     }
