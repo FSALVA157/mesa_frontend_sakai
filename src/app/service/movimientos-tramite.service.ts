@@ -23,9 +23,9 @@ export class MovimientosTramiteService {
     return this.http.post(`${base_url}/movimientos-tramite`, this.movimiento_tramite);
   }
 
-  salidaMovimientoTramite(data: any){    
+  salidaMovimientoTramite(num_mov: number, data: any){    
     this.movimiento_tramite={...data};
     console.log("movimiento", this.movimiento_tramite);
-    return this.http.put(`${base_url}/movimientos-tramite/tramite-salida/?num_movimiento=${this.movimiento_tramite.num_movimiento_tramite}`, this.movimiento_tramite);
+    return this.http.put(`${base_url}/movimientos-tramite/tramite-salida?num_movimiento=${num_mov}`, this.movimiento_tramite);
   }
 }

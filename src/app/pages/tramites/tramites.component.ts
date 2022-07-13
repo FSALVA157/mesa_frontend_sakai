@@ -262,9 +262,9 @@ export class TramitesComponent implements OnInit {
                 let dataMovimientoTramite: Partial <MovimientoTramiteModel>;
                 dataMovimientoTramite = {
                     tramite_numero: tramiteRes.numero_tramite,
-                    sector_origen_id: parseInt(this.formaMovimientosTramite.get('sector_origen_id')?.value),                    
-                    fojas_ingreso: parseInt(this.formaMovimientosTramite.get('fojas_ingreso')?.value),
-                    descripcion_ingreso: this.formaMovimientosTramite.get('descripcion_ingreso')?.value,
+                    sector_origen_id: parseInt(this.formaMovimientosTramite.get('sector_id')?.value),                    
+                    fojas_ingreso: parseInt(this.formaMovimientosTramite.get('fojas')?.value),
+                    descripcion_ingreso: this.formaMovimientosTramite.get('descripcion')?.value,
                     usuario_id: globalConstants.id_usuario,
                     sector_id: globalConstants.sector_usuario
                     
@@ -342,7 +342,7 @@ export class TramitesComponent implements OnInit {
         let dataMovimientoTramite: Partial <MovimientoTramiteModel>;
         dataMovimientoTramite = {                     
             tramite_numero: parseInt(this.formaMovimientosTramite.get('tramite_numero')?.value),
-            num_movimiento_tramite: parseInt(this.formaMovimientosTramite.get('num_movimiento_tramite')?.value),
+            //num_movimiento_tramite: parseInt(this.formaMovimientosTramite.get('num_movimiento_tramite')?.value),
             sector_destino_id: parseInt(this.formaMovimientosTramite.get('sector_id')?.value),                    
             fojas_salida: parseInt(this.formaMovimientosTramite.get('fojas')?.value),
             descripcion_salida: this.formaMovimientosTramite.get('descripcion')?.value,
@@ -351,7 +351,7 @@ export class TramitesComponent implements OnInit {
             
         }
         //GUARDAR SALIDA MOVIMIENTO
-        this.movimientosTramiteService.salidaMovimientoTramite(dataMovimientoTramite)
+        this.movimientosTramiteService.salidaMovimientoTramite(parseInt(this.formaMovimientosTramite.get('num_movimiento_tramite')?.value),dataMovimientoTramite)
             .subscribe(resMovimiento => {
                 this.hideDialogTramite();
                 Swal.fire('Exito',`El Tramite fue guardado con Exito`,"success");
