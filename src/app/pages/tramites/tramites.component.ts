@@ -290,9 +290,9 @@ export class TramitesComponent implements OnInit {
     
     //LISTADO DE TRAMITES
     listarTramites(){    
-        this.tramitesService.listarTramites().
+        this.tramitesService.listarTramites(globalConstants.sector_usuario).
             subscribe(respuesta => {
-            this.listaTramites= respuesta;  
+            this.listaTramites= respuesta[0];  
         
         });
     }

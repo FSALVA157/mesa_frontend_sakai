@@ -14,8 +14,8 @@ export class TramitesService {
     private readonly http: HttpClient
   ) { }
 
-  listarTramites(){
-    return this.http.get<TramiteModel[]>(`${base_url}/tramites`)
+  listarTramites(sector: number){
+    return this.http.get<[tramite:TramiteModel[], total: number]>(`${base_url}/tramites/tramite-movimientos-sector?id_sector=${sector}`)
   }
 
   guardarTramite(data: Partial<TramiteModel>){    

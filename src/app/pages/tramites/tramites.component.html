@@ -265,35 +265,35 @@
                             <label for="name">Asunto</label>
                             <input type="text" pInputText id="asunto" formControlName="asunto" />
                             <small *ngIf="asuntoNotaNoValido" class="p-error">
-                            <div *ngFor="let validation of user_validation_messages.asunto" >
-                                <div  *ngIf="formaTramites.get('asunto')?.hasError(validation.type)">
-                                    {{validation.message}}
+                                <div *ngFor="let validation of user_validation_messages.asunto" >
+                                    <div  *ngIf="formaTramites.get('asunto')?.hasError(validation.type)">
+                                        {{validation.message}}
+                                    </div>
                                 </div>
-                            </div>
-                        </small>
+                            </small>
                         </div>
 
                         <div class="field">
                             <label for="name">Persona Referencia</label>
                             <input type="text" pInputText id="persona_referencia" formControlName="persona_referencia" />
                             <small *ngIf="personaReferenciaNotaNoValido" class="p-error">
-                            <div *ngFor="let validation of user_validation_messages.persona_referencia" >
-                                <div  *ngIf="formaTramites.get('persona_referencia')?.hasError(validation.type)">
-                                    {{validation.message}}
+                                <div *ngFor="let validation of user_validation_messages.persona_referencia" >
+                                    <div  *ngIf="formaTramites.get('persona_referencia')?.hasError(validation.type)">
+                                        {{validation.message}}
+                                    </div>
                                 </div>
-                            </div>
-                        </small>
+                            </small>
                         </div>
                         <div class="field">
                             <label for="descripcion">Descripción</label>
                             <textarea pInputTextarea id="descripcion" formControlName="descripcion" rows="3" cols="20"></textarea>
                             <small *ngIf="descripcionNotaNoValido" class="p-error">
-                            <div *ngFor="let validation of user_validation_messages.descripcion" >
-                                <div  *ngIf="formaTramites.get('descripcion')?.hasError(validation.type)">
-                                    {{validation.message}}
+                                <div *ngFor="let validation of user_validation_messages.descripcion" >
+                                    <div  *ngIf="formaTramites.get('descripcion')?.hasError(validation.type)">
+                                        {{validation.message}}
+                                    </div>
                                 </div>
-                            </div>
-                        </small>
+                            </small>
                         </div>
                     </form>
                     <!--  FIN FORMULARIO TRAMITES -->
@@ -330,21 +330,16 @@
                             <label for="descripcion">Descripcion Ingreso</label>
                             <input type="text" pInputText id="descripcion" formControlName="descripcion" />
                             <small *ngIf="expedienteNotaNoValido" class="p-error">
-                            <div *ngFor="let validation of user_validation_messages.expediente_nota" >
-                                <div  *ngIf="formaTramites.get('expediente_nota')?.hasError(validation.type)">
-                                    {{validation.message}}
+                                <div *ngFor="let validation of user_validation_messages.expediente_nota" >
+                                    <div  *ngIf="formaTramites.get('expediente_nota')?.hasError(validation.type)">
+                                        {{validation.message}}
+                                    </div>
                                 </div>
-                            </div>
-                        </small>
+                            </small>
                         </div>
-
                     </form>
                     <!--  FIN FORMULARIO MOVIMIENTOS -->
-
-
-
                 </ng-template>
-
                 <ng-template pTemplate="footer">
                     <button pButton pRipple type="button" label="Cancelar" class="p-button-outlined mr-2 mb-2" (click)="hideDialogTramite()"></button>
                     <button pButton pRipple type="button" label="Guardar" class="p-button-outlined mr-2 mb-2" (click)="submitFormTramite()"></button>
@@ -355,7 +350,6 @@
             <!-- DIALOG FORMULARIO SALIDA TRAMITE -->
             <p-dialog id="formTramiteSalidaDialog" [(visible)]="tramiteSalidaDialog" [style]="{width: '450px'}" header="Salida Tramite" [closable]="false" [modal]="false" class="p-fluid">
                 <ng-template pTemplate="content">
-
                     <!-- FORMULARIO SALIDA TRAMITE -->
                     <form [formGroup]="formaMovimientosTramite">
                         <p-messages [value]="msgs" [showTransitionOptions]="'200ms'" [hideTransitionOptions]="'200ms'" [escape]="true"></p-messages>
@@ -397,7 +391,7 @@
                             </p-dropdown>
                         </div>
                         <div class="field">
-                            <label for="fojas">Fojas engreso</label>
+                            <label for="fojas">Fojas egreso</label>
                             <input type="text" pInputText id="fojas" formControlName="fojas" />
                             <!-- <small *ngIf="asuntoNotaNoValido" class="p-error">
                                 <div *ngFor="let validation of user_validation_messages.asunto" >
@@ -409,22 +403,20 @@
                         </div>
 
                         <div class="field">
-                            <label for="descripcion">Descripcion egreso</label>
+                            <label for="descripcion">Descripción egreso</label>
                             <input type="text" pInputText id="descripcion" formControlName="descripcion" />
                             <small *ngIf="expedienteNotaNoValido" class="p-error">
-                            <div *ngFor="let validation of user_validation_messages.expediente_nota" >
-                                <div  *ngIf="formaTramites.get('expediente_nota')?.hasError(validation.type)">
-                                    {{validation.message}}
+                                <div *ngFor="let validation of user_validation_messages.expediente_nota" >
+                                    <div  *ngIf="formaTramites.get('expediente_nota')?.hasError(validation.type)">
+                                        {{validation.message}}
+                                    </div>
                                 </div>
-                            </div>
-                        </small>
+                            </small>
                         </div>
 
                     </form>
                     <!--  FIN FORMULARIO SALIDA TRAMITE -->
-
                 </ng-template>
-
                 <ng-template pTemplate="footer">
                     <button pButton pRipple type="button" label="Cancelar" class="p-button-outlined mr-2 mb-2" (click)="hideDialogSalida()"></button>
                     <button pButton pRipple type="button" label="Guardar" class="p-button-outlined mr-2 mb-2" (click)="submitFormSalidaTramite()"></button>
