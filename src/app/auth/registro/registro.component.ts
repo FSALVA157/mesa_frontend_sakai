@@ -4,6 +4,8 @@ import { AppConfig } from '../../api/appconfig';
 import { Subscription } from 'rxjs';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ValidadoresService } from 'src/app/service/validadores.service';
+import { UsuariosService } from 'src/app/service/usuarios.service';
+import { IUsuarioModel } from 'src/app/models/usuario.model';
 @Component({
   selector: 'app-login',
   templateUrl: './registro.component.html',
@@ -63,7 +65,8 @@ public form_submitted: boolean = false;
   constructor(
     public configService: ConfigService,
     private fb: FormBuilder,
-    private validatorsService: ValidadoresService
+    private validatorsService: ValidadoresService,
+    private usuarioService: UsuariosService
     ){ }
 
   ngOnInit(): void {
@@ -82,7 +85,18 @@ public form_submitted: boolean = false;
   crearUsuario(){
       this.form_submitted = true;
       if(this.forma.valid){
-        console.log('posteando data');
+        const usuario_data: IUsuarioModel = {
+          apellido : this.forma.get('apellido')?.value,
+          nombre : this.forma.get('nombre')?.value,
+          correo : this.forma.get('correo')?.value,
+          clave : this.forma.get('clave1')?.value,
+          legajo : this.forma.get('legajo')?.value,
+          usuario : this.forma.get('usuario')?.value,
+          sector_id : this.forma.get('sector_id')?.value          
+        }
+        console.log('USUARIO_DATA');
+        console.log(usuario_data);
+        this.usuarioService.crearUsuario(usuario_data);
       }else{
         console.log('formulario no válido');
       }

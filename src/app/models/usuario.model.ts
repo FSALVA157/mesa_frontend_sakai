@@ -1,5 +1,5 @@
 
-interface UsuarioModel{
+export interface IUsuarioModel{
     usuario: string;
     correo: string;
     clave: string;
@@ -7,4 +7,10 @@ interface UsuarioModel{
     apellido: string;
     nombre: string;
     sector_id: number;
+    vigente? : boolean;
+    roles? : string[];
+    alta? : string;
+    actualizado? : string;
 }
+
+
