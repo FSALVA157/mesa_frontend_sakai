@@ -80,6 +80,8 @@ export class TramitesComponent implements OnInit {
     //VARIABLES MOVIMIENTOS    
     movimientoTramite: MovimientoTramiteModel;
     tramiteSalidaDialog: boolean;
+    tramiteRecibirDialog: boolean;
+    
   
     //LISTAS    
     listaTramites: TramiteModel[]=[];
@@ -290,8 +292,14 @@ export class TramitesComponent implements OnInit {
     
     //LISTADO DE TRAMITES
     listarTramites(){    
-        this.tramitesService.listarTramites(globalConstants.sector_usuario).
+        // this.tramitesService.listarTramites(globalConstants.sector_usuario).
+        //     subscribe(respuesta => {
+        //     this.listaTramites= respuesta[0];  
+        
+        // });
+        this.tramitesService.listarTramitesTodos().
             subscribe(respuesta => {
+                console.log("respuesta", respuesta);
             this.listaTramites= respuesta[0];  
         
         });
@@ -300,7 +308,7 @@ export class TramitesComponent implements OnInit {
 
 
 
-    //LISTADO DE TRAMITES
+    //LISTADO DE SECTORES
     listarSectores(){    
         this.sectoresService.listarSectores().
             subscribe(respuesta => {
@@ -308,7 +316,7 @@ export class TramitesComponent implements OnInit {
         
         });
     }
-    //FIN LISTADO DE TRAMITES.................................................................
+    //FIN LISTADO DE SECTORES.................................................................
 
 
     //LISTADO MOVIMIENTOS DE TRAMITE
@@ -362,6 +370,41 @@ export class TramitesComponent implements OnInit {
     }    
     //FIN GUARDAR SALIDA TRAMITE............................................................................
 
+    //RECIBIR TRAMITE
+    submitFormRecibirTramite(){
+        // if(this.formaTramites.invalid){                        
+        //     this.msgs = [];
+        //     this.msgs.push({ severity: 'warn', summary: 'Errores en formulario', detail: 'Cargue correctamente los datos' });
+        //     this.serviceMensajes.add({key: 'tst', severity: 'warn', summary: 'Errores en formulario', detail: 'Cargue correctamente los dato'});
+        //     // Swal.fire(
+                
+        //     //     {target: document.getElementById('form-modal')},
+        //     //     'Formulario Tramite con errores','Complete correctamente todos los campos del formulario',"warning"
+        //     //     );
+        //     return Object.values(this.formaTramites.controls).forEach(control => control.markAsTouched());
+        // }
+    
+        let dataMovimientoTramite: Partial <MovimientoTramiteModel>;
+        dataMovimientoTramite = {
+            tramite_numero: parseInt(this.formaMovimientosTramite.get('tramite_numero')?.value),
+            sector_origen_id: parseInt(this.formaMovimientosTramite.get('sector_id')?.value),                    
+            fojas_ingreso: parseInt(this.formaMovimientosTramite.get('fojas')?.value),
+            descripcion_ingreso: this.formaMovimientosTramite.get('descripcion')?.value,
+            usuario_id: globalConstants.id_usuario,
+            sector_id: globalConstants.sector_usuario
+            
+        }
+        //GUARDAR MOVIMIENTO
+        this.movimientosTramiteService.recibirMovimientoTramite(dataMovimientoTramite, parseInt(this.formaMovimientosTramite.get('num_movimiento_tramite')?.value))
+            .subscribe(resMovimiento => {
+                this.hideDialogTramite();
+                Swal.fire('Exito',`El Tramite fue recibido con Exito`,"success");
+                this.listarTramites();
+            })
+        //FIN GUARDAR MOVIMIENTO
+
+    } 
+    //FIN RECIBIR TRAMITE
     
 
     //LISTADO DE TIPO TRAMITES
@@ -394,6 +437,27 @@ export class TramitesComponent implements OnInit {
     }    
     //FIN MANEJO FORMULARIO DIALOG....................................
 
+    //MANEJO DE FORMULARIO RECIBIR DIALOG
+    openDialogRecibir(movimiento: MovimientoTramiteModel) {
+        //this.movimientoTramite = {};
+        this.submitted = false;
+        this.tramiteRecibirDialog = true;
+        this.formaMovimientosTramite.get('tramite_numero')?.setValue(movimiento.tramite_numero);               
+        this.formaMovimientosTramite.get('num_movimiento_tramite')?.setValue(movimiento.num_movimiento_tramite);
+        this.formaMovimientosTramite.get('organismo_id')?.setValue(movimiento.sector.organismo_id);
+        this.formaMovimientosTramite.get('sector_id')?.setValue(movimiento.sector_id);
+        this.formaMovimientosTramite.get('fojas')?.setValue(movimiento.fojas_salida);
+
+        //this.nuevoTramite=true;
+    }
+
+    hideDialogRecibir() {
+        this.tramiteRecibirDialog = false;
+        this.submitted = false;
+        //this.nuevoTramite=false;
+    }    
+    //FIN MANEJO FORMULARIO RECIBIR DIALOG....................................
+
     //MANEJO DE FORMULARIO SALIDA DIALOG
     openDialogSalida(movimiento: MovimientoTramiteModel) {
         //this.movimientoTramite = {};
@@ -411,11 +475,12 @@ export class TramitesComponent implements OnInit {
     }    
     //FIN MANEJO FORMULARIO SALIDA DIALOG....................................
 
+    
+
     //CARGA DE LISTADOS DROP
     cargarSectores(id_organismo: number){
         let mi_organismo = globalConstants.organismo_usuario;
-        if (id_organismo == mi_organismo)
-        {
+        if (id_organismo == mi_organismo){
             this.listaSectores=sectores.filter(sector => {      
                 return sector.id_sector == 1 || sector.organismo_id == id_organismo;
               });

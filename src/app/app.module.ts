@@ -141,6 +141,9 @@ import { ErrorComponent } from './components/error/error.component';
 import { NotfoundComponent } from './components/notfound/notfound.component';
 import { AccessComponent } from './components/access/access.component';
 import { TramitesComponent } from './pages/tramites/tramites.component';
+import { TramitesPendientesComponent } from './pages/tramites-pendientes/tramites-pendientes.component';
+import { TramitesRecibidosComponent } from './pages/tramites-recibidos/tramites-recibidos.component';
+import { TramitesEnviadosComponent } from './pages/tramites-enviados/tramites-enviados.component';
 @NgModule({
     imports: [
         BrowserModule,
@@ -277,6 +280,9 @@ import { TramitesComponent } from './pages/tramites/tramites.component';
         NotfoundComponent,
         AccessComponent,
         TramitesComponent,
+        TramitesPendientesComponent,
+        TramitesRecibidosComponent,
+        TramitesEnviadosComponent,
     ],
     providers: [
         {provide: LocationStrategy, useClass: HashLocationStrategy},

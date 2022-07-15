@@ -190,6 +190,7 @@
                                             <td style="width: 160px;">{{movimientoTramite.num_movimiento_tramite}}</td>
                                             <td style="width: 100px;">
                                                 <button pButton pRipple type="button" icon="pi pi-sign-out" class="p-button-rounded p-button-success mr-2 mb-2" (click)="openDialogSalida(movimientoTramite)"></button>
+                                                <button pButton pRipple type="button" icon="pi pi-sign-in" class="p-button-rounded p-button-outlined mr-2 mb-2" (click)="openDialogRecibir(movimientoTramite)"></button>
                                             </td>
                                             <td style="width: 120px;">{{movimientoTramite.sector_origen.sector}} - {{movimientoTramite.sector_origen.organismo.organismo}}</td>
                                             <td style="width: 120px;">{{movimientoTramite.fecha_ingreso| date: 'dd/MM/yyyy'}}</td>
@@ -423,6 +424,84 @@
                 </ng-template>
             </p-dialog>
             <!-- FIN DIALOG FORMULARIO SALIDA TRAMITE -->
+
+            <!-- DIALOG FORMULARIO RECIBIR TRAMITE -->
+            <p-dialog id="formTramiteRecibirDialog" [(visible)]="tramiteRecibirDialog" [style]="{width: '450px'}" header="Recibir Tramite" [closable]="false" [modal]="false" class="p-fluid">
+                <ng-template pTemplate="content">
+
+                    <!-- FORMULARIO MOVIMIENTOS -->
+                    <form [formGroup]="formaMovimientosTramite">
+                        <p-messages [value]="msgs" [showTransitionOptions]="'200ms'" [hideTransitionOptions]="'200ms'" [escape]="true"></p-messages>
+                        <p-toast key="tst" [baseZIndex]="99999"></p-toast>
+
+                        <div class="formgrid grid">
+                            <div class="field col">
+                                <label for="tramite_numero">N° Tramite</label>
+                                <input type="text" pInputText id="tramite_numero" formControlName="tramite_numero" />
+                                <!-- <small *ngIf="expedienteNotaNoValido" class="p-error">
+                                    <div *ngFor="let validation of user_validation_messages.expediente_nota" >
+                                        <div  *ngIf="formaTramites.get('expediente_nota')?.hasError(validation.type)">
+                                            {{validation.message}}
+                                        </div>
+                                    </div>
+                                </small> -->
+                            </div>
+                            <div class="field col">
+                                <label for="num_movimiento_tramite">N° Movimiento</label>
+                                <input type="text" pInputText id="num_movimiento_tramite" formControlName="num_movimiento_tramite" />
+                                <!-- <small *ngIf="expedienteNotaNoValido" class="p-error">
+                                    <div *ngFor="let validation of user_validation_messages.expediente_nota" >
+                                        <div  *ngIf="formaTramites.get('expediente_nota')?.hasError(validation.type)">
+                                            {{validation.message}}
+                                        </div>
+                                    </div>
+                                </small> -->
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label for="organismo_id">Organismo origen</label>
+                            <p-dropdown id="organismo_id" [options]="listaOrganismos" optionLabel="organismo" optionValue="id_organismo" formControlName="organismo_id" (onChange)="onChangeOrganismos()" placeholder="Seleccionar...">
+
+                            </p-dropdown>
+                        </div>
+                        <div class="field">
+                            <label for="sector_id">Sector origen</label>
+                            <p-dropdown id="sector_id" [options]="listaSectores" optionLabel="sector" optionValue="id_sector" formControlName="sector_id" placeholder="Seleccionar...">
+
+                            </p-dropdown>
+                        </div>
+                        <div class="field">
+                            <label for="fojas">Fojas Ingreso</label>
+                            <input type="text" pInputText id="fojas" formControlName="fojas" />
+                            <!-- <small *ngIf="asuntoNotaNoValido" class="p-error">
+                                <div *ngFor="let validation of user_validation_messages.asunto" >
+                                    <div  *ngIf="formaTramites.get('asunto')?.hasError(validation.type)">
+                                        {{validation.message}}
+                                    </div>
+                                </div>
+                            </small> -->
+                        </div>
+
+                        <div class="field">
+                            <label for="descripcion">Descripcion Ingreso</label>
+                            <input type="text" pInputText id="descripcion" formControlName="descripcion" />
+                            <small *ngIf="expedienteNotaNoValido" class="p-error">
+                                <div *ngFor="let validation of user_validation_messages.expediente_nota" >
+                                    <div  *ngIf="formaTramites.get('expediente_nota')?.hasError(validation.type)">
+                                        {{validation.message}}
+                                    </div>
+                                </div>
+                            </small>
+                        </div>
+                    </form>
+                    <!--  FIN FORMULARIO MOVIMIENTOS -->
+                </ng-template>
+                <ng-template pTemplate="footer">
+                    <button pButton pRipple type="button" label="Cancelar" class="p-button-outlined mr-2 mb-2" (click)="hideDialogRecibir()"></button>
+                    <button pButton pRipple type="button" label="Guardar" class="p-button-outlined mr-2 mb-2" (click)="submitFormRecibirTramite()"></button>
+                </ng-template>
+            </p-dialog>
+            <!-- FIN DIALOG FORMULARIO  RECIBIR TRAMITE -->
 
         </div>
 

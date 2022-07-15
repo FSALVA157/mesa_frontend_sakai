@@ -18,6 +18,10 @@ export class TramitesService {
     return this.http.get<[tramite:TramiteModel[], total: number]>(`${base_url}/tramites/tramite-movimientos-sector?id_sector=${sector}`)
   }
 
+  listarTramitesTodos(){
+    return this.http.get<[tramite:TramiteModel[], total: number]>(`${base_url}/tramites/tramite-movimientos`)
+  }
+
   guardarTramite(data: Partial<TramiteModel>){    
     this.tramite={...data};
     return this.http.post(`${base_url}/tramites`, this.tramite);
