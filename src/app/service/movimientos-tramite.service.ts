@@ -18,6 +18,18 @@ export class MovimientosTramiteService {
     return this.http.get<[movimientosTramite:MovimientoTramiteModel[], total: number]>(`${base_url}/movimientos-tramite/historial-tramite/${num_tramite}`)
   }
 
+  listarTramitesPendientes(id_sector: number){
+    return this.http.get<[movimientosTramite:MovimientoTramiteModel[], total: number]>(`${base_url}/movimientos-tramite/pendientes?id_sector=${id_sector}`)
+  }
+
+  listarTramitesRecibidos(id_sector: number){
+    return this.http.get<[movimientosTramite:MovimientoTramiteModel[], total: number]>(`${base_url}/movimientos-tramite/recibidos?id_sector=${id_sector}`)
+  }
+
+  listarTramitesEnviados(id_sector: number){
+    return this.http.get<[movimientosTramite:MovimientoTramiteModel[], total: number]>(`${base_url}/movimientos-tramite/enviados?id_sector=${id_sector}`)
+  }
+
   guardarMovimientoTramite(data: any){    
     this.movimiento_tramite={...data};
     return this.http.post(`${base_url}/movimientos-tramite`, this.movimiento_tramite);

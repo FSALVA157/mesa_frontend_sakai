@@ -139,8 +139,8 @@ export class TramitesComponent implements OnInit {
         });
         //FIN FORMULARIO SALIDA TRAMITE
 
-
     }
+    //FIN CONSTRUCTOR....................................................................................
 
     
     ngOnInit() {
@@ -292,17 +292,19 @@ export class TramitesComponent implements OnInit {
     
     //LISTADO DE TRAMITES
     listarTramites(){    
-        // this.tramitesService.listarTramites(globalConstants.sector_usuario).
-        //     subscribe(respuesta => {
-        //     this.listaTramites= respuesta[0];  
-        
-        // });
-        this.tramitesService.listarTramitesTodos().
+        this.tramitesService.listarTramites(globalConstants.sector_usuario).
             subscribe(respuesta => {
-                console.log("respuesta", respuesta);
             this.listaTramites= respuesta[0];  
         
         });
+
+
+        // this.tramitesService.listarTramitesTodos().
+        //     subscribe(respuesta => {
+        //         console.log("respuesta", respuesta);
+        //     this.listaTramites= respuesta[0];  
+        
+        // });
     }
     //FIN LISTADO DE TRAMITES 
 
