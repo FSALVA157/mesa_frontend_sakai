@@ -4,6 +4,9 @@ import { AppComponent } from './app.component';
 import { ConfigService } from './service/app.config.service';
 import { AppConfig } from './api/appconfig';
 import { Subscription } from 'rxjs';
+import { SectorModel } from './models/sector.model';
+import { globalConstants } from './common/global-constants';
+import { SectoresService } from './service/sectores.service';
 
 @Component({
     selector: 'app-main',
@@ -22,6 +25,8 @@ import { Subscription } from 'rxjs';
     ]
 })
 export class AppMainComponent implements AfterViewInit, OnDestroy, OnInit {
+    //TEMPORAL
+    sector: SectorModel;
 
     public menuInactiveDesktop: boolean;
 
@@ -53,11 +58,22 @@ export class AppMainComponent implements AfterViewInit, OnDestroy, OnInit {
 
     subscription: Subscription;
     
-    constructor(public renderer: Renderer2, public app: AppComponent, public configService: ConfigService) { }
+    constructor(public renderer: Renderer2, public app: AppComponent, public configService: ConfigService,
+        private sectoresService: SectoresService
+        ) { }
 
     ngOnInit() {
         this.config = this.configService.config;
         this.subscription = this.configService.configUpdate$.subscribe(config => this.config = config);
+
+        //TEMPORAL BUSQUEDA DEL SECTOR
+        this.sectoresService.buscarSector(globalConstants.sector_usuario).
+            subscribe(respuesta => {
+            this.sector = respuesta;
+            console.log("sector",this.sector);
+        
+        });
+        //FIN TEMPORAL BUSQUEDA DEL SECTOR
     }
 
     ngAfterViewInit() {

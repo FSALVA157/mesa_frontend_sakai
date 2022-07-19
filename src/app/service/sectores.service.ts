@@ -18,4 +18,8 @@ export class SectoresService {
     return this.http.get<SectorModel[]>(`${base_url}/sectores`)
   }
 
+  buscarSector(id_sector: number){
+    return this.http.get<SectorModel>(`${base_url}/sectores/${id_sector}`)
+  }
+
 }

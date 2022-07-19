@@ -24,7 +24,7 @@ export class AppMenuComponent implements OnInit {
     model: any[];
 
     constructor(public appMain: AppMainComponent) { }
-
+    
     ngOnInit() {
         this.model = [
             {

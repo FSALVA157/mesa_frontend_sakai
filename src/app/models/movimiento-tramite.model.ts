@@ -19,7 +19,7 @@ export class MovimientoTramiteModel{
         public fojas_salida?: number,
         public descripcion_salida?: string,
         public enviado?: boolean,
-        public recibido?: boolean,
+        public recibido_destino?: boolean,
         public impreso?: boolean,
         public sector_id?: number,
         public sector?: SectorModel,

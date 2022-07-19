@@ -1,7 +1,7 @@
 <div class="grid">
     <div class="col-12">
         <div class="card">
-            <h5>Tramites Pendientes</h5>
+            <h5>Tramites Recibidos</h5>
             <!-- TABLA DE TRAMITES -->
             <p-table #dt1 [value]="listMovimientosTramite" dataKey="num_movimiento_tramite" [expandedRowKeys]="expandedRows" [rows]="10" [loading]="loading" [rowHover]="true" styleClass="p-datatable-striped" [paginator]="true" [globalFilterFields]="['asunto','sector.sector','expediente_nota','persona_referencia','descripcion']"
                 responsiveLayout="scroll">
@@ -17,7 +17,6 @@
                 <ng-template pTemplate="header">
                     <tr>
                         <th style="width: 3rem"></th>
-
 
                         <th>
                             <div class="flex justify-content-between align-items-center">
@@ -47,7 +46,7 @@
                         </th>
                         <th>
                             <div class="flex justify-content-between align-items-center">
-                                fecha salida
+                                fecha ingreso
                                 <p-columnFilter type="text" field="persona_referencia" display="menu" placeholder="Buscar por pers. ref."></p-columnFilter>
 
                             </div>
@@ -134,13 +133,13 @@
                                 {{movimiento.enviado}}
                             </td>
                             <td style="min-width: 10rem;">
-                                {{movimiento.recibido}}
+                                {{movimiento.recibido_destino}}
                             </td>
                             <td style="min-width: 5rem;">
-
+                                {{movimiento.tramite.tipo_tramite.tipo_tramite}}
                             </td>
                             <td style="min-width: 10rem;">
-
+                                {{movimiento.tramite.usuario.apellido}} {{movimiento.tramite.usuario.nombre}}
                             </td>
 
                     </tr>

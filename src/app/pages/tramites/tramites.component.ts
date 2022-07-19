@@ -100,7 +100,7 @@ export class TramitesComponent implements OnInit {
         private fb: FormBuilder
     ) {
         
-        //FORMULARIO TRASLADO    
+        //FORMULARIO TRAMITES    
         this.formaTramites = this.fb.group({
             // id_tramite: [0,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
             // numero_tramite: [,[Validators.required,Validators.pattern(/^[0-9]*$/), Validators.min(1), Validators.max(99000000)]],
@@ -113,7 +113,7 @@ export class TramitesComponent implements OnInit {
             // sector_id: [8,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
             // usuario_id: [8,[Validators.required, Validators.pattern(/^[0-9]*$/)]]
         });
-        //FIN FORMULARIO TRASLADO
+        //FIN FORMULARIO TRAMITES
     
         //FORMULARIO MOVIMIENTOS    
         this.formaMovimientosTramite = this.fb.group({
