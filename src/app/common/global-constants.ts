@@ -9,8 +9,8 @@ export class globalConstants {
     public static nombreUsuario: string = "";
     public static inicialesUsuario: string = "";
     public static emailUsuario: string = "";   
-    public static organismo_usuario: number=9;
-    public static sector_usuario: number = 64;
+    public static organismo_usuario: number=5;
+    public static sector_usuario: number = 19;
     public static sector_corto: string;
     public static sector_largo: string="División Despacho de Secretaría General";
     public static rol_usuario: string;
