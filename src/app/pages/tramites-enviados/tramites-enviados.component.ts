@@ -48,7 +48,7 @@ export class TramitesEnviadosComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.listarTramitesEnviados(globalConstants.sector_usuario);
+    this.listarTramitesEnviados(globalConstants.sector.id_sector);
   }
 
   //LISTADO MOVIMIENTOS DE TRAMITE

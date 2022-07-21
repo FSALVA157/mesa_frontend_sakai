@@ -119,7 +119,7 @@ export class TramitesComponent implements OnInit {
         this.formaMovimientosTramite = this.fb.group({
             tramite_numero: [0,[Validators.required,Validators.pattern(/^[0-9]*$/)]],
             num_movimiento_tramite: [0,[Validators.required,Validators.pattern(/^[0-9]*$/)]],
-            organismo_id: [globalConstants.organismo_usuario,[Validators.required,Validators.pattern(/^[0-9]*$/)]],
+            organismo_id: [globalConstants.sector.organismo_id,[Validators.required,Validators.pattern(/^[0-9]*$/)]],
             sector_id: [1,[Validators.required,Validators.pattern(/^[0-9]*$/)]],
             fojas: [0,[Validators.required,Validators.pattern(/^[0-9]*$/)]],
             descripcion: [,[Validators.required, Validators.minLength(1), Validators.maxLength(500)]],
@@ -131,7 +131,7 @@ export class TramitesComponent implements OnInit {
         this.formaSalidaTramite = this.fb.group({
             tramite_numero: [0,[Validators.required,Validators.pattern(/^[0-9]*$/)]],
             num_movimiento_tramite: [0,[Validators.required,Validators.pattern(/^[0-9]*$/)]],
-            organismo_destino_id: [globalConstants.organismo_usuario,[Validators.required,Validators.pattern(/^[0-9]*$/)]],
+            organismo_destino_id: [globalConstants.sector.organismo_id,[Validators.required,Validators.pattern(/^[0-9]*$/)]],
             sector_destino_id: [1,[Validators.required,Validators.pattern(/^[0-9]*$/)]],
             fojas_salida: [0,[Validators.required,Validators.pattern(/^[0-9]*$/)]],
             descripcion_salida: [,[Validators.required, Validators.minLength(1), Validators.maxLength(500)]],
@@ -176,7 +176,7 @@ export class TramitesComponent implements OnInit {
 
         this.listarTramites();
         //this.listarSectores();
-        this.cargarSectores(globalConstants.organismo_usuario);
+        this.cargarSectores(globalConstants.sector.organismo_id);
         this.listarTiposTramite();
         this.listaOrganismos = organismos;
     }
@@ -253,7 +253,7 @@ export class TramitesComponent implements OnInit {
             persona_referencia: this.formaTramites.get('persona_referencia')?.value,
             descripcion: this.formaTramites.get('descripcion')?.value,
             tipo_tramite_id: parseInt(this.formaTramites.get('tipo_tramite_id')?.value),
-            sector_id: globalConstants.sector_usuario,
+            sector_id: globalConstants.sector.id_sector,
             usuario_id: globalConstants.id_usuario
         }
         
@@ -268,7 +268,7 @@ export class TramitesComponent implements OnInit {
                     fojas_ingreso: parseInt(this.formaMovimientosTramite.get('fojas')?.value),
                     descripcion_ingreso: this.formaMovimientosTramite.get('descripcion')?.value,
                     usuario_id: globalConstants.id_usuario,
-                    sector_id: globalConstants.sector_usuario
+                    sector_id: globalConstants.sector.id_sector
                     
                 }
                 //GUARDAR MOVIMIENTO
@@ -292,7 +292,7 @@ export class TramitesComponent implements OnInit {
     
     //LISTADO DE TRAMITES
     listarTramites(){    
-        this.tramitesService.listarTramites(globalConstants.sector_usuario).
+        this.tramitesService.listarTramites(globalConstants.sector.id_sector).
             subscribe(respuesta => {
             this.listaTramites= respuesta[0];  
         
@@ -357,7 +357,7 @@ export class TramitesComponent implements OnInit {
             fojas_salida: parseInt(this.formaMovimientosTramite.get('fojas')?.value),
             descripcion_salida: this.formaMovimientosTramite.get('descripcion')?.value,
             usuario_id: globalConstants.id_usuario,
-            sector_id: globalConstants.sector_usuario
+            sector_id: globalConstants.sector.id_sector
             
         }
         //GUARDAR SALIDA MOVIMIENTO
@@ -393,7 +393,7 @@ export class TramitesComponent implements OnInit {
             fojas_ingreso: parseInt(this.formaMovimientosTramite.get('fojas')?.value),
             descripcion_ingreso: this.formaMovimientosTramite.get('descripcion')?.value,
             usuario_id: globalConstants.id_usuario,
-            sector_id: globalConstants.sector_usuario
+            sector_id: globalConstants.sector.id_sector
             
         }
         //GUARDAR MOVIMIENTO
@@ -481,7 +481,7 @@ export class TramitesComponent implements OnInit {
 
     //CARGA DE LISTADOS DROP
     cargarSectores(id_organismo: number){
-        let mi_organismo = globalConstants.organismo_usuario;
+        let mi_organismo = globalConstants.sector.organismo_id;
         if (id_organismo == mi_organismo){
             this.listaSectores=sectores.filter(sector => {      
                 return sector.id_sector == 1 || sector.organismo_id == id_organismo;

@@ -10,7 +10,7 @@ export class globalConstants {
     public static inicialesUsuario: string = "";
     public static emailUsuario: string = "";   
     public static organismo_usuario: number=5;
-    public static sector_usuario: number = 19;
+    public static sector_usuario: number = 27;
     public static sector_corto: string;
     public static sector_largo: string="División Despacho de Secretaría General";
     public static rol_usuario: string;

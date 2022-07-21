@@ -69,7 +69,7 @@ export class TramitesPendientesComponent implements OnInit {
     this.formaMovimientosTramite = this.fb.group({
       tramite_numero: [0,[Validators.required,Validators.pattern(/^[0-9]*$/)]],
       num_movimiento_tramite: [0,[Validators.required,Validators.pattern(/^[0-9]*$/)]],
-      organismo_id: [globalConstants.organismo_usuario,[Validators.required,Validators.pattern(/^[0-9]*$/)]],
+      organismo_id: [globalConstants.sector.organismo_id,[Validators.required,Validators.pattern(/^[0-9]*$/)]],
       sector_id: [1,[Validators.required,Validators.pattern(/^[0-9]*$/)]],
       fojas: [0,[Validators.required,Validators.pattern(/^[0-9]*$/)]],
       descripcion: [,[Validators.required, Validators.minLength(1), Validators.maxLength(500)]],
@@ -82,7 +82,7 @@ export class TramitesPendientesComponent implements OnInit {
   //FIN CONSTRUCTOR......................................................
 
   ngOnInit(): void {
-    this.listarTramitesPendientes(globalConstants.sector_usuario);
+    this.listarTramitesPendientes(globalConstants.sector.id_sector);
 
   }
   
@@ -108,7 +108,7 @@ export class TramitesPendientesComponent implements OnInit {
         fojas_ingreso: parseInt(this.formaMovimientosTramite.get('fojas')?.value),
         descripcion_ingreso: this.formaMovimientosTramite.get('descripcion')?.value,
         usuario_id: globalConstants.id_usuario,
-        sector_id: globalConstants.sector_usuario
+        sector_id: globalConstants.sector.id_sector
         
     }
     //GUARDAR MOVIMIENTO
@@ -116,7 +116,7 @@ export class TramitesPendientesComponent implements OnInit {
         .subscribe(resMovimiento => {
             this.hideDialogRecibir();
             Swal.fire('Exito',`El Tramite fue recibido con Exito`,"success");
-            this.listarTramitesPendientes(globalConstants.sector_usuario);
+            this.listarTramitesPendientes(globalConstants.sector.id_sector);
         })
     //FIN GUARDAR MOVIMIENTO
 
@@ -139,24 +139,19 @@ export class TramitesPendientesComponent implements OnInit {
 
   //MANEJO DE FORMULARIO RECIBIR DIALOG
   openDialogRecibir(movimiento: MovimientoTramiteModel) {
-    //this.movimientoTramite = {};
     this.movimientoTramiteRecibir = movimiento;
     this.submitted = false;
     this.tramiteRecibirDialog = true;
     this.formaMovimientosTramite.get('tramite_numero')?.setValue(movimiento.tramite_numero);               
-    this.formaMovimientosTramite.get('num_movimiento_tramite')?.setValue(movimiento.num_movimiento_tramite);
-    // this.formaMovimientosTramite.get('organismo_id')?.setValue(movimiento.sector.organismo_id);
-    // this.formaMovimientosTramite.get('sector_id')?.setValue(movimiento.sector_id);
+    this.formaMovimientosTramite.get('num_movimiento_tramite')?.setValue(movimiento.num_movimiento_tramite);    
     this.formaMovimientosTramite.get('fojas')?.setValue(movimiento.fojas_salida);
   
-      //this.nuevoTramite=true;
   }
   
   hideDialogRecibir() {
     this.movimientoTramiteRecibir={};
     this.tramiteRecibirDialog = false;
     this.submitted = false;
-    //this.nuevoTramite=false;
   }    
   //FIN MANEJO FORMULARIO RECIBIR DIALOG....................................
 
