@@ -32,12 +32,22 @@
         <ng-template pTemplate="content">
             <!-- FORMULARIO SALIDA TRAMITE -->
             <form [formGroup]="formaSector">
-
+                <!-- <p-toast key="tst" [baseZIndex]="99999"></p-toast> -->
                 <div class="field">
                     <label for="organismo_id">Organismo</label>
                     <p-dropdown id="organismo_id" [options]="listOrganismos" optionLabel="organismo" optionValue="id_organismo" formControlName="organismo_id" (onChange)="onChangeOrganismos()" placeholder="Seleccionar...">
 
                     </p-dropdown>
+
+                    <!-- <p-multiSelect [options]="listOrganismos" optionLabel="organismo" formControlName="organismo_id" placeholder="Any" (onChange)="filter($event.value)">
+                        <ng-template let-option pTemplate="item">
+                            <div class="">
+
+                                <span class="ml-2">{{option.organismo}}</span>
+                            </div>
+                        </ng-template>
+                    </p-multiSelect> -->
+
                 </div>
                 <div class="field">
                     <label for="sector_id">Sector destino</label>
@@ -46,6 +56,18 @@
                     </p-dropdown>
                 </div>
 
+                <div class="field col">
+                    <label for="tramite_numero">...</label>
+
+                </div>
+                <div class="field col">
+                    <label for="tramite_numero">...</label>
+
+                </div>
+                <div class="field col">
+                    <label for="tramite_numero">...</label>
+
+                </div>
 
             </form>
             <!--  FIN FORMULARIO SALIDA TRAMITE -->

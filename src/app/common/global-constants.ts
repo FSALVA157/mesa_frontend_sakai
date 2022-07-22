@@ -7,17 +7,11 @@ export class globalConstants {
     public static validado: boolean = false;
     public static usuario: UsuarioModel;
     public static nombreUsuario: string = "";
-    public static inicialesUsuario: string = "";
-    public static emailUsuario: string = "";   
-    public static organismo_usuario: number=5;
-    public static sector_usuario: number = 27;
-    public static sector_corto: string;
-    public static sector_largo: string="División Despacho de Secretaría General";
-    public static rol_usuario: string;
-    public static id_usuario: number=1;
-
     public static sector:SectorModel;
-
-    
+    public static inicialesUsuario: string = "";
+    public static emailUsuario: string = "";       
+    public static sector_corto: string;
+    public static rol_usuario: string;
+    public static id_usuario: number=1;   
     
 }
