@@ -12,6 +12,7 @@ import { globalConstants } from '../../common/global-constants';
   selector: 'app-tramites-enviados',
   templateUrl: './tramites-enviados.component.html',
   providers: [MessageService, ConfirmationService],
+  styleUrls: ['../../../assets/demo/badges.scss'],
   styles: [
   ]
 })

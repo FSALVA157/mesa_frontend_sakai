@@ -16,7 +16,8 @@ import { globalConstants } from '../../common/global-constants';
 @Component({
   selector: 'app-tramites-pendientes',
   templateUrl: './tramites-pendientes.component.html',
-  providers: [MessageService, ConfirmationService],
+  providers: [MessageService, ConfirmationService],  
+  styleUrls: ['../../../assets/demo/badges.scss'],
   styles: [
   ]
 })

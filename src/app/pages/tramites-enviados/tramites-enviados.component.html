@@ -61,34 +61,11 @@
                         </th>
                         <th>
                             <div class="flex justify-content-between align-items-center">
-                                Enviado
+                                Estado
                                 <p-columnFilter type="date" field="fecha" display="menu" placeholder="dd/mm/yyyy"></p-columnFilter>
                             </div>
                         </th>
 
-                        <th>
-                            <div class="flex justify-content-between align-items-center">
-                                Recibido
-                                <!-- <p-columnFilter type="text" field="sector.sector" display="menu" placeholder="Buscar por sector"></p-columnFilter> -->
-
-                                <p-columnFilter field="sector" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
-                                    <ng-template pTemplate="header">
-                                        <div class="px-3 pt-3 pb-0">
-                                            <span class="font-bold">Sector</span>
-                                        </div>
-                                    </ng-template>
-                                    <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                        <p-multiSelect [ngModel]="value" [options]="listaSectores" placeholder="--Elija sector--" (onChange)="filter($event.value)" optionLabel="sector">
-                                            <ng-template let-option pTemplate="item">
-                                                <div class="p-multiselect-sector-option">
-                                                    <span class="ml-2">{{option.sector}}</span>
-                                                </div>
-                                            </ng-template>
-                                        </p-multiSelect>
-                                    </ng-template>
-                                </p-columnFilter>
-                            </div>
-                        </th>
                         <th>
                             <div class="flex justify-content-between align-items-center">
                                 Tipo
@@ -119,7 +96,7 @@
                             <td style="min-width: 15rem;">
                                 {{movimiento.tramite.asunto}}
                             </td>
-                            <td style="min-width: 2rem;">
+                            <td style="min-width: 15rem;">
                                 {{movimiento.sector.organismo.organismo}} - {{movimiento.sector.sector}}
                             </td>
                             <td style="min-width: 10rem;">
@@ -129,17 +106,20 @@
                                 {{movimiento.sector_destino.organismo.organismo}} - {{movimiento.sector_destino.sector}}
                             </td>
 
-                            <td style="min-width: 5rem;">
-                                {{movimiento.enviado}}
-                            </td>
-                            <td style="min-width: 10rem;">
-                                {{movimiento.recibido_destino}}
-                            </td>
-                            <td style="min-width: 5rem;">
+                            <td style="min-width: 15rem;">
+                                <div style="margin-bottom: 5px;"><span [class]="'tramite-badge status-true'"><i class="pi pi-check-circle"></i> Ingresado<br></span></div>
+                                <div style="margin-bottom: 5px;"><span *ngIf="movimiento.enviado" [class]="'tramite-badge status-true'"><i class="pi pi-check-circle"></i> Enviado<br></span></div>
+                                <div style="margin-bottom: 5px;"><span *ngIf="!movimiento.enviado" [class]="'tramite-badge status-false'"><i class="pi pi-times-circle"></i> Enviado<br></span></div>
+                                <div style="margin-bottom: 5px;"><span *ngIf="movimiento.recibido_destino" [class]="'tramite-badge status-true'"><i class="pi pi-check-circle"></i> Recibido Destino<br></span></div>
+                                <div style="margin-bottom: 5px;"><span *ngIf="!movimiento.recibido_destino" [class]="'tramite-badge status-false'"><i class="pi pi-times-circle"></i> Recibido Destino<br></span></div>
 
                             </td>
-                            <td style="min-width: 10rem;">
 
+                            <td style="min-width: 5rem;">
+                                {{movimiento.tramite.tipo_tramite.tipo_tramite}}
+                            </td>
+                            <td style="min-width: 10rem;">
+                                {{movimiento.tramite.usuario.apellido}} {{movimiento.tramite.usuario.nombre}}
                             </td>
 
                     </tr>

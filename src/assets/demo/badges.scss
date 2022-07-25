@@ -27,17 +27,17 @@
     font-weight: 700;
     font-size: 12px;
     letter-spacing: .3px;
-    &.status-cumplido {
+    &.status-true {
         background: #C8E6C9;
         color: #256029;
     }
-    &.status-cancelado {
+    &.status-false {
         background: #FFCDD2;
         color: #C63737;
     }
-    &.status-pendiente {
-        background: #FEEDAF;
-        color: #8A5340;
+    &.status-recibido {
+        background: #FFCDD2;
+        color: #C63737;
     }
 }
 

@@ -172,6 +172,9 @@
                                             <th pSortableColumn="fecha_ingreso" [ngStyle]="{backgroundColor:'var(--bluegray-200)'}">F. Ingreso
                                                 <p-sortIcon field="fecha_ingreso"></p-sortIcon>
                                             </th>
+                                            <th pSortableColumn="sector_destino" [ngStyle]="{backgroundColor:'var(--bluegray-200)'}">Sector Ingresa
+                                                <p-sortIcon field="sector_destino"></p-sortIcon>
+                                            </th>
                                             <th pSortableColumn="sector_destino" [ngStyle]="{backgroundColor:'var(--bluegray-200)'}">Sector Destino
                                                 <p-sortIcon field="sector_destino"></p-sortIcon>
                                             </th>
@@ -192,11 +195,19 @@
                                                 <button pButton pRipple type="button" icon="pi pi-sign-out" class="p-button-rounded p-button-success mr-2 mb-2" (click)="openDialogSalida(movimientoTramite)"></button>
                                                 <button pButton pRipple type="button" icon="pi pi-sign-in" class="p-button-rounded p-button-outlined mr-2 mb-2" (click)="openDialogRecibir(movimientoTramite)"></button>
                                             </td>
-                                            <td style="width: 120px;">{{movimientoTramite.sector_origen.sector}} - {{movimientoTramite.sector_origen.organismo.organismo}}</td>
+                                            <td style="width: 160px;">{{movimientoTramite.sector_origen.sector}} - {{movimientoTramite.sector_origen.organismo.organismo}}</td>
                                             <td style="width: 120px;">{{movimientoTramite.fecha_ingreso| date: 'dd/MM/yyyy'}}</td>
-                                            <td style="width: 120px;">{{movimientoTramite.sector_destino.sector}} - {{movimientoTramite.sector_destino.organismo.organismo}}</td>
-                                            <td style="width: 120px;">{{movimientoTramite.fecha_salida| date: 'dd/MM/yyyy'}}</td>
-                                            <td style="width: 170x;">{{movimientoTramite.enviado?"finalizado": "Pendiente" }}</td>
+                                            <td style="width: 160px;">{{movimientoTramite.sector.sector}} - {{movimientoTramite.sector.organismo.organismo}}</td>
+                                            <td style="width: 140px;">{{movimientoTramite.sector_destino.sector}} - {{movimientoTramite.sector_destino.organismo.organismo}}</td>
+                                            <td style="width: 160px;">{{movimientoTramite.fecha_salida| date: 'dd/MM/yyyy'}}</td>
+                                            <td style="width: 170x;">
+                                                <div style="margin-bottom: 5px;"><span [class]="'tramite-badge status-true'"><i class="pi pi-check-circle"></i> Ingresado<br></span></div>
+                                                <div style="margin-bottom: 5px;"><span *ngIf="movimientoTramite.enviado" [class]="'tramite-badge status-true'" style="margin-bottom: 50px;"><i class="pi pi-check-circle"></i> Enviado<br></span></div>
+                                                <div style="margin-bottom: 5px;"><span *ngIf="!movimientoTramite.enviado" [class]="'tramite-badge status-false'" style="margin-bottom: 50px;"><i class="pi pi-times-circle"></i> Enviado<br></span></div>
+                                                <div style="margin-bottom: 5px;"><span *ngIf="movimientoTramite.recibido_destino" [class]="'tramite-badge status-true'" style="margin-bottom: 50px;"><i class="pi pi-check-circle"></i> Recibido Destino<br></span></div>
+                                                <div style="margin-bottom: 5px;"><span *ngIf="!movimientoTramite.recibido_destino" [class]="'tramite-badge status-false'" style="margin-bottom: 50px;"><i class="pi pi-times-circle"></i> Recibido Destino<br></span></div>
+
+                                            </td>
                                             <!-- <td>{{order.date}}</td>
                                             <td>{{order.amount | currency:'USD'}}</td>
                                             <td><span [class]="'order-badge order-' + order.status.toLowerCase()">{{order.status}}</span></td>

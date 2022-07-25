@@ -87,7 +87,7 @@ export class AppMainComponent implements AfterViewInit, OnDestroy, OnInit {
         //TEMPORAL BUSQUEDA DEL SECTOR
         this.listOrganismos=organismos;
         this.cargarSectores(1);
-        //this.guardarSector();
+        this.guardarSector();
         //FIN TEMPORAL BUSQUEDA DEL SECTOR
         
     }

@@ -14,7 +14,8 @@ import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-tramites-recibidos',
-  templateUrl: './tramites-recibidos.component.html',  
+  templateUrl: './tramites-recibidos.component.html',    
+  styleUrls: ['../../../assets/demo/badges.scss'],
   providers: [MessageService, ConfirmationService],
   styles: [
   ]
