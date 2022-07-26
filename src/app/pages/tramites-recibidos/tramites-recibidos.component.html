@@ -33,6 +33,12 @@
                         </th>
                         <th>
                             <div class="flex justify-content-between align-items-center">
+                                Estado
+                                <p-columnFilter type="date" field="fecha" display="menu" placeholder="dd/mm/yyyy"></p-columnFilter>
+                            </div>
+                        </th>
+                        <th>
+                            <div class="flex justify-content-between align-items-center">
                                 Asunto
                                 <p-columnFilter type="text" field="asunto" display="menu" placeholder="Buscar por asunto"></p-columnFilter>
 
@@ -54,17 +60,12 @@
                         </th>
                         <th>
                             <div class="flex justify-content-between align-items-center">
-                                Destino
+                                Ingresa
                                 <p-columnFilter type="text" field="descripcion" display="menu" placeholder="Buscar por descripción"></p-columnFilter>
 
                             </div>
                         </th>
-                        <th>
-                            <div class="flex justify-content-between align-items-center">
-                                Estado
-                                <p-columnFilter type="date" field="fecha" display="menu" placeholder="dd/mm/yyyy"></p-columnFilter>
-                            </div>
-                        </th>
+
 
                         <th>
                             <div class="flex justify-content-between align-items-center">
@@ -87,7 +88,7 @@
                         </td> -->
                         <td></td>
                         <td style="width: 100px;">
-                            <button pButton pRipple type="button" icon="pi pi-sign-out" class="p-button-rounded p-button-info mr-2 mb-2" (click)="openDialogSalida(movimiento)"></button>
+                            <button pButton pRipple type="button" icon="pi pi-fw pi-send text-white" class="p-button-rounded p-button-success mr-2 mb-2" (click)="openDialogSalida(movimiento)"></button>
                         </td>
                         <td style="min-width: 10rem;">
                             {{movimiento.tramite_numero}}
@@ -95,6 +96,15 @@
 
                         <td style="min-width: 10rem;">
                             {{movimiento.num_movimiento_tramite}}
+                        </td>
+
+                        <td style="min-width: 15rem;">
+                            <div style="margin-bottom: 5px;"><span [class]="'tramite-badge status-true'"><i class="pi pi-check-circle"></i> Ingresado<br></span></div>
+                            <div style="margin-bottom: 5px;"><span *ngIf="movimiento.enviado" [class]="'tramite-badge status-true'"><i class="pi pi-check-circle"></i> Enviado<br></span></div>
+                            <div style="margin-bottom: 5px;"><span *ngIf="!movimiento.enviado" [class]="'tramite-badge status-false'"><i class="pi pi-times-circle"></i> Enviado<br></span></div>
+                            <div style="margin-bottom: 5px;"><span *ngIf="movimiento.recibido_destino" [class]="'tramite-badge status-true'"><i class="pi pi-check-circle"></i> Recibido Destino<br></span></div>
+                            <div style="margin-bottom: 5px;"><span *ngIf="!movimiento.recibido_destino" [class]="'tramite-badge status-false'"><i class="pi pi-times-circle"></i> Recibido Destino<br></span></div>
+
                         </td>
 
                         <td style="min-width: 15rem;">
@@ -109,15 +119,6 @@
                         </td>
                         <td style="min-width: 15rem;">
                             {{movimiento.sector.organismo.organismo}} - {{movimiento.sector.sector}}
-                        </td>
-
-                        <td style="min-width: 15rem;">
-                            <div style="margin-bottom: 5px;"><span [class]="'tramite-badge status-true'"><i class="pi pi-check-circle"></i> Ingresado<br></span></div>
-                            <div style="margin-bottom: 5px;"><span *ngIf="movimiento.enviado" [class]="'tramite-badge status-true'"><i class="pi pi-check-circle"></i> Enviado<br></span></div>
-                            <div style="margin-bottom: 5px;"><span *ngIf="!movimiento.enviado" [class]="'tramite-badge status-false'"><i class="pi pi-times-circle"></i> Enviado<br></span></div>
-                            <div style="margin-bottom: 5px;"><span *ngIf="movimiento.recibido_destino" [class]="'tramite-badge status-true'"><i class="pi pi-check-circle"></i> Recibido Destino<br></span></div>
-                            <div style="margin-bottom: 5px;"><span *ngIf="!movimiento.recibido_destino" [class]="'tramite-badge status-false'"><i class="pi pi-times-circle"></i> Recibido Destino<br></span></div>
-
                         </td>
 
                         <td style="min-width: 5rem;">
@@ -183,13 +184,13 @@
                         </div>
                         <div class="field">
                             <label for="organismo_id">Organismo destino</label>
-                            <p-dropdown id="organismo_id" [options]="listOrganismos" optionLabel="organismo" optionValue="id_organismo" formControlName="organismo_id" (onChange)="onChangeOrganismos()" placeholder="Seleccionar...">
+                            <p-dropdown id="organismo_id" [options]="listOrganismos" formControlName="organismo_id" optionLabel="organismo" optionValue="id_organismo" filter="true" (onChange)="onChangeOrganismos()" placeholder="Seleccionar...">
 
                             </p-dropdown>
                         </div>
                         <div class="field">
                             <label for="sector_id">Sector destino</label>
-                            <p-dropdown id="sector_id" [options]="listSectores" optionLabel="sector" optionValue="id_sector" formControlName="sector_id" placeholder="Seleccionar...">
+                            <p-dropdown id="sector_id" [options]="listSectores" formControlName="sector_id" optionLabel="sector" optionValue="id_sector" filter="true" placeholder="Seleccionar...">
 
                             </p-dropdown>
                         </div>

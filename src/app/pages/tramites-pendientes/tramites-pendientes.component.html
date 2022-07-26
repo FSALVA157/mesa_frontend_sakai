@@ -18,7 +18,6 @@
                     <tr>
                         <th style="width: 3rem"></th>
                         <th>Recibir</th>
-
                         <th>
                             <div class="flex justify-content-between align-items-center">
                                 N° Tramite
@@ -29,6 +28,12 @@
                             <div class="flex justify-content-between align-items-center">
                                 N° Movimiento
                                 <p-columnFilter type="text" field="numero_tramite" display="menu" placeholder="Buscar por numero_tramite"></p-columnFilter>
+                            </div>
+                        </th>
+                        <th>
+                            <div class="flex justify-content-between align-items-center">
+                                Estado
+                                <p-columnFilter type="date" field="fecha" display="menu" placeholder="dd/mm/yyyy"></p-columnFilter>
                             </div>
                         </th>
 
@@ -62,14 +67,6 @@
                         </th>
                         <th>
                             <div class="flex justify-content-between align-items-center">
-                                Estado
-                                <p-columnFilter type="date" field="fecha" display="menu" placeholder="dd/mm/yyyy"></p-columnFilter>
-                            </div>
-                        </th>
-
-
-                        <th>
-                            <div class="flex justify-content-between align-items-center">
                                 Tipo
                             </div>
                         </th>
@@ -89,16 +86,21 @@
                         </td> -->
                         <td></td>
                         <td style="width: 100px;">
-                            <button pButton pRipple type="button" icon="pi pi-sign-in" class="p-button-rounded p-button-warning mr-2 mb-2" (click)="openDialogRecibir(movimiento)"></button>
+                            <button pButton pRipple type="button" icon="pi pi-envelope text-white" class="p-button-rounded p-button-success smr-2 mb-2" (click)="openDialogRecibir(movimiento)"></button>
                         </td>
                         <td style="min-width: 10rem;">
                             {{movimiento.tramite_numero}}
                         </td>
-
                         <td style="min-width: 10rem;">
                             {{movimiento.num_movimiento_tramite}}
                         </td>
-
+                        <td style="min-width: 15rem;">
+                            <div style="margin-bottom: 5px;"><span [class]="'tramite-badge status-true'"><i class="pi pi-check-circle"></i> Ingresado<br></span></div>
+                            <div style="margin-bottom: 5px;"><span *ngIf="movimiento.enviado" [class]="'tramite-badge status-true'"><i class="pi pi-check-circle"></i> Enviado<br></span></div>
+                            <div style="margin-bottom: 5px;"><span *ngIf="!movimiento.enviado" [class]="'tramite-badge status-false'"><i class="pi pi-times-circle"></i> Enviado<br></span></div>
+                            <div style="margin-bottom: 5px;"><span *ngIf="movimiento.recibido_destino" [class]="'tramite-badge status-true'"><i class="pi pi-check-circle"></i> Recibido Destino<br></span></div>
+                            <div style="margin-bottom: 5px;"><span *ngIf="!movimiento.recibido_destino" [class]="'tramite-badge status-false'"><i class="pi pi-times-circle"></i> Recibido Destino<br></span></div>
+                        </td>
                         <td style="min-width: 15rem;">
                             {{movimiento.tramite.asunto}}
                         </td>
@@ -112,22 +114,12 @@
                             {{movimiento.sector_destino.organismo.organismo}} - {{movimiento.sector_destino.sector}}
                         </td>
 
-                        <td style="min-width: 15rem;">
-                            <div style="margin-bottom: 5px;"><span [class]="'tramite-badge status-true'"><i class="pi pi-check-circle"></i> Ingresado<br></span></div>
-                            <div style="margin-bottom: 5px;"><span *ngIf="movimiento.enviado" [class]="'tramite-badge status-true'"><i class="pi pi-check-circle"></i> Enviado<br></span></div>
-                            <div style="margin-bottom: 5px;"><span *ngIf="!movimiento.enviado" [class]="'tramite-badge status-false'"><i class="pi pi-times-circle"></i> Enviado<br></span></div>
-                            <div style="margin-bottom: 5px;"><span *ngIf="movimiento.recibido_destino" [class]="'tramite-badge status-true'"><i class="pi pi-check-circle"></i> Recibido Destino<br></span></div>
-                            <div style="margin-bottom: 5px;"><span *ngIf="!movimiento.recibido_destino" [class]="'tramite-badge status-false'"><i class="pi pi-times-circle"></i> Recibido Destino<br></span></div>
-
-                        </td>
-
                         <td style="min-width: 5rem;">
                             {{movimiento.tramite.tipo_tramite.tipo_tramite}}
                         </td>
                         <td style="min-width: 10rem;">
                             {{movimiento.tramite.usuario.apellido}} {{movimiento.tramite.usuario.nombre}}
                         </td>
-
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="rowexpansion" let-tramite>

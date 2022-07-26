@@ -81,6 +81,7 @@ export class TramitesComponent implements OnInit {
     movimientoTramite: MovimientoTramiteModel;
     tramiteSalidaDialog: boolean;
     tramiteRecibirDialog: boolean;
+    tramiteInfoDialog: boolean;
     
   
     //LISTAS    
@@ -476,6 +477,21 @@ export class TramitesComponent implements OnInit {
         //this.nuevoTramite=false;
     }    
     //FIN MANEJO FORMULARIO SALIDA DIALOG....................................
+
+    //MANEJO DE  DIALOG INFO
+    openDialogInfo(movimiento: MovimientoTramiteModel) {
+        this.movimientoTramite = {};
+        this.movimientoTramite= movimiento;
+        this.tramiteInfoDialog = true;
+         
+        //this.nuevoTramite=true;
+    }
+
+    hideDialogInfo() {
+        this.tramiteInfoDialog = false;
+        //this.nuevoTramite=false;
+    }    
+    //FIN MANEJO DIALOG INFO....................................
 
     
 

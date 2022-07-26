@@ -166,6 +166,9 @@
                                             <th pSortableColumn="tramite_numero" [ngStyle]="{backgroundColor:'var(--bluegray-200)'}">Acción
 
                                             </th>
+                                            <th pSortableColumn="estado" [ngStyle]="{backgroundColor:'var(--bluegray-200)'}">Estado
+                                                <p-sortIcon field="estado"></p-sortIcon>
+                                            </th>
                                             <th pSortableColumn="sector_origen" [ngStyle]="{backgroundColor:'var(--bluegray-200)'}">Sector Origen
                                                 <p-sortIcon field="sector_origen"></p-sortIcon>
                                             </th>
@@ -181,10 +184,6 @@
                                             <th pSortableColumn="fecha_salida" [ngStyle]="{backgroundColor:'var(--bluegray-200)'}">F. Egreso
                                                 <p-sortIcon field="fecha_salida"></p-sortIcon>
                                             </th>
-                                            <th pSortableColumn="fecha_salida" [ngStyle]="{backgroundColor:'var(--bluegray-200)'}">Estado
-                                                <p-sortIcon field="fecha_salida"></p-sortIcon>
-                                            </th>
-
 
                                         </tr>
                                     </ng-template>
@@ -192,15 +191,10 @@
                                         <tr>
                                             <td style="width: 160px;">{{movimientoTramite.num_movimiento_tramite}}</td>
                                             <td style="width: 100px;">
-                                                <button pButton pRipple type="button" icon="pi pi-sign-out" class="p-button-rounded p-button-success mr-2 mb-2" (click)="openDialogSalida(movimientoTramite)"></button>
-                                                <button pButton pRipple type="button" icon="pi pi-sign-in" class="p-button-rounded p-button-outlined mr-2 mb-2" (click)="openDialogRecibir(movimientoTramite)"></button>
+                                                <!-- <button pButton pRipple type="button" icon="pi pi-sign-out" class="p-button-rounded p-button-success mr-2 mb-2" (click)="openDialogSalida(movimientoTramite)"></button> -->
+                                                <button pButton pRipple type="button" icon="pi pi-search-plus" class="p-button-rounded p-button-outlined mr-2 mb-2" (click)="openDialogInfo(movimientoTramite)"></button>
                                             </td>
-                                            <td style="width: 160px;">{{movimientoTramite.sector_origen.sector}} - {{movimientoTramite.sector_origen.organismo.organismo}}</td>
-                                            <td style="width: 120px;">{{movimientoTramite.fecha_ingreso| date: 'dd/MM/yyyy'}}</td>
-                                            <td style="width: 160px;">{{movimientoTramite.sector.sector}} - {{movimientoTramite.sector.organismo.organismo}}</td>
-                                            <td style="width: 140px;">{{movimientoTramite.sector_destino.sector}} - {{movimientoTramite.sector_destino.organismo.organismo}}</td>
-                                            <td style="width: 160px;">{{movimientoTramite.fecha_salida| date: 'dd/MM/yyyy'}}</td>
-                                            <td style="width: 170x;">
+                                            <td style="width: 160px;">
                                                 <div style="margin-bottom: 5px;"><span [class]="'tramite-badge status-true'"><i class="pi pi-check-circle"></i> Ingresado<br></span></div>
                                                 <div style="margin-bottom: 5px;"><span *ngIf="movimientoTramite.enviado" [class]="'tramite-badge status-true'" style="margin-bottom: 50px;"><i class="pi pi-check-circle"></i> Enviado<br></span></div>
                                                 <div style="margin-bottom: 5px;"><span *ngIf="!movimientoTramite.enviado" [class]="'tramite-badge status-false'" style="margin-bottom: 50px;"><i class="pi pi-times-circle"></i> Enviado<br></span></div>
@@ -208,12 +202,12 @@
                                                 <div style="margin-bottom: 5px;"><span *ngIf="!movimientoTramite.recibido_destino" [class]="'tramite-badge status-false'" style="margin-bottom: 50px;"><i class="pi pi-times-circle"></i> Recibido Destino<br></span></div>
 
                                             </td>
-                                            <!-- <td>{{order.date}}</td>
-                                            <td>{{order.amount | currency:'USD'}}</td>
-                                            <td><span [class]="'order-badge order-' + order.status.toLowerCase()">{{order.status}}</span></td>
-                                            <td>
-                                                <p-button type="button" icon="pi pi-search"></p-button>
-                                            </td> -->
+                                            <td style="width: 160px;">{{movimientoTramite.sector_origen.sector}} - {{movimientoTramite.sector_origen.organismo.organismo}}</td>
+                                            <td style="width: 120px;">{{movimientoTramite.fecha_ingreso| date: 'dd/MM/yyyy'}}</td>
+                                            <td style="width: 160px;">{{movimientoTramite.sector.sector}} - {{movimientoTramite.sector.organismo.organismo}}</td>
+                                            <td style="width: 140px;">{{movimientoTramite.sector_destino.sector}} - {{movimientoTramite.sector_destino.organismo.organismo}}</td>
+                                            <td style="width: 160px;">{{movimientoTramite.fecha_salida| date: 'dd/MM/yyyy'}}</td>
+
                                         </tr>
                                     </ng-template>
                                     <ng-template pTemplate="emptymessage">
@@ -223,7 +217,6 @@
                                     </ng-template>
                                     <ng-template pTemplate="summary">
                                         <div class="flex align-items-center justify-content-between">
-                                            <!-- Total encontrado: {{listaMovimientosTramite ? listaMovimientosTramite.length>1?  : 0 }} movimiento/s. -->
                                             Total encontrado: {{listaMovimientosTramite ? listaMovimientosTramite.length : 0 }} {{listaMovimientosTramite.length > 1 ? "movimientos" : "movimiento" }}
                                         </div>
                                     </ng-template>
@@ -316,13 +309,13 @@
                         <p-toast key="tst" [baseZIndex]="99999"></p-toast>
                         <div class="field">
                             <label for="organismo_id">Organismo origen</label>
-                            <p-dropdown id="organismo_id" [options]="listaOrganismos" optionLabel="organismo" optionValue="id_organismo" formControlName="organismo_id" (onChange)="onChangeOrganismos()" placeholder="Seleccionar...">
+                            <p-dropdown id="organismo_id" [options]="listaOrganismos" formControlName="organismo_id" optionLabel="organismo" optionValue="id_organismo" filter="true" (onChange)="onChangeOrganismos()" placeholder="Seleccionar...">
 
                             </p-dropdown>
                         </div>
                         <div class="field">
                             <label for="sector_id">Sector origen</label>
-                            <p-dropdown id="sector_id" [options]="listaSectores" optionLabel="sector" optionValue="id_sector" formControlName="sector_id" placeholder="Seleccionar...">
+                            <p-dropdown id="sector_id" [options]="listaSectores" formControlName="sector_id" optionLabel="sector" optionValue="id_sector" filter="true" placeholder="Seleccionar...">
 
                             </p-dropdown>
                         </div>
@@ -360,78 +353,21 @@
             <!-- FIN DIALOG FORMULARIO  TRAMITE -->
 
             <!-- DIALOG FORMULARIO SALIDA TRAMITE -->
-            <p-dialog id="formTramiteSalidaDialog" [(visible)]="tramiteSalidaDialog" [style]="{width: '450px'}" header="Salida Tramite" [closable]="false" [modal]="false" class="p-fluid">
+            <p-dialog id="InfoDialog" [(visible)]="tramiteInfoDialog" [style]="{width: '450px'}" header="Detalles" [closable]="false" [modal]="false" class="p-fluid">
                 <ng-template pTemplate="content">
-                    <!-- FORMULARIO SALIDA TRAMITE -->
-                    <form [formGroup]="formaMovimientosTramite">
-                        <p-messages [value]="msgs" [showTransitionOptions]="'200ms'" [hideTransitionOptions]="'200ms'" [escape]="true"></p-messages>
-                        <p-toast key="tst" [baseZIndex]="99999"></p-toast>
-                        <div class="formgrid grid">
-                            <div class="field col">
-                                <label for="tramite_numero">N° Tramite</label>
-                                <input type="text" pInputText id="tramite_numero" formControlName="tramite_numero" />
-                                <!-- <small *ngIf="expedienteNotaNoValido" class="p-error">
-                                    <div *ngFor="let validation of user_validation_messages.expediente_nota" >
-                                        <div  *ngIf="formaTramites.get('expediente_nota')?.hasError(validation.type)">
-                                            {{validation.message}}
-                                        </div>
-                                    </div>
-                                </small> -->
-                            </div>
-                            <div class="field col">
-                                <label for="num_movimiento_tramite">N° Movimiento</label>
-                                <input type="text" pInputText id="num_movimiento_tramite" formControlName="num_movimiento_tramite" />
-                                <!-- <small *ngIf="expedienteNotaNoValido" class="p-error">
-                                    <div *ngFor="let validation of user_validation_messages.expediente_nota" >
-                                        <div  *ngIf="formaTramites.get('expediente_nota')?.hasError(validation.type)">
-                                            {{validation.message}}
-                                        </div>
-                                    </div>
-                                </small> -->
-                            </div>
-                        </div>
-                        <div class="field">
-                            <label for="organismo_id">Organismo destino</label>
-                            <p-dropdown id="organismo_id" [options]="listaOrganismos" optionLabel="organismo" optionValue="id_organismo" formControlName="organismo_id" (onChange)="onChangeOrganismos()" placeholder="Seleccionar...">
-
-                            </p-dropdown>
-                        </div>
-                        <div class="field">
-                            <label for="sector_id">Sector destino</label>
-                            <p-dropdown id="sector_id" [options]="listaSectores" optionLabel="sector" optionValue="id_sector" formControlName="sector_id" placeholder="Seleccionar...">
-
-                            </p-dropdown>
-                        </div>
-                        <div class="field">
-                            <label for="fojas">Fojas egreso</label>
-                            <input type="text" pInputText id="fojas" formControlName="fojas" />
-                            <!-- <small *ngIf="asuntoNotaNoValido" class="p-error">
-                                <div *ngFor="let validation of user_validation_messages.asunto" >
-                                    <div  *ngIf="formaTramites.get('asunto')?.hasError(validation.type)">
-                                        {{validation.message}}
-                                    </div>
-                                </div>
-                            </small> -->
-                        </div>
-
-                        <div class="field">
-                            <label for="descripcion">Descripción egreso</label>
-                            <input type="text" pInputText id="descripcion" formControlName="descripcion" />
-                            <small *ngIf="expedienteNotaNoValido" class="p-error">
-                                <div *ngFor="let validation of user_validation_messages.expediente_nota" >
-                                    <div  *ngIf="formaTramites.get('expediente_nota')?.hasError(validation.type)">
-                                        {{validation.message}}
-                                    </div>
-                                </div>
-                            </small>
-                        </div>
-
-                    </form>
-                    <!--  FIN FORMULARIO SALIDA TRAMITE -->
+                    <p-card>
+                        <ng-template pTemplate="header">
+                            Tramite: {{movimientoTramite.tramite_numero }}
+                        </ng-template>
+                        Asunto: {{movimientoTramite.num_movimiento_tramite }}
+                        <ng-template pTemplate="footer">
+                            Footer content here
+                        </ng-template>
+                    </p-card>
                 </ng-template>
                 <ng-template pTemplate="footer">
-                    <button pButton pRipple type="button" label="Cancelar" class="p-button-outlined mr-2 mb-2" (click)="hideDialogSalida()"></button>
-                    <button pButton pRipple type="button" label="Guardar" class="p-button-outlined mr-2 mb-2" (click)="submitFormSalidaTramite()"></button>
+                    <button pButton pRipple type="button" label="Cerrar" class="p-button-outlined mr-2 mb-2" (click)="hideDialogInfo()"></button>
+
                 </ng-template>
             </p-dialog>
             <!-- FIN DIALOG FORMULARIO SALIDA TRAMITE -->

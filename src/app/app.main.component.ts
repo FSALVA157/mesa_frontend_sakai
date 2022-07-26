@@ -11,6 +11,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { organismos, sectores } from './common/data-mockeada';
 import { OrganismoModel } from './models/organismo.model';
 
+
 @Component({
     selector: 'app-main',
     templateUrl: './app.main.component.html',
@@ -29,6 +30,9 @@ import { OrganismoModel } from './models/organismo.model';
 })
 export class AppMainComponent implements AfterViewInit, OnDestroy, OnInit {
     //TEMPORAL
+    selectedSector: SectorModel;
+    filterValue = '';
+
     sector: SectorModel=new SectorModel;
     listOrganismos: OrganismoModel[]=[];
     listSectores: SectorModel[]=[];
@@ -259,4 +263,9 @@ export class AppMainComponent implements AfterViewInit, OnDestroy, OnInit {
         this.sectorDialog = false;
     }    
     //FIN MANEJO FORMULARIO DIALOG....................................
+
+    myResetFunction() {
+        //options.reset();
+        this.filterValue = '';
+    }
 }
