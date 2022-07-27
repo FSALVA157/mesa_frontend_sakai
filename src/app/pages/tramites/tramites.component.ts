@@ -328,7 +328,8 @@ export class TramitesComponent implements OnInit {
         if(tramite){
                 this.movimientosTramiteService.listarHistorialTramite(tramite.numero_tramite).
                 subscribe(respuesta => {
-                this.listaMovimientosTramite= respuesta[0];             
+                this.listaMovimientosTramite= respuesta[0];        
+                console.log("lista", this.listaMovimientosTramite);     
                 this.expandedRows[tramite.numero_tramite]=true;
             });
         } 

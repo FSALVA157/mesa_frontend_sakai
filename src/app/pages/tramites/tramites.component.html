@@ -195,6 +195,7 @@
                                                 <button pButton pRipple type="button" icon="pi pi-search-plus" class="p-button-rounded p-button-outlined mr-2 mb-2" (click)="openDialogInfo(movimientoTramite)"></button>
                                             </td>
                                             <td style="width: 160px;">
+
                                                 <div style="margin-bottom: 5px;"><span [class]="'tramite-badge status-true'"><i class="pi pi-check-circle"></i> Ingresado<br></span></div>
                                                 <div style="margin-bottom: 5px;"><span *ngIf="movimientoTramite.enviado" [class]="'tramite-badge status-true'" style="margin-bottom: 50px;"><i class="pi pi-check-circle"></i> Enviado<br></span></div>
                                                 <div style="margin-bottom: 5px;"><span *ngIf="!movimientoTramite.enviado" [class]="'tramite-badge status-false'" style="margin-bottom: 50px;"><i class="pi pi-times-circle"></i> Enviado<br></span></div>
@@ -352,25 +353,73 @@
             </p-dialog>
             <!-- FIN DIALOG FORMULARIO  TRAMITE -->
 
-            <!-- DIALOG FORMULARIO SALIDA TRAMITE -->
-            <p-dialog id="InfoDialog" [(visible)]="tramiteInfoDialog" [style]="{width: '450px'}" header="Detalles" [closable]="false" [modal]="false" class="p-fluid">
+            <!-- DIALOG INFO TRAMITE -->
+            <p-dialog id="InfoDialog" [(visible)]="tramiteInfoDialog" [style]="{width: '500px'}" header="Tramite detalles" [closable]="false" [modal]="false" class="p-fluid">
                 <ng-template pTemplate="content">
-                    <p-card>
-                        <ng-template pTemplate="header">
-                            Tramite: {{movimientoTramite.tramite_numero }}
-                        </ng-template>
-                        Asunto: {{movimientoTramite.num_movimiento_tramite }}
-                        <ng-template pTemplate="footer">
-                            Footer content here
-                        </ng-template>
-                    </p-card>
+                    <div class="col-12 lg:col-12 xl:col-12">
+                        <div class="card mb-0">
+                            <span class="block text-600 font-medium mb-3">TRAMITE</span>
+                            <ul class="p-0 m-0 list-none">
+
+                                <li class="flex align-items-center py-2 border-bottom-1 surface-border">
+                                    <div class="col-12 lg:col-6 xl:col-6">
+                                        <span class="text-900 font-medium text-1xl">Tramite N°<span class="text-teal-500 ml-3 font-medium"> {{movimientoTramite.tramite_numero}} </span></span>
+                                    </div>
+                                    <div class="col-12 lg:col-6 xl:col-6">
+                                        <span class="text-900 font-medium text-1xl">Tipo tramite<span class="text-teal-500 ml-3 font-medium"> {{movimientoTramite.tramite?.tipo_tramite?.tipo_tramite}} </span></span>
+                                    </div>
+                                </li>
+                                <li class="flex align-items-center py-2 border-bottom-1 surface-border">
+                                    <div class="col-12 lg:col-12 xl:col-12">
+                                        <span class="text-900 font-medium text-1xl">Asunto<span class="text-teal-500 ml-3 font-medium"> {{movimientoTramite.tramite?.asunto}} </span></span>
+                                    </div>
+
+                                </li>
+                                <li class="flex align-items-center py-2 border-bottom-1 surface-border">
+                                    <div class="col-12 lg:col-12 xl:col-12">
+                                        <span class="text-900 font-medium text-1xl">Descripción<span class="text-teal-500 ml-3 font-medium"> {{movimientoTramite.tramite?.descripcion}} </span></span>
+                                    </div>
+                                </li>
+                                <li class="flex align-items-center py-2 border-bottom-1 surface-border">
+                                    <div class="col-12 lg:col-6 xl:col-6">
+                                        <span class="text-900 font-medium text-1xl">Fecha inicia<span class="text-teal-500 ml-3 font-medium"> {{movimientoTramite.tramite?.fecha| date: 'dd/MM/yyyy'}} </span></span>
+                                    </div>
+                                    <div class="col-12 lg:col-6 xl:col-6">
+                                        <span class="text-900 font-medium text-1xl">Sector inicia<span class="text-teal-500 ml-3 font-medium"> {{movimientoTramite.sector?.sector}} </span></span>
+                                    </div>
+                                </li>
+                                <li class="flex align-items-center py-2 border-bottom-1 surface-border">
+                                    <div class="col-12 lg:col-6 xl:col-6">
+                                        <span class="text-900 font-medium text-1xl">Persona referencia<span class="text-teal-500 ml-3 font-medium"> {{movimientoTramite.tramite?.persona_referencia}} </span></span>
+                                    </div>
+                                    <div class="col-12 lg:col-6 xl:col-6">
+                                        <span class="text-900 font-medium text-1xl">Expediente/Nota<span class="text-teal-500 ml-3 font-medium"> {{movimientoTramite.tramite?.expediente_nota}} </span></span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-12 lg:col-12 xl:col-12">
+                        <div class="card mb-0">
+                            <span class="block text-600 font-medium mb-3">MOVIMIENTO</span>
+                            <ul class="p-0 m-0 list-none">
+                                <li class="flex align-items-center py-2 border-bottom-1 surface-border">
+                                    <div class="col-12 lg:col-6 xl:col-6">
+                                        <span class="text-900 line-height-3">Movimiento N°<span class="text-blue-500 ml-3 font-medium"> {{movimientoTramite.num_movimiento_tramite}} </span></span>
+                                    </div>
+                                </li>
+                            </ul>
+                            <span class="text-green-500 font-medium">24 new </span>
+                            <span class="text-500">since last visit</span>
+                        </div>
+                    </div>
                 </ng-template>
                 <ng-template pTemplate="footer">
                     <button pButton pRipple type="button" label="Cerrar" class="p-button-outlined mr-2 mb-2" (click)="hideDialogInfo()"></button>
 
                 </ng-template>
             </p-dialog>
-            <!-- FIN DIALOG FORMULARIO SALIDA TRAMITE -->
+            <!-- FIN DIALOG INFO TRAMITE -->
 
             <!-- DIALOG FORMULARIO RECIBIR TRAMITE -->
             <p-dialog id="formTramiteRecibirDialog" [(visible)]="tramiteRecibirDialog" [style]="{width: '450px'}" header="Recibir Tramite" [closable]="false" [modal]="false" class="p-fluid">
