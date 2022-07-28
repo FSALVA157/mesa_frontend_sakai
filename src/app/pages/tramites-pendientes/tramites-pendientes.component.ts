@@ -104,7 +104,7 @@ export class TramitesPendientesComponent implements OnInit {
 
     let dataMovimientoTramite: Partial <MovimientoTramiteModel>;
     dataMovimientoTramite = {
-        tramite_numero: parseInt(this.formaMovimientosTramite.get('tramite_numero')?.value),
+        tramite_numero: this.movimientoTramiteRecibir.tramite_numero,
         sector_origen_id: this.movimientoTramiteRecibir.sector_id,                    
         fojas_ingreso: parseInt(this.formaMovimientosTramite.get('fojas')?.value),
         descripcion_ingreso: this.formaMovimientosTramite.get('descripcion')?.value,
@@ -113,7 +113,7 @@ export class TramitesPendientesComponent implements OnInit {
         
     }
     //GUARDAR MOVIMIENTO
-    this.movimientosTramiteService.recibirMovimientoTramite(dataMovimientoTramite, parseInt(this.formaMovimientosTramite.get('num_movimiento_tramite')?.value))
+    this.movimientosTramiteService.recibirMovimientoTramite(dataMovimientoTramite, this.movimientoTramiteRecibir.num_movimiento_tramite)
         .subscribe(resMovimiento => {
             this.hideDialogRecibir();
             Swal.fire('Exito',`El Tramite fue recibido con Exito`,"success");
@@ -142,9 +142,7 @@ export class TramitesPendientesComponent implements OnInit {
   openDialogRecibir(movimiento: MovimientoTramiteModel) {
     this.movimientoTramiteRecibir = movimiento;
     this.submitted = false;
-    this.tramiteRecibirDialog = true;
-    this.formaMovimientosTramite.get('tramite_numero')?.setValue(movimiento.tramite_numero);               
-    this.formaMovimientosTramite.get('num_movimiento_tramite')?.setValue(movimiento.num_movimiento_tramite);    
+    this.tramiteRecibirDialog = true;  
     this.formaMovimientosTramite.get('fojas')?.setValue(movimiento.fojas_salida);
   
   }
