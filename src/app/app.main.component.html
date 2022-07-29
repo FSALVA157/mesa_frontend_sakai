@@ -28,14 +28,14 @@
 
 
     <!-- DIALOG FORMULARIO SALIDA TRAMITE -->
-    <p-dialog id="formSectorDialog" [(visible)]="sectorDialog" [style]="{width: '450px'}" header="Elegir Sector" [closable]="false" [modal]="false" class="p-fluid">
+    <p-dialog id="formSectorDialog" [(visible)]="sectorDialog" [style]="{width: '450px'}" header="Elegir Sector" [closable]="false" [modal]="true" class="p-fluid">
         <ng-template pTemplate="content">
             <!-- FORMULARIO SALIDA TRAMITE -->
             <form [formGroup]="formaSector">
                 <!-- <p-toast key="tst" [baseZIndex]="99999"></p-toast> -->
                 <div class="field">
                     <label for="organismo_id">Organismo</label>
-                    <p-dropdown id="organismo_id" [options]="listOrganismos" formControlName="organismo_id" optionLabel="organismo" optionValue="id_organismo" filter="true" (onChange)="onChangeOrganismos()" placeholder="Seleccionar...">
+                    <p-dropdown id="organismo_id" [options]="listOrganismos" formControlName="organismo_id" optionLabel="organismo" optionValue="id_organismo" filter="true" (onChange)="onChangeOrganismos()" appendTo="body" placeholder="Seleccionar...">
 
                     </p-dropdown>
 
@@ -56,7 +56,7 @@
                     </p-dropdown>
                 </div> -->
 
-                <p-dropdown [options]="listSectores" formControlName="sector_id" optionLabel="sector" optionValue="id_sector" filter="true" placeholder="Seleccionar...">
+                <p-dropdown [options]="listSectores" formControlName="sector_id" optionLabel="sector" optionValue="id_sector" filter="true" appendTo="body" placeholder="Seleccionar...">
 
                 </p-dropdown>
 
@@ -65,27 +65,7 @@
                     <label for="tramite_numero"><div class=""></div></label>
 
                 </div>
-                <div class="field col">
-                    <label for="tramite_numero">...</label>
 
-                </div>
-                <div class="field col">
-                    <label for="tramite_numero">...</label>
-
-                </div>
-                <div class="field col">
-
-                    <label for="tramite_numero"><div class=""></div></label>
-
-                </div>
-                <div class="field col">
-                    <label for="tramite_numero">...</label>
-
-                </div>
-                <div class="field col">
-                    <label for="tramite_numero">...</label>
-
-                </div>
 
             </form>
             <!--  FIN FORMULARIO SALIDA TRAMITE -->

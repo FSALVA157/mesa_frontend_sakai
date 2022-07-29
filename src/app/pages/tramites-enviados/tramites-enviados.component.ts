@@ -43,6 +43,11 @@ export class TramitesEnviadosComponent implements OnInit {
   listOrganismos: OrganismoModel[]= [];
   listTiposTramite: TipoTramiteModel[]=[];
   listMovimientosTramite: MovimientoTramiteModel[]=[];
+
+  //VARIABLES MOVIMIENTOS    
+  movimientoTramite: MovimientoTramiteModel;
+  tramiteInfoDialog: boolean;
+
   constructor(
     private movimientosTramiteService: MovimientosTramiteService
 
@@ -65,5 +70,20 @@ export class TramitesEnviadosComponent implements OnInit {
     }     
   }
   //FIN LISTADO MOVIMIENTO DE TRAMITE...................................................
+
+  //MANEJO DE  DIALOG INFO
+  openDialogInfo(movimiento: MovimientoTramiteModel) {
+    this.movimientoTramite = {};
+    this.movimientoTramite= movimiento;
+    this.tramiteInfoDialog = true;
+     
+    //this.nuevoTramite=true;
+}
+
+hideDialogInfo() {
+    this.tramiteInfoDialog = false;
+    //this.nuevoTramite=false;
+}    
+//FIN MANEJO DIALOG INFO....................................
 
 }

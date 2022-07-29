@@ -16,9 +16,13 @@
                 </ng-template>
                 <ng-template pTemplate="header">
                     <tr>
-                        <th style="width: 3rem"></th>
+                        <th>
+                            <div class="flex justify-content-between align-items-center">
+                                Ver
 
+                            </div>
 
+                        </th>
                         <th>
                             <div class="flex justify-content-between align-items-center">
                                 N° Tramite
@@ -31,6 +35,7 @@
                                 <p-columnFilter type="text" field="numero_tramite" display="menu" placeholder="Buscar por numero_tramite"></p-columnFilter>
                             </div>
                         </th>
+
 
                         <th>
                             <div class="flex justify-content-between align-items-center">
@@ -84,44 +89,47 @@
                 </ng-template>
                 <ng-template pTemplate="body" let-movimiento let-expanded="expanded">
                     <tr>
-                        <td>
-                            <!-- <button type="button" pButton pRipple [pRowToggler]="tramite" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'" (click)="expanded ?listarHistorialTramite(null):listarHistorialTramite(tramite)"></button>
-                        </td> -->
-                            <td style="min-width: 10rem;">
-                                {{movimiento.tramite_numero}}
-                            </td>
+                        <td style="min-width: 5rem;">
+                            <button pButton pRipple type="button" icon="pi pi-search-plus" class="p-button-rounded p-button-secondary mr-2 mb-2" (click)="openDialogInfo(movimiento)"></button>
+                        </td>
 
-                            <td style="min-width: 10rem;">
-                                {{movimiento.num_movimiento_tramite}}
-                            </td>
+                        <td style="min-width: 10rem;">
+                            {{movimiento.tramite_numero}}
+                        </td>
 
-                            <td style="min-width: 15rem;">
-                                <div style="margin-bottom: 5px;"><span [class]="'tramite-badge status-true'"><i class="pi pi-check-circle"></i> Ingresado<br></span></div>
-                                <div style="margin-bottom: 5px;"><span *ngIf="movimiento.enviado" [class]="'tramite-badge status-true'"><i class="pi pi-check-circle"></i> Enviado<br></span></div>
-                                <div style="margin-bottom: 5px;"><span *ngIf="!movimiento.enviado" [class]="'tramite-badge status-false'"><i class="pi pi-times-circle"></i> Enviado<br></span></div>
-                                <div style="margin-bottom: 5px;"><span *ngIf="movimiento.recibido_destino" [class]="'tramite-badge status-true'"><i class="pi pi-check-circle"></i> Recibido Destino<br></span></div>
-                                <div style="margin-bottom: 5px;"><span *ngIf="!movimiento.recibido_destino" [class]="'tramite-badge status-false'"><i class="pi pi-times-circle"></i> Recibido Destino<br></span></div>
-                            </td>
+                        <td style="min-width: 10rem;">
+                            {{movimiento.num_movimiento_tramite}}
+                        </td>
 
-                            <td style="min-width: 15rem;">
-                                {{movimiento.tramite.asunto}}
-                            </td>
-                            <td style="min-width: 15rem;">
-                                {{movimiento.sector.organismo.organismo}} - {{movimiento.sector.sector}}
-                            </td>
-                            <td style="min-width: 10rem;">
-                                {{movimiento.fecha_salida | date: 'dd/MM/yyyy'}}
-                            </td>
-                            <td style="min-width: 15rem;">
-                                {{movimiento.sector_destino.organismo.organismo}} - {{movimiento.sector_destino.sector}}
-                            </td>
 
-                            <td style="min-width: 5rem;">
-                                {{movimiento.tramite.tipo_tramite.tipo_tramite}}
-                            </td>
-                            <td style="min-width: 10rem;">
-                                {{movimiento.tramite.usuario.apellido}} {{movimiento.tramite.usuario.nombre}}
-                            </td>
+
+                        <td style="min-width: 15rem;">
+                            <div style="margin-bottom: 5px;"><span [class]="'tramite-badge status-true'"><i class="pi pi-check-circle"></i> Ingresado<br></span></div>
+                            <div style="margin-bottom: 5px;"><span *ngIf="movimiento.enviado" [class]="'tramite-badge status-true'"><i class="pi pi-check-circle"></i> Enviado<br></span></div>
+                            <div style="margin-bottom: 5px;"><span *ngIf="!movimiento.enviado" [class]="'tramite-badge status-false'"><i class="pi pi-times-circle"></i> Enviado<br></span></div>
+                            <div style="margin-bottom: 5px;"><span *ngIf="movimiento.recibido_destino" [class]="'tramite-badge status-true'"><i class="pi pi-check-circle"></i> Recibido Destino<br></span></div>
+                            <div style="margin-bottom: 5px;"><span *ngIf="!movimiento.recibido_destino" [class]="'tramite-badge status-false'"><i class="pi pi-times-circle"></i> Recibido Destino<br></span></div>
+                        </td>
+
+                        <td style="min-width: 15rem;">
+                            {{movimiento.tramite.asunto}}
+                        </td>
+                        <td style="min-width: 15rem;">
+                            <span class="text-orange-600 font-bold">{{movimiento.sector.sector}}</span><br>{{movimiento.sector.organismo.organismo}}
+                        </td>
+                        <td style="min-width: 10rem;">
+                            {{movimiento.fecha_salida | date: 'dd/MM/yyyy'}}
+                        </td>
+                        <td style="min-width: 15rem;">
+                            <span class="text-orange-600">{{movimiento.sector_destino.sector}}</span><br>{{movimiento.sector_destino.organismo.organismo}}
+                        </td>
+
+                        <td style="min-width: 5rem;">
+                            {{movimiento.tramite.tipo_tramite.tipo_tramite}}
+                        </td>
+                        <td style="min-width: 10rem;">
+                            {{movimiento.tramite.usuario.apellido}} {{movimiento.tramite.usuario.nombre}}
+                        </td>
 
                     </tr>
                 </ng-template>
@@ -146,6 +154,121 @@
                 </ng-template>
             </p-table>
             <!-- FIN TABLA DE TRAMITES -->
+
+            <!-- DIALOG INFO TRAMITE -->
+            <p-dialog id="InfoDialog" [(visible)]="tramiteInfoDialog" [style]="{width: '650px'}" header="Tramite detalles" [closable]="false" [modal]="true" class="p-fluid">
+                <ng-template pTemplate="content">
+
+                    <div class="card mb-0 bg-teal-400">
+                        <span class="block text-white  font-bold font-medium mb-3">TRAMITE</span>
+                        <div class="col-12 border-bottom-1 surface-border">
+                            <div class="grid">
+                                <div class="col-12 lg:col-6 xl:col-6">
+                                    <span class="text-teal-900 font-medium text-1xl">Tramite N°:<span class="text-white ml-1 font-medium"> {{movimientoTramite.tramite_numero}} </span></span>
+
+                                </div>
+                                <div class="col-12 lg:col-6 xl:col-6">
+                                    <span class="text-teal-800 font-medium text-1xl">Tipo tramite:<span class="text-white ml-1 font-medium"> {{movimientoTramite.tramite?.tipo_tramite?.tipo_tramite}} </span></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 border-bottom-1 surface-border">
+                            <div class="grid">
+                                <div class="col-12 lg:col-6 xl:col-6 py-2">
+                                    <span class="text-teal-800 font-medium text-1xl">Fecha inicia:<span class="text-white ml-1 font-medium"> {{movimientoTramite.tramite?.fecha| date: 'dd/MM/yyyy'}}</span></span>
+                                </div>
+                                <div class="col-12 lg:col-6 xl:col-6 py-2">
+                                    <span class="text-teal-800 font-medium text-1xl">Expediente/Nota:<span class="text-white ml-1 font-medium"> {{movimientoTramite.tramite?.expediente_nota}}</span></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 border-bottom-1 surface-border">
+                            <div class="grid">
+                                <div class="col-12 lg:col-6 xl:col-6 py-2">
+                                    <span class="text-teal-800 font-medium text-1xl">Asunto:<br><span class="text-white ml-1 font-medium"> {{movimientoTramite.tramite?.asunto}}</span></span>
+                                </div>
+                                <div class="col-12 lg:col-6 xl:col-6 py-2">
+                                    <span class="text-teal-800 font-medium text-1xl">Descripción:<br><span class="text-white ml-1 font-medium"> {{movimientoTramite.tramite?.descripcion}}</span></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 border-bottom-1 surface-border">
+                            <div class="grid">
+                                <div class="col-12 lg:col-6 xl:col-6 py-2">
+                                    <span class="text-800 font-medium text-1xl">Persona referencia:<br><span class="text-white ml-1 font-medium"> {{movimientoTramite.tramite?.persona_referencia}}</span></span>
+                                </div>
+                                <div class="col-12 lg:col-6 xl:col-6 py-2">
+                                    <span class="text-teal-800 font-medium text-1xl">Sector inicia:<br><span class="text-white ml-1 font-medium"> {{movimientoTramite.tramite?.sector?.organismo?.organismo}}<br>{{movimientoTramite.tramite?.sector?.sector}}</span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card mt-2 bg-teal-400">
+                        <span class="block text-white font-bold font-medium mb-3">MOVIMIENTO</span>
+                        <div class="col-12 border-bottom-1 surface-border">
+                            <div class="grid">
+                                <div class="col-12 lg:col-6 xl:col-6 py-2">
+                                    <span class="text-teal-800 font-medium text-1xl">Movimiento N°:<span class="text-white ml-1 font-medium"> {{movimientoTramite.num_movimiento_tramite}}</span></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 border-bottom-1 surface-border">
+                            <div class="grid">
+                                <div class="col-12 lg:col-12 xl:col-12 py-2">
+                                    <span class="text-teal-800 font-medium text-1xl">Sector origen:<br><span class="text-white ml-1 font-medium"> {{movimientoTramite.sector_origen?.organismo?.organismo}} - {{movimientoTramite.sector_origen?.sector}}</span></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 border-bottom-1 surface-border">
+                            <div class="grid">
+                                <div class="col-12 lg:col-8 xl:col-8 py-2">
+                                    <span class="text-teal-800 font-medium text-1xl">Sector ingresa:<br><span class="text-white ml-1 font-medium"> {{movimientoTramite.sector?.organismo?.organismo}}<br>{{movimientoTramite.sector?.sector}}</span></span>
+                                </div>
+                                <div class="col-12 lg:col-4 xl:col-4 py-2">
+                                    <span class="text-teal-800 font-medium text-1xl">Fecha ingreso:<span class="text-white ml-1 font-medium"> {{movimientoTramite.fecha_ingreso| date: 'dd/MM/yyyy'}}</span></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 border-bottom-1 surface-border">
+                            <div class="grid">
+                                <div class="col-12 lg:col-8 xl:col-8 py-2">
+                                    <span class="text-teal-800 font-medium text-1xl">Descripción ingreso:<br><span class="text-white ml-1 font-medium"> {{movimientoTramite.descripcion_ingreso}}</span></span>
+                                </div>
+                                <div class="col-12 lg:col-4 xl:col-4 py-2">
+                                    <span class="text-teal-800 font-medium text-1xl">Fojas ingreso:<span class="text-white ml-1 font-medium"> {{movimientoTramite.fojas_ingreso}}</span></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 border-bottom-1 surface-border">
+                            <div class="grid">
+                                <div class="col-12 lg:col-8 xl:col-8 py-2">
+                                    <span class="text-teal-800 font-medium text-1xl">Sector destino:<br><span class="text-white ml-1 font-medium"> {{movimientoTramite.sector_destino?.organismo?.organismo}}<br>{{movimientoTramite.sector_destino?.sector}}</span></span>
+                                </div>
+                                <div class="col-12 lg:col-4 xl:col-4 py-2">
+                                    <span class="text-teal-800 font-medium text-1xl">Fecha salida:<span class="text-white ml-1 font-medium"> {{movimientoTramite.fecha_salida| date: 'dd/MM/yyyy'}}</span></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 border-bottom-1 surface-border">
+                            <div class="grid">
+                                <div class="col-12 lg:col-8 xl:col-8 py-2">
+                                    <span class="text-teal-800 font-medium text-1xl">Descripción salida:<br><span class="text-white ml-1 font-medium">{{movimientoTramite.descripcion_salida}}</span></span>
+                                </div>
+                                <div class="col-12 lg:col-4 xl:col-4 py-2">
+                                    <span class="text-teal-800 font-medium text-1xl">Fojas salida:<span class="text-white ml-1 font-medium">{{movimientoTramite.fojas_salida}}</span></span>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="footer">
+                    <button pButton pRipple type="button" label="Cerrar" class="p-button-outlined mr-2 mb-2" (click)="hideDialogInfo()"></button>
+
+                </ng-template>
+            </p-dialog>
+            <!-- FIN DIALOG INFO TRAMITE -->
         </div>
     </div>
 </div>

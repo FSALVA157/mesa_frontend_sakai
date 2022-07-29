@@ -105,13 +105,13 @@
                             {{movimiento.tramite.asunto}}
                         </td>
                         <td style="min-width: 15rem;">
-                            {{movimiento.sector.organismo.organismo}} - {{movimiento.sector.sector}}
+                            <span class="text-orange-600">{{movimiento.sector.sector}}</span><br>{{movimiento.sector.organismo.organismo}}
                         </td>
                         <td style="min-width: 10rem;">
                             {{movimiento.fecha_salida | date: 'dd/MM/yyyy'}}
                         </td>
                         <td style="min-width: 15rem;">
-                            {{movimiento.sector_destino.organismo.organismo}} - {{movimiento.sector_destino.sector}}
+                            <span class="text-orange-600 font-bold">{{movimiento.sector_destino.sector}}</span><br>{{movimiento.sector_destino.organismo.organismo}}
                         </td>
 
                         <td style="min-width: 5rem;">
@@ -145,7 +145,7 @@
             <!-- FIN TABLA DE TRAMITES -->
 
             <!-- DIALOG FORMULARIO RECIBIR TRAMITE -->
-            <p-dialog id="formTramiteRecibirDialog" [(visible)]="tramiteRecibirDialog" [style]="{width: '450px'}" header="Recibir Tramite" [closable]="false" [modal]="false" class="p-fluid">
+            <p-dialog id="formTramiteRecibirDialog" [(visible)]="tramiteRecibirDialog" [style]="{width: '650px'}" header="Recibir Tramite" [closable]="false" [modal]="true" class="p-fluid">
                 <ng-template pTemplate="content">
 
                     <!-- FORMULARIO MOVIMIENTOS -->
@@ -153,108 +153,110 @@
                         <p-messages [value]="msgs" [showTransitionOptions]="'200ms'" [hideTransitionOptions]="'200ms'" [escape]="true"></p-messages>
                         <p-toast key="tst" [baseZIndex]="99999"></p-toast>
 
-                        <div class="card mb-0">
-                            <span class="block text-600 font-medium mb-3">TRAMITE</span>
+                        <div class="card mb-0 bg-teal-400">
+                            <span class="block text-white  font-bold font-medium mb-3">TRAMITE</span>
                             <div class="col-12 border-bottom-1 surface-border">
                                 <div class="grid">
                                     <div class="col-12 lg:col-6 xl:col-6">
-                                        <span class="text-900 font-medium text-1xl">Tramite N°:<span class="text-teal-500 ml-1 font-medium">{{movimientoTramiteRecibir.tramite_numero}} </span></span>
-
+                                        <span class="text-teal-900 font-medium text-1xl">Tramite N°:<span class="text-white ml-1 font-medium"> {{movimientoTramiteRecibir.tramite_numero}} </span></span>
                                     </div>
                                     <div class="col-12 lg:col-6 xl:col-6">
-                                        <span class="text-900 font-medium text-1xl">Tipo tramite:<span class="text-teal-500 ml-1 font-medium">{{movimientoTramiteRecibir.tramite?.tipo_tramite?.tipo_tramite}} </span></span>
+                                        <span class="text-teal-900 font-medium text-1xl">Tipo tramite:<span class="text-white ml-1 font-medium"> {{movimientoTramiteRecibir.tramite?.tipo_tramite?.tipo_tramite}} </span></span>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-12 border-bottom-1 surface-border">
                                 <div class="grid">
                                     <div class="col-12 lg:col-6 xl:col-6 py-2">
-                                        <span class="text-900 font-medium text-1xl">Fecha inicia:<span class="text-teal-500 ml-1 font-medium">{{movimientoTramiteRecibir.tramite?.fecha| date: 'dd/MM/yyyy'}}</span></span>
+                                        <span class="text-teal-900 font-medium text-1xl">Fecha inicia:<span class="text-white ml-1 font-medium"> {{movimientoTramiteRecibir.tramite?.fecha| date: 'dd/MM/yyyy'}}</span></span>
                                     </div>
                                     <div class="col-12 lg:col-6 xl:col-6 py-2">
-                                        <span class="text-900 font-medium text-1xl">Expediente/Nota:<span class="text-teal-500 ml-1 font-medium">{{movimientoTramiteRecibir.tramite?.expediente_nota}}</span></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 border-bottom-1 surface-border">
-                                <div class="grid">
-                                    <div class="col-12 lg:col-6 xl:col-6 py-2">
-                                        <span class="text-900 font-medium text-1xl">Asunto:<br><span class="text-teal-500 ml-1 font-medium">{{movimientoTramiteRecibir.tramite?.asunto}}</span></span>
-                                    </div>
-                                    <div class="col-12 lg:col-6 xl:col-6 py-2">
-                                        <span class="text-900 font-medium text-1xl">Descripción:<br><span class="text-teal-500 ml-1 font-medium">{{movimientoTramiteRecibir.tramite?.descripcion}}</span></span>
+                                        <span class="text-teal-900 font-medium text-1xl">Expediente/Nota:<span class="text-white ml-1 font-medium"> {{movimientoTramiteRecibir.tramite?.expediente_nota}}</span></span>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-12 border-bottom-1 surface-border">
                                 <div class="grid">
                                     <div class="col-12 lg:col-6 xl:col-6 py-2">
-                                        <span class="text-900 font-medium text-1xl">Persona referencia:<br><span class="text-teal-500 ml-1 font-medium">{{movimientoTramiteRecibir.tramite?.persona_referencia}}</span></span>
+                                        <span class="text-teal-900 font-medium text-1xl">Asunto:<br><span class="text-white ml-1 font-medium"> {{movimientoTramiteRecibir.tramite?.asunto}}</span></span>
                                     </div>
                                     <div class="col-12 lg:col-6 xl:col-6 py-2">
-                                        <span class="text-900 font-medium text-1xl">Sector inicia:<br><span class="text-teal-500 ml-1 font-medium">{{movimientoTramiteRecibir.tramite?.sector?.organismo?.organismo}}<br>{{movimientoTramiteRecibir.tramite?.sector?.sector}}</span></span>
+                                        <span class="text-teal-900 font-medium text-1xl">Descripción:<br><span class="text-white ml-1 font-medium"> {{movimientoTramiteRecibir.tramite?.descripcion}}</span></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 border-bottom-1 surface-border">
+                                <div class="grid">
+                                    <div class="col-12 lg:col-6 xl:col-6 py-2">
+                                        <span class="text-teal-900 font-medium text-1xl">Persona referencia:<br><span class="text-white ml-1 font-medium"> {{movimientoTramiteRecibir.tramite?.persona_referencia}}</span></span>
+                                    </div>
+                                    <div class="col-12 lg:col-6 xl:col-6 py-2">
+                                        <span class="text-teal-900 font-medium text-1xl">Sector inicia:<br><span class="text-white ml-1 font-medium"> {{movimientoTramiteRecibir.tramite?.sector?.organismo?.organismo}}<br>{{movimientoTramiteRecibir.tramite?.sector?.sector}}</span></span>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <div class="card mt-2 bg-teal-400">
+                            <span class="block text-white  font-bold font-medium mb-3">MOVIMIENTO</span>
+                            <div class="col-12 border-bottom-1 surface-border">
+                                <div class="grid">
+                                    <div class="col-12 lg:col-6 xl:col-6 py-2">
+                                        <span class="text-teal-900 font-medium text-1xl">Movimiento N°:<span class="text-white ml-1 font-medium"> {{movimientoTramiteRecibir.num_movimiento_tramite}}</span></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 border-bottom-1 surface-border">
+                                <div class="grid">
+                                    <div class="col-12 lg:col-8 xl:col-8 py-2">
+                                        <span class="text-teal-900 font-medium text-1xl">Sector envia:<br><span class="text-white ml-1 font-medium"> {{movimientoTramiteRecibir.sector?.organismo?.organismo}}<br>{{movimientoTramiteRecibir.sector?.sector}}</span></span>
+                                    </div>
+                                    <div class="col-12 lg:col-4 xl:col-4 py-2">
+                                        <span class="text-teal-900 font-medium text-1xl">Fecha salida:<span class="text-white ml-1 font-medium"> {{movimientoTramiteRecibir.fecha_ingreso| date: 'dd/MM/yyyy'}}</span></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 border-bottom-1 surface-border">
+                                <div class="grid">
+                                    <div class="col-12 lg:col-8 xl:col-8 py-2">
+                                        <span class="text-teal-900 font-medium text-1xl">Descripción salida:<br><span class="text-white ml-1 font-medium"> {{movimientoTramiteRecibir.descripcion_salida}}</span></span>
+                                    </div>
+                                    <div class="col-12 lg:col-4 xl:col-4 py-2">
+                                        <span class="text-teal-900 font-medium text-1xl">Fojas salida:<span class="text-white ml-1 font-medium"> {{movimientoTramiteRecibir.fojas_salida}}</span></span>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+
                         <div class="card mt-2">
-                            <span class="block text-600 font-medium mb-3">MOVIMIENTO</span>
-                            <div class="col-12 border-bottom-1 surface-border">
-                                <div class="grid">
-                                    <div class="col-12 lg:col-6 xl:col-6 py-2">
-                                        <span class="text-900 font-medium text-1xl">Movimiento N°:<span class="text-teal-500 ml-1 font-medium">{{movimientoTramiteRecibir.num_movimiento_tramite}}</span></span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-12 border-bottom-1 surface-border">
-                                <div class="grid">
-                                    <div class="col-12 lg:col-8 xl:col-8 py-2">
-                                        <span class="text-900 font-medium text-1xl">Sector envia:<br><span class="text-teal-500 ml-1 font-medium">{{movimientoTramiteRecibir.sector?.organismo?.organismo}}<br>{{movimientoTramiteRecibir.sector?.sector}}</span></span>
-                                    </div>
-                                    <div class="col-12 lg:col-4 xl:col-4 py-2">
-                                        <span class="text-900 font-medium text-1xl">Fecha salida:<span class="text-teal-500 ml-1 font-medium">{{movimientoTramiteRecibir.fecha_ingreso| date: 'dd/MM/yyyy'}}</span></span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-12 border-bottom-1 surface-border">
-                                <div class="grid">
-                                    <div class="col-12 lg:col-8 xl:col-8 py-2">
-                                        <span class="text-900 font-medium text-1xl">Descripción salida:<br><span class="text-teal-500 ml-1 font-medium">{{movimientoTramiteRecibir.descripcion_salida}}</span></span>
-                                    </div>
-                                    <div class="col-12 lg:col-4 xl:col-4 py-2">
-                                        <span class="text-900 font-medium text-1xl">Fojas salida:<span class="text-teal-500 ml-1 font-medium">{{movimientoTramiteRecibir.fojas_salida}}</span></span>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                        </div>
-
-
-                        <div class="field">
-                            <label for="fojas">Fojas Ingreso</label>
-                            <input type="text" pInputText id="fojas" formControlName="fojas" />
-                            <!-- <small *ngIf="asuntoNotaNoValido" class="p-error">
+                            <div class="field col-6">
+                                <label for="fojas">Fojas Ingreso</label>
+                                <input type="text" pInputText id="fojas" formControlName="fojas" />
+                                <!-- <small *ngIf="asuntoNotaNoValido" class="p-error">
                                 <div *ngFor="let validation of user_validation_messages.asunto" >
                                     <div  *ngIf="formaTramites.get('asunto')?.hasError(validation.type)">
                                         {{validation.message}}
                                     </div>
                                 </div>
                             </small> -->
-                        </div>
+                            </div>
 
-                        <div class="field">
-                            <label for="descripcion">Descripcion Ingreso</label>
-                            <input type="text" pInputText id="descripcion" formControlName="descripcion" />
-                            <small *ngIf="expedienteNotaNoValido" class="p-error">
+                            <div class="field col-12">
+                                <label for="descripcion">Descripcion Ingreso</label>
+                                <input type="text" pInputText id="descripcion" formControlName="descripcion" />
+                                <small *ngIf="expedienteNotaNoValido" class="p-error">
                                 <div *ngFor="let validation of user_validation_messages.expediente_nota" >
                                     <div  *ngIf="formaTramites.get('expediente_nota')?.hasError(validation.type)">
                                         {{validation.message}}
                                     </div>
                                 </div>
                             </small>
+                            </div>
+
                         </div>
                     </form>
                     <!--  FIN FORMULARIO MOVIMIENTOS -->
