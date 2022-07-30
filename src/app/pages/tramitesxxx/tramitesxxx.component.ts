@@ -22,7 +22,7 @@ globalCons: globalConstants;
 
 @Component({
     selector: 'app-tramites',
-    templateUrl: './tramites.component.html',
+    templateUrl: './tramitesxxx.component.html',
     providers: [MessageService, ConfirmationService],
     styleUrls: ['../../../assets/demo/badges.scss'],
     styles: [`
@@ -42,7 +42,7 @@ globalCons: globalConstants;
         
     `]
 })
-export class TramitesComponent implements OnInit {
+export class TramitesxxxComponent implements OnInit {
     //para mensajes
     msgs: Message[] = [];
     
