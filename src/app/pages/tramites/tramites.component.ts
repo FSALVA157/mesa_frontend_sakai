@@ -1,4 +1,3 @@
-
 import { Component, OnInit, ViewChild, ChangeDetectorRef, ElementRef } from '@angular/core';
 import { Customer, Representative } from '../../api/customer';
 import { CustomerService } from '../../service/customerservice';
@@ -18,11 +17,9 @@ import { OrganismoModel } from '../../models/organismo.model';
 import { globalConstants } from '../../common/global-constants';
 import { organismos, sectores } from 'src/app/common/data-mockeada';
 
-globalCons: globalConstants;
-
 @Component({
     selector: 'app-tramites',
-    templateUrl: './tramitesxxx.component.html',
+    templateUrl: './tramites.component.html',
     providers: [MessageService, ConfirmationService],
     styleUrls: ['../../../assets/demo/badges.scss'],
     styles: [`
@@ -42,7 +39,7 @@ globalCons: globalConstants;
         
     `]
 })
-export class TramitesxxxComponent implements OnInit {
+export class TramitesComponent implements OnInit {
     //para mensajes
     msgs: Message[] = [];
     

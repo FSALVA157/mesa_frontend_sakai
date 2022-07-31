@@ -36,6 +36,8 @@ import { TramitesPrincipalComponent } from './pages/tramite/tramites-principal/t
 import { TramitesPendienteComponent } from './pages/tramite/tramites-pendiente/tramites-pendiente.component';
 import { TramitesRecibidoComponent } from './pages/tramite/tramites-recibido/tramites-recibido.component';
 import { TramitesEnviadoComponent } from './pages/tramite/tramites-enviado/tramites-enviado.component';
+import { TramitesComponent } from './pages/tramites/tramites.component';
+import { TramitacionComponent } from './pages/tramitacion/tramitacion.component';
 @NgModule({
     imports: [
         RouterModule.forRoot([
@@ -43,7 +45,9 @@ import { TramitesEnviadoComponent } from './pages/tramite/tramites-enviado/trami
                 path: '', component: AppMainComponent,
                 children: [
                     {path: '', component: DashboardComponent},
-                    {path: 'home/tramites', component: TramitesPrincipalComponent},
+                    {path: 'home/tramites', component: TramitesComponent},
+                    {path: 'home/tramitesprincipal', component: TramitesPrincipalComponent},
+                    {path: 'home/tramitacion', component: TramitacionComponent},
                     {path: 'home/tramites-pendientes', component: TramitesPendienteComponent},
                     {path: 'home/tramite-recibidos', component: TramitesRecibidoComponent},
                     {path: 'home/tramites-enviados', component: TramitesEnviadoComponent},

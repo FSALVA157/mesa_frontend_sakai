@@ -143,7 +143,7 @@ import { AccessComponent } from './components/access/access.component';
 import { TramitesPendientesComponent } from './pages/tramites-pendientes/tramites-pendientes.component';
 import { TramitesRecibidosComponent } from './pages/tramites-recibidos/tramites-recibidos.component';
 import { TramitesEnviadosComponent } from './pages/tramites-enviados/tramites-enviados.component';
-import { TramitesxxxComponent } from './pages/tramitesxxx/tramitesxxx.component';
+import { TramitesComponent } from './pages/tramites/tramites.component';
 @NgModule({
     imports: [
         BrowserModule,
@@ -279,8 +279,7 @@ import { TramitesxxxComponent } from './pages/tramitesxxx/tramitesxxx.component'
         ErrorComponent,
         NotfoundComponent,
         AccessComponent,
-        //TramitesComponent,
-        TramitesxxxComponent,
+        TramitesComponent,
         TramitesPendientesComponent,
         TramitesRecibidosComponent,
         TramitesEnviadosComponent,
