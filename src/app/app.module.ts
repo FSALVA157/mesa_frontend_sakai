@@ -140,12 +140,13 @@ import { LoginComponent } from './components/login/login.component';
 import { ErrorComponent } from './components/error/error.component';
 import { NotfoundComponent } from './components/notfound/notfound.component';
 import { AccessComponent } from './components/access/access.component';
-import { TramitesPendientesComponent } from './pages/tramites-pendientes/tramites-pendientes.component';
-import { TramitesRecibidosComponent } from './pages/tramites-recibidos/tramites-recibidos.component';
-import { TramitesEnviadosComponent } from './pages/tramites-enviados/tramites-enviados.component';
 import { TramitesComponent } from './pages/tramites/tramites.component';
+
+import { PagesModule } from './pages/pages.module';
+
 @NgModule({
     imports: [
+        
         BrowserModule,
         FormsModule,
         AppRoutingModule,
@@ -235,7 +236,9 @@ import { TramitesComponent } from './pages/tramites/tramites.component';
         StyleClassModule,
 
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+
+        PagesModule
     ],
     declarations: [
         AppComponent,
@@ -279,10 +282,11 @@ import { TramitesComponent } from './pages/tramites/tramites.component';
         ErrorComponent,
         NotfoundComponent,
         AccessComponent,
+
         TramitesComponent,
-        TramitesPendientesComponent,
-        TramitesRecibidosComponent,
-        TramitesEnviadosComponent,
+        //TramitesPendientesComponent,
+        //TramitesRecibidosComponent,
+        //TramitesEnviadosComponent,
     ],
     providers: [
         {provide: LocationStrategy, useClass: HashLocationStrategy},

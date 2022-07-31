@@ -28,16 +28,13 @@ import { LoginComponent } from './components/login/login.component';
 import { ErrorComponent } from './components/error/error.component';
 import { NotfoundComponent } from './components/notfound/notfound.component';
 import { AccessComponent } from './components/access/access.component';
-//import { TramitesComponent } from './pages/tramites/tramites.component';
-import { TramitesPendientesComponent } from './pages/tramites-pendientes/tramites-pendientes.component';
-import { TramitesRecibidosComponent } from './pages/tramites-recibidos/tramites-recibidos.component';
+
 import { TramitesEnviadosComponent } from './pages/tramites-enviados/tramites-enviados.component';
-import { TramitesPrincipalComponent } from './pages/tramite/tramites-principal/tramites-principal.component';
-import { TramitesPendienteComponent } from './pages/tramite/tramites-pendiente/tramites-pendiente.component';
-import { TramitesRecibidoComponent } from './pages/tramite/tramites-recibido/tramites-recibido.component';
-import { TramitesEnviadoComponent } from './pages/tramite/tramites-enviado/tramites-enviado.component';
+import { TramitesRecibidosComponent } from './pages/tramites-recibidos/tramites-recibidos.component';
+import { TramitesPendientesComponent } from './pages/tramites-pendientes/tramites-pendientes.component';
+
 import { TramitesComponent } from './pages/tramites/tramites.component';
-import { TramitacionComponent } from './pages/tramitacion/tramitacion.component';
+import { TramitesPrincipalComponent } from './pages/tramites-principal/tramites-principal.component';
 @NgModule({
     imports: [
         RouterModule.forRoot([
@@ -46,11 +43,10 @@ import { TramitacionComponent } from './pages/tramitacion/tramitacion.component'
                 children: [
                     {path: '', component: DashboardComponent},
                     {path: 'home/tramites', component: TramitesComponent},
-                    {path: 'home/tramitesprincipal', component: TramitesPrincipalComponent},
-                    {path: 'home/tramitacion', component: TramitacionComponent},
-                    {path: 'home/tramites-pendientes', component: TramitesPendienteComponent},
-                    {path: 'home/tramite-recibidos', component: TramitesRecibidoComponent},
-                    {path: 'home/tramites-enviados', component: TramitesEnviadoComponent},
+                    {path: 'home/tramites-principal', component: TramitesPrincipalComponent},
+                    {path: 'home/tramites-pendientes', component: TramitesPendientesComponent},
+                    {path: 'home/tramite-recibidos', component: TramitesRecibidosComponent},
+                    {path: 'home/tramites-enviados', component: TramitesEnviadosComponent},
                     {path: 'uikit/formlayout', component: FormLayoutComponent},
                     {path: 'uikit/input', component: InputComponent},
                     {path: 'uikit/floatlabel', component: FloatLabelComponent},

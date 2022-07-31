@@ -5,15 +5,13 @@
             <p-toolbar styleClass="mb-4">
                 <ng-template pTemplate="left">
                     <div class="my-2">
+                        <!-- <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNewTramite()"></button>
+                        <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedProducts()" [disabled]="!selectedProducts || !selectedProducts.length"></button> -->
                         <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNewTramite()"></button>
-                        <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedProducts()" [disabled]="!selectedProducts || !selectedProducts.length"></button>
+                        <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger"></button>
                     </div>
                 </ng-template>
 
-                <ng-template pTemplate="right">
-                    <p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import" chooseLabel="Import" class="mr-2 inline-block"></p-fileUpload>
-                    <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help" (click)="dt.exportCSV()"></button>
-                </ng-template>
             </p-toolbar>
             <!-- TABLA DE TRAMITES -->
             <p-table #dt1 [value]="listaTramites" dataKey="numero_tramite" [expandedRowKeys]="expandedRows" [rows]="10" [loading]="loading" [rowHover]="true" styleClass="p-datatable-striped" [paginator]="true" [globalFilterFields]="['asunto','sector.sector','expediente_nota','persona_referencia','descripcion']"
@@ -22,9 +20,9 @@
                     <div class="flex justify-content-between flex-column sm:flex-row">
                         <button pButton label="Limpiar" class="p-button-outlined mb-2" icon="pi pi-filter-slash" (click)="clear(dt1)"></button>
                         <span class="p-input-icon-left mb-2">
-							<i class="pi pi-search"></i>
-							<input pInputText type="text" #filter (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Buscar palabra" class="w-full"/>
-						</span>
+            <i class="pi pi-search"></i>
+            <input pInputText type="text" #filter (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Buscar palabra" class="w-full"/>
+        </span>
                     </div>
                 </ng-template>
                 <ng-template pTemplate="header">
@@ -239,9 +237,8 @@
             </p-table>
             <!-- FIN TABLA DE TRAMITES -->
 
-
             <!-- DIALOG FORMULARIO TRAMITE -->
-            <p-dialog id="formTramiteDialog" [(visible)]="tramiteDialog" [style]="{width: '450px'}" header="Nuevo Tramite" [closable]="false" [modal]="false" class="p-fluid">
+            <p-dialog id="formTramiteDialog" [(visible)]="tramiteDialog" [style]="{width: '450px'}" header="Nuevo Tramite" [closable]="false" [modal]="true" class="p-fluid">
                 <ng-template pTemplate="content">
                     <!-- FORMULARIO TRAMITES -->
                     <form [formGroup]="formaTramites">
@@ -315,7 +312,7 @@
                         </div>
                         <div class="field">
                             <label for="sector_id">Sector origen</label>
-                            <p-dropdown id="sector_id" [options]="listaSectores" formControlName="sector_id" optionLabel="sector" optionValue="id_sector" filter="true" placeholder="Seleccionar...">
+                            <p-dropdown id="sector_id" [options]="listaSectores" formControlName="sector_id" optionLabel="sector" optionValue="id_sector" filter="true" appendTo="body" placeholder="Seleccionar...">
 
                             </p-dropdown>
                         </div>
@@ -351,7 +348,6 @@
                 </ng-template>
             </p-dialog>
             <!-- FIN DIALOG FORMULARIO  TRAMITE -->
-
             <!-- DIALOG INFO TRAMITE -->
             <p-dialog id="InfoDialog" [(visible)]="tramiteInfoDialog" [style]="{width: '650px'}" header="Tramite detalles" [closable]="false" [modal]="true" class="p-fluid">
                 <ng-template pTemplate="content">
@@ -466,6 +462,9 @@
                 </ng-template>
             </p-dialog>
             <!-- FIN DIALOG INFO TRAMITE -->
+
+
+
 
 
         </div>

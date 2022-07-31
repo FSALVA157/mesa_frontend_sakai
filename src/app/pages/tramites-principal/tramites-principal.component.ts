@@ -1,6 +1,4 @@
 import { Component, OnInit, ViewChild, ChangeDetectorRef, ElementRef } from '@angular/core';
-import { Customer, Representative } from '../../api/customer';
-import { CustomerService } from '../../service/customerservice';
 import { Table } from 'primeng/table';
 import { Message, MessageService, ConfirmationService } from 'primeng/api'
 import { TramiteModel } from '../../models/tramite.model';
@@ -18,36 +16,15 @@ import { globalConstants } from '../../common/global-constants';
 import { organismos, sectores } from 'src/app/common/data-mockeada';
 
 @Component({
-    selector: 'app-tramites',
-    templateUrl: './tramites.component.html',
-    providers: [MessageService, ConfirmationService],
-    styleUrls: ['../../../assets/demo/badges.scss'],
-    styles: [`
-        :host ::ng-deep  .p-frozen-column {
-            font-weight: bold;
-        }
-
-        :host ::ng-deep .p-datatable-frozen-tbody {
-            font-weight: bold;
-        }
-
-        :host ::ng-deep .p-progressbar {
-            height:.5rem;
-        }
-
-       
-        
-    `]
+  selector: 'app-tramites-principal',
+  templateUrl: './tramites-principal.component.html',
+  providers: [MessageService, ConfirmationService],
+  styleUrls: ['../../../assets/demo/badges.scss'],
 })
-export class TramitesComponent implements OnInit {
-    //para mensajes
-    msgs: Message[] = [];
-    
-    customers1: Customer[];  
-    selectedCustomers1: Customer[];
-    selectedCustomer: Customer;
+export class TramitesPrincipalComponent implements OnInit {
 
-    representatives: Representative[];
+  msgs: Message[] = [];    
+    
     statuses: any[];
 
     activityValues: number[] = [0, 100];
@@ -90,7 +67,6 @@ export class TramitesComponent implements OnInit {
 
     constructor(
         private serviceMensajes: MessageService,
-        private customerService: CustomerService,
         private tramitesService: TramitesService,
         private movimientosTramiteService: MovimientosTramiteService,
         private sectoresService: SectoresService,
@@ -141,36 +117,7 @@ export class TramitesComponent implements OnInit {
     //FIN CONSTRUCTOR....................................................................................
 
     
-    ngOnInit() {
-        this.customerService.getCustomersLarge().then(customers => {
-            this.customers1 = customers;
-            this.loading = false;
-
-            // @ts-ignore
-            this.customers1.forEach(customer => customer.date = new Date(customer.date));
-        });
-
-        this.representatives = [
-            {name: 'Amy Elsner', image: 'amyelsner.png'},
-            {name: 'Anna Fali', image: 'annafali.png'},
-            {name: 'Asiya Javayant', image: 'asiyajavayant.png'},
-            {name: 'Bernardo Dominic', image: 'bernardodominic.png'},
-            {name: 'Elwin Sharvill', image: 'elwinsharvill.png'},
-            {name: 'Ioni Bowcher', image: 'ionibowcher.png'},
-            {name: 'Ivan Magalhaes', image: 'ivanmagalhaes.png'},
-            {name: 'Onyama Limba', image: 'onyamalimba.png'},
-            {name: 'Stephen Shaw', image: 'stephenshaw.png'},
-            {name: 'XuXue Feng', image: 'xuxuefeng.png'}
-        ];
-
-        this.statuses = [
-            {label: 'Unqualified', value: 'unqualified'},
-            {label: 'Qualified', value: 'qualified'},
-            {label: 'New', value: 'new'},
-            {label: 'Negotiation', value: 'negotiation'},
-            {label: 'Renewal', value: 'renewal'},
-            {label: 'Proposal', value: 'proposal'}
-        ];
+    ngOnInit() {        
 
         this.listarTramites();
         //this.listarSectores();
@@ -292,7 +239,8 @@ export class TramitesComponent implements OnInit {
     listarTramites(){    
         this.tramitesService.listarTramites(globalConstants.sector.id_sector).
             subscribe(respuesta => {
-            this.listaTramites= respuesta[0];  
+            this.listaTramites= respuesta[0];
+            this.loading = false;  
         
         });
 
@@ -519,4 +467,5 @@ export class TramitesComponent implements OnInit {
         }
     }
     //FIN CARGAR ISTADOS DROP..................................................
+
 }
