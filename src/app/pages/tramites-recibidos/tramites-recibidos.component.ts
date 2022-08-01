@@ -49,7 +49,7 @@ export class TramitesRecibidosComponent implements OnInit {
   movimientoTramite: MovimientoTramiteModel;    
   movimientoTramiteEnviar: MovimientoTramiteModel;
   tramiteSalidaDialog: boolean;
-
+  enviarTramite: boolean = false;
   //LISTAS    
   //listaTramites: TramiteModel[]=[];
   listSectores: SectorModel[]=[];
@@ -84,7 +84,12 @@ export class TramitesRecibidosComponent implements OnInit {
   }
 
   //MANEJO DE FORMULARIO SALIDA DIALOG
+  autorizarEnviarTramite(){
+    this.enviarTramite= true;
+  }
+
   openDialogSalida(movimiento: MovimientoTramiteModel) {
+    this.movimientoTramiteEnviar = {};
     this.movimientoTramiteEnviar = movimiento;
     this.submitted = false;
     this.tramiteSalidaDialog = true;
@@ -94,7 +99,9 @@ export class TramitesRecibidosComponent implements OnInit {
   }
   
   hideDialogSalida() {
+    this.movimientoTramiteEnviar = {};
       this.tramiteSalidaDialog = false;
+      this.enviarTramite= false;
       this.submitted = false;
   }    
   //FIN MANEJO FORMULARIO SALIDA DIALOG....................................

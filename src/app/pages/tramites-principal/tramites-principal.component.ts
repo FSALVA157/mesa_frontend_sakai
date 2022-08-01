@@ -434,6 +434,7 @@ export class TramitesPrincipalComponent implements OnInit {
     }
 
     hideDialogInfo() {
+        this.movimientoTramite = {};
         this.tramiteInfoDialog = false;
         //this.nuevoTramite=false;
     }    

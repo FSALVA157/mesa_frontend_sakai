@@ -36,7 +36,6 @@ export class AppMenuComponent implements OnInit {
             {
                 label: 'Tramites',
                 items:[
-                    {label: 'Todos los Tramites',icon: 'pi pi-fw pi-book', routerLink: ['/home/tramites']}, 
                     {label: 'Tramites principal',icon: 'pi pi-fw pi-book', routerLink: ['/home/tramites-principal']},                     
                     {label: 'Pendientes',icon: 'pi pi-fw pi-clock', routerLink: ['/home/tramites-pendientes']},
                     {label: 'Recibidos',icon: 'pi pi-fw pi-envelope', routerLink: ['/home/tramite-recibidos']},

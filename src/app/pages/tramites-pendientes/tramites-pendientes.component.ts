@@ -50,6 +50,7 @@ export class TramitesPendientesComponent implements OnInit {
   movimientoTramite: MovimientoTramiteModel;  
   movimientoTramiteRecibir: MovimientoTramiteModel;
   tramiteRecibirDialog: boolean;
+  recibirTramite:boolean = false;
   
   //LISTAS    
   //listaTramites: TramiteModel[]=[];
@@ -139,6 +140,10 @@ export class TramitesPendientesComponent implements OnInit {
   //FIN LISTADO MOVIMIENTO DE TRAMITE...................................................
 
   //MANEJO DE FORMULARIO RECIBIR DIALOG
+  autorizarRecibirTramite(){
+    this.recibirTramite= true;
+  }
+
   openDialogRecibir(movimiento: MovimientoTramiteModel) {
     this.movimientoTramiteRecibir = movimiento;
     this.submitted = false;
@@ -150,6 +155,7 @@ export class TramitesPendientesComponent implements OnInit {
   hideDialogRecibir() {
     this.movimientoTramiteRecibir={};
     this.tramiteRecibirDialog = false;
+    this.recibirTramite= false;
     this.submitted = false;
   }    
   //FIN MANEJO FORMULARIO RECIBIR DIALOG....................................

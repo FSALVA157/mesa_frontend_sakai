@@ -343,8 +343,8 @@
                     <!--  FIN FORMULARIO MOVIMIENTOS -->
                 </ng-template>
                 <ng-template pTemplate="footer">
-                    <button pButton pRipple type="button" label="Cancelar" class="p-button-outlined mr-2 mb-2" (click)="hideDialogTramite()"></button>
-                    <button pButton pRipple type="button" label="Guardar" class="p-button-outlined mr-2 mb-2" (click)="submitFormTramite()"></button>
+                    <button pButton pRipple type="button" label="Cancelar" class="p-button-outlined p-button-danger mr-2 mb-2" (click)="hideDialogTramite()"></button>
+                    <button pButton pRipple type="button" label="Guardar" class="p-button-outlined p-button-success mr-2 mb-2" (click)="submitFormTramite()"></button>
                 </ng-template>
             </p-dialog>
             <!-- FIN DIALOG FORMULARIO  TRAMITE -->
@@ -352,7 +352,7 @@
             <p-dialog id="InfoDialog" [(visible)]="tramiteInfoDialog" [style]="{width: '650px'}" header="Tramite detalles" [closable]="false" [modal]="true" class="p-fluid">
                 <ng-template pTemplate="content">
 
-                    <div class="card mb-0 bg-teal-400">
+                    <div class="card mb-0 bg-cyan-600">
                         <span class="block text-white  font-bold font-medium mb-3">TRAMITE</span>
                         <div class="col-12 border-bottom-1 surface-border">
                             <div class="grid">
@@ -361,94 +361,94 @@
 
                                 </div>
                                 <div class="col-12 lg:col-6 xl:col-6">
-                                    <span class="text-teal-800 font-medium text-1xl">Tipo tramite:<span class="text-white ml-1 font-medium"> {{movimientoTramite.tramite?.tipo_tramite?.tipo_tramite}} </span></span>
+                                    <span class="text-teal-900 font-medium text-1xl">Tipo tramite:<span class="text-white ml-1 font-medium"> {{movimientoTramite.tramite?.tipo_tramite?.tipo_tramite}} </span></span>
                                 </div>
                             </div>
                         </div>
                         <div class="col-12 border-bottom-1 surface-border">
                             <div class="grid">
                                 <div class="col-12 lg:col-6 xl:col-6 py-2">
-                                    <span class="text-teal-800 font-medium text-1xl">Fecha inicia:<span class="text-white ml-1 font-medium"> {{movimientoTramite.tramite?.fecha| date: 'dd/MM/yyyy'}}</span></span>
+                                    <span class="text-teal-900 font-medium text-1xl">Fecha inicia:<span class="text-white ml-1 font-medium"> {{movimientoTramite.tramite?.fecha| date: 'dd/MM/yyyy'}}</span></span>
                                 </div>
                                 <div class="col-12 lg:col-6 xl:col-6 py-2">
-                                    <span class="text-teal-800 font-medium text-1xl">Expediente/Nota:<span class="text-white ml-1 font-medium"> {{movimientoTramite.tramite?.expediente_nota}}</span></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 border-bottom-1 surface-border">
-                            <div class="grid">
-                                <div class="col-12 lg:col-6 xl:col-6 py-2">
-                                    <span class="text-teal-800 font-medium text-1xl">Asunto:<br><span class="text-white ml-1 font-medium"> {{movimientoTramite.tramite?.asunto}}</span></span>
-                                </div>
-                                <div class="col-12 lg:col-6 xl:col-6 py-2">
-                                    <span class="text-teal-800 font-medium text-1xl">Descripción:<br><span class="text-white ml-1 font-medium"> {{movimientoTramite.tramite?.descripcion}}</span></span>
+                                    <span class="text-teal-900 font-medium text-1xl">Expediente/Nota:<span class="text-white ml-1 font-medium"> {{movimientoTramite.tramite?.expediente_nota}}</span></span>
                                 </div>
                             </div>
                         </div>
                         <div class="col-12 border-bottom-1 surface-border">
                             <div class="grid">
                                 <div class="col-12 lg:col-6 xl:col-6 py-2">
-                                    <span class="text-800 font-medium text-1xl">Persona referencia:<br><span class="text-white ml-1 font-medium"> {{movimientoTramite.tramite?.persona_referencia}}</span></span>
+                                    <span class="text-teal-900 font-medium text-1xl">Asunto:<br><span class="text-white ml-1 font-medium"> {{movimientoTramite.tramite?.asunto}}</span></span>
                                 </div>
                                 <div class="col-12 lg:col-6 xl:col-6 py-2">
-                                    <span class="text-teal-800 font-medium text-1xl">Sector inicia:<br><span class="text-white ml-1 font-medium"> {{movimientoTramite.tramite?.sector?.organismo?.organismo}}<br>{{movimientoTramite.tramite?.sector?.sector}}</span></span>
+                                    <span class="text-teal-900 font-medium text-1xl">Descripción:<br><span class="text-white ml-1 font-medium"> {{movimientoTramite.tramite?.descripcion}}</span></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 border-bottom-1 surface-border">
+                            <div class="grid">
+                                <div class="col-12 lg:col-6 xl:col-6 py-2">
+                                    <span class="text-teal-900 font-medium text-1xl">Persona referencia:<br><span class="text-white ml-1 font-medium"> {{movimientoTramite.tramite?.persona_referencia}}</span></span>
+                                </div>
+                                <div class="col-12 lg:col-6 xl:col-6 py-2">
+                                    <span class="text-teal-900 font-medium text-1xl">Sector inicia:<br><span class="text-white ml-1 font-medium"> {{movimientoTramite.tramite?.sector?.organismo?.organismo}}<br>{{movimientoTramite.tramite?.sector?.sector}}</span></span>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="card mt-2 bg-teal-400">
+                    <div class="card mt-2 bg-cyan-600">
                         <span class="block text-white font-bold font-medium mb-3">MOVIMIENTO</span>
                         <div class="col-12 border-bottom-1 surface-border">
                             <div class="grid">
                                 <div class="col-12 lg:col-6 xl:col-6 py-2">
-                                    <span class="text-teal-800 font-medium text-1xl">Movimiento N°:<span class="text-white ml-1 font-medium"> {{movimientoTramite.num_movimiento_tramite}}</span></span>
+                                    <span class="text-teal-900 font-medium text-1xl">Movimiento N°:<span class="text-white ml-1 font-medium"> {{movimientoTramite.num_movimiento_tramite}}</span></span>
                                 </div>
                             </div>
                         </div>
                         <div class="col-12 border-bottom-1 surface-border">
                             <div class="grid">
                                 <div class="col-12 lg:col-12 xl:col-12 py-2">
-                                    <span class="text-teal-800 font-medium text-1xl">Sector origen:<br><span class="text-white ml-1 font-medium"> {{movimientoTramite.sector_origen?.organismo?.organismo}} - {{movimientoTramite.sector_origen?.sector}}</span></span>
+                                    <span class="text-teal-900 font-medium text-1xl">Sector origen:<br><span class="text-white ml-1 font-medium"> {{movimientoTramite.sector_origen?.organismo?.organismo}} - {{movimientoTramite.sector_origen?.sector}}</span></span>
                                 </div>
                             </div>
                         </div>
                         <div class="col-12 border-bottom-1 surface-border">
                             <div class="grid">
                                 <div class="col-12 lg:col-8 xl:col-8 py-2">
-                                    <span class="text-teal-800 font-medium text-1xl">Sector ingresa:<br><span class="text-white ml-1 font-medium"> {{movimientoTramite.sector?.organismo?.organismo}}<br>{{movimientoTramite.sector?.sector}}</span></span>
+                                    <span class="text-teal-900 font-medium text-1xl">Sector ingresa:<br><span class="text-white ml-1 font-medium"> {{movimientoTramite.sector?.organismo?.organismo}}<br>{{movimientoTramite.sector?.sector}}</span></span>
                                 </div>
                                 <div class="col-12 lg:col-4 xl:col-4 py-2">
-                                    <span class="text-teal-800 font-medium text-1xl">Fecha ingreso:<span class="text-white ml-1 font-medium"> {{movimientoTramite.fecha_ingreso| date: 'dd/MM/yyyy'}}</span></span>
+                                    <span class="text-teal-900 font-medium text-1xl">Fecha ingreso:<span class="text-white ml-1 font-medium"> {{movimientoTramite.fecha_ingreso| date: 'dd/MM/yyyy'}}</span></span>
                                 </div>
                             </div>
                         </div>
                         <div class="col-12 border-bottom-1 surface-border">
                             <div class="grid">
                                 <div class="col-12 lg:col-8 xl:col-8 py-2">
-                                    <span class="text-teal-800 font-medium text-1xl">Descripción ingreso:<br><span class="text-white ml-1 font-medium"> {{movimientoTramite.descripcion_ingreso}}</span></span>
+                                    <span class="text-teal-900 font-medium text-1xl">Descripción ingreso:<br><span class="text-white ml-1 font-medium"> {{movimientoTramite.descripcion_ingreso}}</span></span>
                                 </div>
                                 <div class="col-12 lg:col-4 xl:col-4 py-2">
-                                    <span class="text-teal-800 font-medium text-1xl">Fojas ingreso:<span class="text-white ml-1 font-medium"> {{movimientoTramite.fojas_ingreso}}</span></span>
+                                    <span class="text-teal-900 font-medium text-1xl">Fojas ingreso:<span class="text-white ml-1 font-medium"> {{movimientoTramite.fojas_ingreso}}</span></span>
                                 </div>
                             </div>
                         </div>
                         <div class="col-12 border-bottom-1 surface-border">
                             <div class="grid">
                                 <div class="col-12 lg:col-8 xl:col-8 py-2">
-                                    <span class="text-teal-800 font-medium text-1xl">Sector destino:<br><span class="text-white ml-1 font-medium"> {{movimientoTramite.sector_destino?.organismo?.organismo}}<br>{{movimientoTramite.sector_destino?.sector}}</span></span>
+                                    <span class="text-teal-900 font-medium text-1xl">Sector destino:<br><span class="text-white ml-1 font-medium"> {{movimientoTramite.sector_destino?.organismo?.organismo}}<br>{{movimientoTramite.sector_destino?.sector}}</span></span>
                                 </div>
                                 <div class="col-12 lg:col-4 xl:col-4 py-2">
-                                    <span class="text-teal-800 font-medium text-1xl">Fecha salida:<span class="text-white ml-1 font-medium"> {{movimientoTramite.fecha_salida| date: 'dd/MM/yyyy'}}</span></span>
+                                    <span class="text-teal-900 font-medium text-1xl">Fecha salida:<span class="text-white ml-1 font-medium"> {{movimientoTramite.fecha_salida| date: 'dd/MM/yyyy'}}</span></span>
                                 </div>
                             </div>
                         </div>
                         <div class="col-12 border-bottom-1 surface-border">
                             <div class="grid">
                                 <div class="col-12 lg:col-8 xl:col-8 py-2">
-                                    <span class="text-teal-800 font-medium text-1xl">Descripción salida:<br><span class="text-white ml-1 font-medium">{{movimientoTramite.descripcion_salida}}</span></span>
+                                    <span class="text-teal-900 font-medium text-1xl">Descripción salida:<br><span class="text-white ml-1 font-medium">{{movimientoTramite.descripcion_salida}}</span></span>
                                 </div>
                                 <div class="col-12 lg:col-4 xl:col-4 py-2">
-                                    <span class="text-teal-800 font-medium text-1xl">Fojas salida:<span class="text-white ml-1 font-medium">{{movimientoTramite.fojas_salida}}</span></span>
+                                    <span class="text-teal-900 font-medium text-1xl">Fojas salida:<span class="text-white ml-1 font-medium">{{movimientoTramite.fojas_salida}}</span></span>
                                 </div>
                             </div>
                         </div>
@@ -457,16 +457,11 @@
                     </div>
                 </ng-template>
                 <ng-template pTemplate="footer">
-                    <button pButton pRipple type="button" label="Cerrar" class="p-button-outlined mr-2 mb-2" (click)="hideDialogInfo()"></button>
+                    <button pButton pRipple type="button" label="Cerrar" class="p-button-outlined p-button-danger mr-2 mb-2" (click)="hideDialogInfo()"></button>
 
                 </ng-template>
             </p-dialog>
             <!-- FIN DIALOG INFO TRAMITE -->
-
-
-
-
-
         </div>
 
     </div>

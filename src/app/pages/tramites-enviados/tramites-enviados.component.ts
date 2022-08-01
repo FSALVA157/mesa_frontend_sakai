@@ -1,4 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Cell, PdfMakeWrapper } from 'pdfmake-wrapper';
 import { ConfirmationService, Message, MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { MovimientoTramiteModel } from 'src/app/models/movimiento-tramite.model';
@@ -71,6 +72,30 @@ export class TramitesEnviadosComponent implements OnInit {
   }
   //FIN LISTADO MOVIMIENTO DE TRAMITE...................................................
 
+  //OBTENER PLANILLA INTERNO
+  generarPdfPase(movimiento: MovimientoTramiteModel) {
+    let meses_texto=["Enero", "Febrero","Marzo","Abril","Mayo","Junio", "Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
+    //fecha completa
+    let fecha_hoy: Date = new Date();
+    let fecha_completa: string;
+    let anio:number= fecha_hoy.getFullYear(); 
+    let mes: number= fecha_hoy.getMonth();
+    let dia: number= fecha_hoy.getDate();
+    fecha_completa = "Salta, " + dia + " de " + meses_texto[mes] + " de " +  anio;
+
+    //fin fecha completa
+    const pdf = new PdfMakeWrapper();
+
+    
+    
+    pdf.create().open();
+    //pdf.create().download();
+                             
+  }
+  //FIN OBTENER PLANILLA INTERNO
+  //.................................................
+
+
   //MANEJO DE  DIALOG INFO
   openDialogInfo(movimiento: MovimientoTramiteModel) {
     this.movimientoTramite = {};
@@ -81,6 +106,7 @@ export class TramitesEnviadosComponent implements OnInit {
 }
 
 hideDialogInfo() {
+  this.movimientoTramite={};
     this.tramiteInfoDialog = false;
     //this.nuevoTramite=false;
 }    

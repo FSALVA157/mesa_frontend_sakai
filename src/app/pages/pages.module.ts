@@ -19,6 +19,14 @@ import { TramitesEnviadosComponent } from './tramites-enviados/tramites-enviados
 import { TramitesPrincipalComponent } from './tramites-principal/tramites-principal.component';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 
+// Importar pdfmake-wrapper y las fonts para usar
+import { PdfMakeWrapper } from 'pdfmake-wrapper';
+import * as pdfFonts from "pdfmake/build/vfs_fonts"; // fonts
+
+// registrar las fuentes
+PdfMakeWrapper.setFonts(pdfFonts);
+
+
 @NgModule({
   imports: [
     CommonModule,
