@@ -85,75 +85,47 @@ export class TramitesEnviadosComponent implements OnInit {
 
     //fin fecha completa
     const pdf = new PdfMakeWrapper();
-    //[mL,mT,mR,mB]
-    pdf.pageMargins([50,50,75,0]);
+    //Margenes [mL,mT,mR,mB]
+    pdf.pageMargins([55,65,85,0]);
 
+    //Rectangulos
     pdf.add(
       new Canvas([
         // Bottom
-        new Rect([40, 40], [500, 150]).lineColor('#000000').end,
-        new Rect([40, 190], [500, 100]).lineColor('#000000').end,
-        // Top
-        // new Polyline([
-        //   { x: 597, y: 0 },
-        //   { x: 597, y: 300 },
-        //   { x: 0, y: 0 },
-        // ])
-        //   .closePath()
-        //   .color('#2E8BC0')
-        //   .lineColor('#2E8BC0').end,
-  
-        // new Polyline([
-        //   { x: 0, y: 0 },
-        //   { x: 0, y: 845 },
-        //   { x: 597, y: 0 },
-        // ])
-        //   .closePath()
-        //   .color('#0C2D48')
-        //   .lineColor('#0C2D48').end,
-  
-        // // circle
-        // new Ellipse([100, 90], 50).color('#145DA0').end,
-  
-        // // Title line
-        // new Line([200, 745], [540, 745]).lineWidth(8).lineCap('round').end,
+        new Rect([45, 60], [460, 155]).lineColor('#000000').end,
+        new Rect([45, 215], [460, 70]).lineColor('#000000').end,
+        
       ]).absolutePosition(0, 0).end
     );
     
-    // pdf.add(
-    //   new TablaPdf([
-    //     [ 
-    //       new Cell (await new Img('../../../../assets/img/logo-spps-transp-text.png').fit([130,130]).alignment('left').build()).end
-    //     ],
-    //     [ 
-    //       new Txt(this.movimientoTramite.sector.organismo.organismo.toUpperCase()).fontSize(9).alignment('center').end
-          
-    //     ]
-    //   ]).widths([130])
-    //   .layout('noBorders').end
-    // );
-    // pdf.add(' ');
-    
+       
+    //Encabezado
     pdf.add(
       new TablaPdf([
         [
-          new Cell (new Txt(this.movimientoTramite.sector.organismo.organismo.toUpperCase() + " S.P.P.S").bold().fontSize(12).alignment('left').end).end,
+          new Cell (new Txt(this.movimientoTramite.sector.organismo.organismo.toUpperCase() + " S.P.P.S").bold().fontSize(14).alignment('left').end).end,
           new Cell (new Txt("05/10/2022").fontSize(11).alignment("right").end).end
-        ]       
+        ],
+        [
+          new Cell (new Txt(this.movimientoTramite.sector.sector.toUpperCase() + " S.P.P.S").bold().fontSize(11).alignment('left').end).end,
+          new Cell (new Txt(" ").bold().fontSize(13).alignment('left').end).end
+        ]        
 
-      ]).widths([360,100]).layout("headerLineOnly").end
+      ]).widths([365,70]).layout("noBorders").end
     );
 
+    //Referencia
     pdf.add(
       new TablaPdf([
         [
-          new Cell (new Txt("Ref.").fontSize(11).alignment('left').end).end,
-          new Cell (new Txt(this.movimientoTramite.descripcion_ingreso).fontSize(10).alignment("left").end).margin(0).end
+          new Cell (new Txt("Ref.").fontSize(12).alignment('left').end).end,
+          new Cell (new Txt(this.movimientoTramite.descripcion_ingreso).fontSize(10).alignment("left").end).end
         ]       
 
-      ]).widths([25,442]).heights([70]).layout("noBorders").end
+      ]).widths([30,405]).heights([60]).layout("noBorders").end
     );
 
+    //Conocimiento
     pdf.add(
       new TablaPdf([
         [
@@ -164,22 +136,23 @@ export class TramitesEnviadosComponent implements OnInit {
           new Cell (new Txt(this.movimientoTramite.sector_destino.sector.toUpperCase() +" - "+ this.movimientoTramite.sector_destino.organismo.organismo.toUpperCase()).bold().fontSize(11).alignment("left").end).margin([20,0,0,0]).end
         ]       
 
-      ]).widths([460]).layout("noBorders").end
+      ]).widths([430]).heights([10,25]).layout("noBorders").end
     );
     
+    //Para
     pdf.add(
       new TablaPdf([
         [
-          new Cell (new Txt("Para: ").fontSize(11).alignment('left').end).end,
+          new Cell (new Txt("Para: ").fontSize(12).alignment('left').end).end,
           new Cell (new Txt(this.movimientoTramite.descripcion_salida).fontSize(10).alignment("left").end).end
         ],
         [
           new Cell (new Txt(" ").fontSize(11).alignment('left').end).end,
-          new Cell (new Txt(this.movimientoTramite.tramite_numero +"-"+ this.movimientoTramite.num_movimiento_tramite).bold().fontSize(12).alignment("left").end).end
+          new Cell (new Txt("Tramite: " + this.movimientoTramite.tramite_numero +"-"+ this.movimientoTramite.num_movimiento_tramite +"-"+ this.movimientoTramite.tramite.anio).bold().fontSize(12).alignment("left").end).end
         ]
 
 
-      ]).widths([25,442]).heights([40]).margin([0,20,0,0]).layout("noBorders").end
+      ]).widths([30,400]).heights([50,15]).margin([0,0,0,0]).layout("noBorders").end
     );
     
     
