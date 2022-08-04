@@ -20,17 +20,14 @@
                     <div class="flex justify-content-between flex-column sm:flex-row">
                         <button pButton label="Limpiar" class="p-button-outlined mb-2" icon="pi pi-filter-slash" (click)="clear(dt1)"></button>
                         <span class="p-input-icon-left mb-2">
-            <i class="pi pi-search"></i>
-            <input pInputText type="text" #filter (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Buscar palabra" class="w-full"/>
-        </span>
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" #filter (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Buscar palabra" class="w-full"/>
+                        </span>
                     </div>
                 </ng-template>
                 <ng-template pTemplate="header">
                     <tr>
                         <th style="width: 3rem"></th>
-
-
-
                         <th>
                             <div class="flex justify-content-between align-items-center">
                                 N° Tramite
@@ -108,8 +105,6 @@
 
                             </div>
                         </th>
-
-
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-tramite let-expanded="expanded">
@@ -348,6 +343,7 @@
                 </ng-template>
             </p-dialog>
             <!-- FIN DIALOG FORMULARIO  TRAMITE -->
+
             <!-- DIALOG INFO TRAMITE -->
             <p-dialog id="InfoDialog" [(visible)]="tramiteInfoDialog" [style]="{width: '650px'}" header="Tramite detalles" [closable]="false" [modal]="true" class="p-fluid">
                 <ng-template pTemplate="content">

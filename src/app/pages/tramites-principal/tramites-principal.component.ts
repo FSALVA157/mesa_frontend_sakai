@@ -174,6 +174,7 @@ export class TramitesPrincipalComponent implements OnInit {
     get tipoTramiteNotaNoValido(){
         return this.formaTramites.get('tipo_tramite_id')?.invalid && this.formaTramites.get('tipo_tramite_id')?.touched;
     }
+    //FIN VALIDACIONES DE FORMULARIO TRANITES.....................................................
        
 
     //GUARDAR TRAMITE  
@@ -233,7 +234,7 @@ export class TramitesPrincipalComponent implements OnInit {
         //FIN GUARDAR NUEVO TRAMITE 
 
     }    
-    //FIN GUARDAR TRAMITE......................................
+    //FIN GUARDAR TRAMITE............................................................
     
     //LISTADO DE TRAMITES
     listarTramites(){    
@@ -243,30 +244,9 @@ export class TramitesPrincipalComponent implements OnInit {
             this.loading = false;  
         
         });
-
-
-        // this.tramitesService.listarTramitesTodos().
-        //     subscribe(respuesta => {
-        //         console.log("respuesta", respuesta);
-        //     this.listaTramites= respuesta[0];  
-        
-        // });
     }
-    //FIN LISTADO DE TRAMITES 
-
-
-
-    //LISTADO DE SECTORES
-    listarSectores(){    
-        this.sectoresService.listarSectores().
-            subscribe(respuesta => {
-            this.listaSectores= respuesta   
-        
-        });
-    }
-    //FIN LISTADO DE SECTORES.................................................................
-
-
+    //FIN LISTADO DE TRAMITES....................................................... 
+    
     //LISTADO MOVIMIENTOS DE TRAMITE
     listarHistorialTramite(tramite: TramiteModel){ 
         this.expandedRows={};
@@ -277,99 +257,16 @@ export class TramitesPrincipalComponent implements OnInit {
                 console.log("lista", this.listaMovimientosTramite);     
                 this.expandedRows[tramite.numero_tramite]=true;
             });
-        } 
-        
+        }         
     }
     //FIN LISTADO MOVIMIENTO DE TRAMITE...................................................
-
-    //GUARDAR SALIDA TRAMITE  
-    submitFormSalidaTramite(){
-        //if(this.formaTramites.invalid){                        
-        //    this.msgs = [];
-        //    this.msgs.push({ severity: 'warn', summary: 'Errores en formulario', detail: 'Cargue correctamente los datos' });
-        //    this.serviceMensajes.add({key: 'tst', severity: 'warn', summary: 'Errores en formulario', detail: 'Cargue correctamente los dato'});
-            // Swal.fire(
-                
-            //     {target: document.getElementById('form-modal')},
-            //     'Formulario Tramite con errores','Complete correctamente todos los campos del formulario',"warning"
-            //     );
-        //    return Object.values(this.formaTramites.controls).forEach(control => control.markAsTouched());
-        //}
-        
-        let dataMovimientoTramite: Partial <MovimientoTramiteModel>;
-        dataMovimientoTramite = {                     
-            tramite_numero: parseInt(this.formaMovimientosTramite.get('tramite_numero')?.value),
-            //num_movimiento_tramite: parseInt(this.formaMovimientosTramite.get('num_movimiento_tramite')?.value),
-            sector_destino_id: parseInt(this.formaMovimientosTramite.get('sector_id')?.value),                    
-            fojas_salida: parseInt(this.formaMovimientosTramite.get('fojas')?.value),
-            descripcion_salida: this.formaMovimientosTramite.get('descripcion')?.value,
-            usuario_id: globalConstants.id_usuario,
-            sector_id: globalConstants.sector.id_sector
-            
-        }
-        //GUARDAR SALIDA MOVIMIENTO
-        this.movimientosTramiteService.salidaMovimientoTramite(parseInt(this.formaMovimientosTramite.get('num_movimiento_tramite')?.value),dataMovimientoTramite)
-            .subscribe(resMovimiento => {
-                this.hideDialogTramite();
-                Swal.fire('Exito',`El Tramite fue guardado con Exito`,"success");
-                this.listarTramites();
-            })
-        //FIN GUARDAR SALIDA MOVIMIENTO
-
-    }    
-    //FIN GUARDAR SALIDA TRAMITE............................................................................
-
-    //RECIBIR TRAMITE
-    submitFormRecibirTramite(){
-        // if(this.formaTramites.invalid){                        
-        //     this.msgs = [];
-        //     this.msgs.push({ severity: 'warn', summary: 'Errores en formulario', detail: 'Cargue correctamente los datos' });
-        //     this.serviceMensajes.add({key: 'tst', severity: 'warn', summary: 'Errores en formulario', detail: 'Cargue correctamente los dato'});
-        //     // Swal.fire(
-                
-        //     //     {target: document.getElementById('form-modal')},
-        //     //     'Formulario Tramite con errores','Complete correctamente todos los campos del formulario',"warning"
-        //     //     );
-        //     return Object.values(this.formaTramites.controls).forEach(control => control.markAsTouched());
-        // }
-    
-        let dataMovimientoTramite: Partial <MovimientoTramiteModel>;
-        dataMovimientoTramite = {
-            tramite_numero: parseInt(this.formaMovimientosTramite.get('tramite_numero')?.value),
-            sector_origen_id: parseInt(this.formaMovimientosTramite.get('sector_id')?.value),                    
-            fojas_ingreso: parseInt(this.formaMovimientosTramite.get('fojas')?.value),
-            descripcion_ingreso: this.formaMovimientosTramite.get('descripcion')?.value,
-            usuario_id: globalConstants.id_usuario,
-            sector_id: globalConstants.sector.id_sector
-            
-        }
-        //GUARDAR MOVIMIENTO
-        this.movimientosTramiteService.recibirMovimientoTramite(dataMovimientoTramite, parseInt(this.formaMovimientosTramite.get('num_movimiento_tramite')?.value))
-            .subscribe(resMovimiento => {
-                this.hideDialogTramite();
-                Swal.fire('Exito',`El Tramite fue recibido con Exito`,"success");
-                this.listarTramites();
-            })
-        //FIN GUARDAR MOVIMIENTO
-
-    } 
-    //FIN RECIBIR TRAMITE
-    
-
-    //LISTADO DE TIPO TRAMITES
-    listarTiposTramite(){    
-        this.tiposTramiteService.listarTiposTramite().
-            subscribe(respuesta => {
-            this.listaTiposTramite= respuesta;
-        
-        });
-    }
-    //FIN LISTADO DE TIPO TRAMITES
-
+   
+    //LIMPIAR
     clear(table: Table) {
         table.clear();
         this.filter.nativeElement.value = '';
-    }   
+    } 
+    //FIN LIMPIAR  
 
     //MANEJO DE FORMULARIO DIALOG
     openNewTramite() {
@@ -386,44 +283,7 @@ export class TramitesPrincipalComponent implements OnInit {
     }    
     //FIN MANEJO FORMULARIO DIALOG....................................
 
-    //MANEJO DE FORMULARIO RECIBIR DIALOG
-    openDialogRecibir(movimiento: MovimientoTramiteModel) {
-        //this.movimientoTramite = {};
-        this.submitted = false;
-        this.tramiteRecibirDialog = true;
-        this.formaMovimientosTramite.get('tramite_numero')?.setValue(movimiento.tramite_numero);               
-        this.formaMovimientosTramite.get('num_movimiento_tramite')?.setValue(movimiento.num_movimiento_tramite);
-        this.formaMovimientosTramite.get('organismo_id')?.setValue(movimiento.sector.organismo_id);
-        this.formaMovimientosTramite.get('sector_id')?.setValue(movimiento.sector_id);
-        this.formaMovimientosTramite.get('fojas')?.setValue(movimiento.fojas_salida);
-
-        //this.nuevoTramite=true;
-    }
-
-    hideDialogRecibir() {
-        this.tramiteRecibirDialog = false;
-        this.submitted = false;
-        //this.nuevoTramite=false;
-    }    
-    //FIN MANEJO FORMULARIO RECIBIR DIALOG....................................
-
-    //MANEJO DE FORMULARIO SALIDA DIALOG
-    openDialogSalida(movimiento: MovimientoTramiteModel) {
-        //this.movimientoTramite = {};
-        this.submitted = false;
-        this.tramiteSalidaDialog = true;
-        this.formaMovimientosTramite.get('tramite_numero')?.setValue(movimiento.tramite_numero);               
-        this.formaMovimientosTramite.get('num_movimiento_tramite')?.setValue(movimiento.num_movimiento_tramite);  
-        //this.nuevoTramite=true;
-    }
-
-    hideDialogSalida() {
-        this.tramiteSalidaDialog = false;
-        this.submitted = false;
-        //this.nuevoTramite=false;
-    }    
-    //FIN MANEJO FORMULARIO SALIDA DIALOG....................................
-
+   
     //MANEJO DE  DIALOG INFO
     openDialogInfo(movimiento: MovimientoTramiteModel) {
         this.movimientoTramite = {};
@@ -438,10 +298,28 @@ export class TramitesPrincipalComponent implements OnInit {
         this.tramiteInfoDialog = false;
         //this.nuevoTramite=false;
     }    
-    //FIN MANEJO DIALOG INFO....................................
+    //FIN MANEJO DIALOG INFO..............................................
+   
+    //LISTADO DE TIPO TRAMITES
+    listarTiposTramite(){    
+        this.tiposTramiteService.listarTiposTramite().
+            subscribe(respuesta => {
+            this.listaTiposTramite= respuesta;
+        
+        });
+    }
+    //FIN LISTADO DE TIPO TRAMITES.........................................
 
+    //LISTADO DE SECTORES
+    listarSectores(){    
+        this.sectoresService.listarSectores().
+            subscribe(respuesta => {
+            this.listaSectores= respuesta   
+        
+        });
+    }
+    //FIN LISTADO DE SECTORES.................................................................
     
-
     //CARGA DE LISTADOS DROP
     cargarSectores(id_organismo: number){
         let mi_organismo = globalConstants.sector.organismo_id;
