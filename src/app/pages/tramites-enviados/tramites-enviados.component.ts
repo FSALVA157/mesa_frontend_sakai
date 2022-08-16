@@ -78,11 +78,12 @@ export class TramitesEnviadosComponent implements OnInit {
     //fecha completa
     let fecha_hoy: Date = new Date();
     let fecha_completa: string;
+    let fecha: string;
     let anio:number= fecha_hoy.getFullYear(); 
     let mes: number= fecha_hoy.getMonth();
     let dia: number= fecha_hoy.getDate();
     fecha_completa = "Salta, " + dia + " de " + meses_texto[mes] + " de " +  anio;
-
+    
     //fin fecha completa
     const pdf = new PdfMakeWrapper();
     //Margenes [mL,mT,mR,mB]
