@@ -224,9 +224,9 @@ export class AppMainComponent implements AfterViewInit, OnDestroy, OnInit {
     cargarSectores(id_organismo: number){
         this.listSectores=sectores.filter(sector => {      
             return sector.id_sector == 1 || sector.organismo_id == id_organismo;
-          });
-        
-      }
+        });
+    
+    }
 
     onChangeOrganismos(){
         const id = this.formaSector.get('organismo_id')?.value;
