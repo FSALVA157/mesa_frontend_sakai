@@ -9,18 +9,21 @@ const base_url = environment.URL_BASE
   providedIn: 'root'
 })
 export class TramitesService {
-  tramite: Partial<TramiteModel> = new TramiteModel();
+  tramite: TramiteModel = new TramiteModel();
   constructor(
     private readonly http: HttpClient
   ) { }
 
-  listarTramites(){
-    return this.http.get<TramiteModel[]>(`${base_url}/tramites`)
+  listarTramites(sector: number){
+    return this.http.get<[tramite:TramiteModel[], total: number]>(`${base_url}/tramites/tramite-movimientos-sector?id_sector=${sector}`)
   }
 
-  guardarTramite(data: any){    
-    this.tramite={...data};
+  listarTramitesTodos(){
+    return this.http.get<[tramite:TramiteModel[], total: number]>(`${base_url}/tramites/tramite-movimientos`)
+  }
 
+  guardarTramite(data: Partial<TramiteModel>){    
+    this.tramite={...data};
     return this.http.post(`${base_url}/tramites`, this.tramite);
   }
 }

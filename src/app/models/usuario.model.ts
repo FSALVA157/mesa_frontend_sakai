@@ -1,4 +1,3 @@
-
 export interface IUsuarioModel{
     usuario: string;
     correo: string;
@@ -12,5 +11,6 @@ export interface IUsuarioModel{
     alta? : string;
     actualizado? : string;
 }
+
 
 

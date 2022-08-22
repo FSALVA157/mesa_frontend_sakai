@@ -4,6 +4,13 @@ import { AppComponent } from './app.component';
 import { ConfigService } from './service/app.config.service';
 import { AppConfig } from './api/appconfig';
 import { Subscription } from 'rxjs';
+import { SectorModel } from './models/sector.model';
+import { globalConstants } from './common/global-constants';
+import { SectoresService } from './service/sectores.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { organismos, sectores } from './common/data-mockeada';
+import { OrganismoModel } from './models/organismo.model';
+
 
 @Component({
     selector: 'app-main',
@@ -22,6 +29,16 @@ import { Subscription } from 'rxjs';
     ]
 })
 export class AppMainComponent implements AfterViewInit, OnDestroy, OnInit {
+    //TEMPORAL
+    selectedSector: SectorModel;
+    filterValue = '';
+
+    sector: SectorModel=new SectorModel;
+    listOrganismos: OrganismoModel[]=[];
+    listSectores: SectorModel[]=[];
+    sectorDialog: boolean;
+    //FORMULARIOS
+    formaSector: FormGroup;
 
     public menuInactiveDesktop: boolean;
 
@@ -53,11 +70,30 @@ export class AppMainComponent implements AfterViewInit, OnDestroy, OnInit {
 
     subscription: Subscription;
     
-    constructor(public renderer: Renderer2, public app: AppComponent, public configService: ConfigService) { }
+    constructor(public renderer: Renderer2, public app: AppComponent, public configService: ConfigService,
+        private sectoresService: SectoresService,
+        private fb: FormBuilder
+        ) {
+            //FORMULARIO SALIDA TRAMITE    
+            this.formaSector = this.fb.group({
+                organismo_id: [1,[Validators.required,Validators.pattern(/^[0-9]*$/)]],
+                sector_id: [1,[Validators.required,Validators.pattern(/^[0-9]*$/)]],
+                
+               
+            });
+            //FIN FORMULARIO SALIDA TRAMITE
+        }
 
     ngOnInit() {
         this.config = this.configService.config;
         this.subscription = this.configService.configUpdate$.subscribe(config => this.config = config);
+
+        //TEMPORAL BUSQUEDA DEL SECTOR
+        this.listOrganismos=organismos;
+        this.cargarSectores(1);
+        this.guardarSector();
+        //FIN TEMPORAL BUSQUEDA DEL SECTOR
+        
     }
 
     ngAfterViewInit() {
@@ -89,6 +125,8 @@ export class AppMainComponent implements AfterViewInit, OnDestroy, OnInit {
             this.menuClick = false;
             this.topMenuButtonClick = false;
         });
+
+        
     }
 
     toggleMenu(event: Event) {
@@ -178,5 +216,56 @@ export class AppMainComponent implements AfterViewInit, OnDestroy, OnInit {
         if (this.subscription) {
             this.subscription.unsubscribe();
         }
+    }
+
+
+    //TEMPORAL
+    //CARGA DE LISTADOS DROP
+    cargarSectores(id_organismo: number){
+        this.listSectores=sectores.filter(sector => {      
+            return sector.id_sector == 1 || sector.organismo_id == id_organismo;
+        });
+    
+    }
+
+    onChangeOrganismos(){
+        const id = this.formaSector.get('organismo_id')?.value;
+        if(id != null){               
+            this.cargarSectores(parseInt(id.toString()));
+            this.formaSector.get('sector_id')?.setValue(1);               
+            this.formaSector.get('sector_id')?.markAsUntouched();
+            
+        }
+    }
+    //FIN CARGAR ISTADOS DROP..................................................
+
+    guardarSector(){
+        //TEMPORAL BUSQUEDA DEL SECTOR
+        this.sectoresService.buscarSector(this.formaSector.get('sector_id')?.value).
+            subscribe(respuesta => {
+            this.sector = respuesta;
+            globalConstants.sector = this.sector;
+            console.log("sector",this.sector);
+            this.sectorDialog= false;
+            
+        
+        });
+        //FIN TEMPORAL BUSQUEDA DEL SECTOR
+    }
+
+     //MANEJO DE FORMULARIO DIALOG
+     openDialogSector() {
+        this.sector = {};
+        this.sectorDialog = true;
+    }
+
+    hideDialogSector() {
+        this.sectorDialog = false;
+    }    
+    //FIN MANEJO FORMULARIO DIALOG....................................
+
+    myResetFunction() {
+        //options.reset();
+        this.filterValue = '';
     }
 }

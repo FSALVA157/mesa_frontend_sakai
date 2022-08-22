@@ -24,14 +24,23 @@ export class AppMenuComponent implements OnInit {
     model: any[];
 
     constructor(public appMain: AppMainComponent) { }
-
+    
     ngOnInit() {
         this.model = [
             {
                 label: 'Home',
                 items:[
-                    {label: 'Dashboard',icon: 'pi pi-fw pi-home', routerLink: ['/']},
-                    {label: 'Tramites',icon: 'pi pi-fw pi-home', routerLink: ['/home/tramites']}
+                    //{label: 'Dashboard',icon: 'pi pi-fw pi-home', routerLink: ['/']},
+                    {label: 'Bandeja de entrada',icon: 'pi pi-fw pi-book', routerLink: ['/']}
+                ]
+            },
+            {
+                label: 'Tramites',
+                items:[
+                    {label: 'Tramites principal',icon: 'pi pi-fw pi-book', routerLink: ['/home/tramites-principal']},                     
+                    {label: 'En espera',icon: 'pi pi-fw pi-clock', routerLink: ['/home/tramites-pendientes']},
+                    {label: 'Recibidos',icon: 'pi pi-fw pi-envelope', routerLink: ['/home/tramite-recibidos']},
+                    {label: 'Enviados',icon: 'pi pi-fw pi-send', routerLink: ['/home/tramites-enviados']}
                 ]
             },
             {

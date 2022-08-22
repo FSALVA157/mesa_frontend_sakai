@@ -140,14 +140,15 @@ import { LoginComponent } from './components/login/login.component';
 import { ErrorComponent } from './components/error/error.component';
 import { NotfoundComponent } from './components/notfound/notfound.component';
 import { AccessComponent } from './components/access/access.component';
-import { TramitesComponent } from './pages/tramites/tramites.component';
+
+import { PagesModule } from './pages/pages.module';
 import { AuthModule } from './auth/auth.module';
 
 @NgModule({
     imports: [
         AuthModule,
+        PagesModule,    
         BrowserModule,
-        FormsModule,
         AppRoutingModule,
         HttpClientModule,
         BrowserAnimationsModule,
@@ -233,9 +234,9 @@ import { AuthModule } from './auth/auth.module';
         VirtualScrollerModule,
         AppCodeModule,
         StyleClassModule,
-
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        PagesModule
     ],
     declarations: [
         AppComponent,
@@ -279,8 +280,7 @@ import { AuthModule } from './auth/auth.module';
         ErrorComponent,
         NotfoundComponent,
         AccessComponent,
-        TramitesComponent,
-        
+
     ],
     providers: [
         {provide: LocationStrategy, useClass: HashLocationStrategy},

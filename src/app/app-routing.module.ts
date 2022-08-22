@@ -28,17 +28,27 @@ import { LandingComponent } from './components/landing/landing.component';
 import { ErrorComponent } from './components/error/error.component';
 import { NotfoundComponent } from './components/notfound/notfound.component';
 import { AccessComponent } from './components/access/access.component';
-import { TramitesComponent } from './pages/tramites/tramites.component';
+//import { TramitesComponent } from './pages/tramites/tramites.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegistroComponent } from './auth/registro/registro.component';
+import { TramitesEnviadosComponent } from './pages/tramites-enviados/tramites-enviados.component';
+import { TramitesRecibidosComponent } from './pages/tramites-recibidos/tramites-recibidos.component';
+import { TramitesPendientesComponent } from './pages/tramites-pendientes/tramites-pendientes.component';
+import { TramitesPrincipalComponent } from './pages/tramites-principal/tramites-principal.component';
+import { BandejaEntradaComponent } from './pages/bandeja-entrada/bandeja-entrada.component';
 @NgModule({
     imports: [
         RouterModule.forRoot([
             {
                 path: '', component: AppMainComponent,
                 children: [
-                    {path: '', component: DashboardComponent},
-                    {path: 'home/tramites', component: TramitesComponent},
+                    //{path: '', component: DashboardComponent},
+                    {path: '', component: BandejaEntradaComponent},
+                    {path: 'home/tramites-principal', component: TramitesPrincipalComponent},
+                    {path: 'home/tramites-pendientes', component: TramitesPendientesComponent},
+                    {path: 'home/tramite-recibidos', component: TramitesRecibidosComponent},
+                    {path: 'home/tramites-enviados', component: TramitesEnviadosComponent},
+
                     {path: 'uikit/formlayout', component: FormLayoutComponent},
                     {path: 'uikit/input', component: InputComponent},
                     {path: 'uikit/floatlabel', component: FloatLabelComponent},

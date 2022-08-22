@@ -8,10 +8,13 @@ export class AppComponent {
 
     menuMode = 'static';
 
-    constructor(private primengConfig: PrimeNGConfig) { }
+    constructor(
+        private primengConfig: PrimeNGConfig
+        ) { }
 
     ngOnInit() {
         this.primengConfig.ripple = true;
         document.documentElement.style.fontSize = '14px';
     }
+
 }
