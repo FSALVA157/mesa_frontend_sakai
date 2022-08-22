@@ -21,7 +21,8 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 
 // Importar pdfmake-wrapper y las fonts para usar
 import { PdfMakeWrapper } from 'pdfmake-wrapper';
-import * as pdfFonts from "pdfmake/build/vfs_fonts"; // fonts
+import * as pdfFonts from "pdfmake/build/vfs_fonts";
+import { BandejaEntradaComponent } from './bandeja-entrada/bandeja-entrada.component'; // fonts
 
 // registrar las fuentes
 PdfMakeWrapper.setFonts(pdfFonts);
@@ -48,7 +49,8 @@ PdfMakeWrapper.setFonts(pdfFonts);
     TramitesPendientesComponent,
     TramitesRecibidosComponent,
     TramitesEnviadosComponent,
-    TramitesPrincipalComponent  
+    TramitesPrincipalComponent,
+    BandejaEntradaComponent  
     
   ],
   providers: [

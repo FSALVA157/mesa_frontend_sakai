@@ -18,6 +18,10 @@ export class MovimientosTramiteService {
     return this.http.get<[movimientosTramite:MovimientoTramiteModel[], total: number]>(`${base_url}/movimientos-tramite/historial-tramite/${num_tramite}`)
   }
 
+  listarTodosDestinadosAMiSector(id_sector: number){
+    return this.http.get<[movimientosTramite:MovimientoTramiteModel[], total: number]>(`${base_url}/movimientos-tramite/bandeja-entrada?id_sector=${id_sector}`)
+  }
+
   listarTramitesPendientes(id_sector: number){
     return this.http.get<[movimientosTramite:MovimientoTramiteModel[], total: number]>(`${base_url}/movimientos-tramite/pendientes?id_sector=${id_sector}`)
   }

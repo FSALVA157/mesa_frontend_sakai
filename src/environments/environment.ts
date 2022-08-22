@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  //URL_BASE: "http://localhost:3000"
-  URL_BASE: "https://mesa-spps.herokuapp.com"
+  URL_BASE: "http://localhost:3000"
+  //URL_BASE: "https://mesa-spps.herokuapp.com"
 };
 
 /*

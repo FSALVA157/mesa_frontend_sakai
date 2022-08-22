@@ -122,8 +122,8 @@ export class TramitesPendientesComponent implements OnInit {
         })
     //FIN GUARDAR MOVIMIENTO
 
-} 
-//FIN RECIBIR TRAMITE
+  } 
+  //FIN RECIBIR TRAMITE
 
   //LISTADO MOVIMIENTOS DE TRAMITE
   listarTramitesPendientes(id_sector: number){ 

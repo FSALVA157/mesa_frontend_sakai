@@ -33,13 +33,15 @@ import { TramitesEnviadosComponent } from './pages/tramites-enviados/tramites-en
 import { TramitesRecibidosComponent } from './pages/tramites-recibidos/tramites-recibidos.component';
 import { TramitesPendientesComponent } from './pages/tramites-pendientes/tramites-pendientes.component';
 import { TramitesPrincipalComponent } from './pages/tramites-principal/tramites-principal.component';
+import { BandejaEntradaComponent } from './pages/bandeja-entrada/bandeja-entrada.component';
 @NgModule({
     imports: [
         RouterModule.forRoot([
             {
                 path: '', component: AppMainComponent,
                 children: [
-                    {path: '', component: DashboardComponent},
+                    //{path: '', component: DashboardComponent},
+                    {path: '', component: BandejaEntradaComponent},
                     {path: 'home/tramites-principal', component: TramitesPrincipalComponent},
                     {path: 'home/tramites-pendientes', component: TramitesPendientesComponent},
                     {path: 'home/tramite-recibidos', component: TramitesRecibidosComponent},

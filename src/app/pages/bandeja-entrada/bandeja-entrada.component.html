@@ -1,0 +1,199 @@
+<div class="grid">
+    <div class="col-12 lg:col-6 xl:col-3">
+        <div class="card mb-0">
+            <div class="flex justify-content-between mb-3">
+                <div>
+                    <span class="block text-500 font-medium mb-3">En espera</span>
+                    <div class="text-900 font-medium text-xl">152</div>
+                </div>
+                <div class="flex align-items-center justify-content-center bg-blue-100 border-round" [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
+                    <i class="pi pi-fw pi-clock text-blue-500 text-xl"></i>
+                </div>
+            </div>
+            <span class="text-green-500 font-medium">24 new </span>
+            <span class="text-500">since last visit</span>
+        </div>
+    </div>
+    <div class="col-12 lg:col-6 xl:col-3">
+        <div class="card mb-0">
+            <div class="flex justify-content-between mb-3">
+                <div>
+                    <span class="block text-500 font-medium mb-3">Recibidos</span>
+                    <div class="text-900 font-medium text-xl">$2.100</div>
+                </div>
+                <div class="flex align-items-center justify-content-center bg-orange-100 border-round" [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
+                    <i class="pi pi-fw pi-envelope text-orange-500 text-xl"></i>
+                </div>
+            </div>
+            <span class="text-green-500 font-medium">%52+ </span>
+            <span class="text-500">since last week</span>
+        </div>
+    </div>
+    <div class="col-12 lg:col-6 xl:col-3">
+        <div class="card mb-0">
+            <div class="flex justify-content-between mb-3">
+                <div>
+                    <span class="block text-500 font-medium mb-3">Enviados</span>
+                    <div class="text-900 font-medium text-xl">28441</div>
+                </div>
+                <div class="flex align-items-center justify-content-center bg-cyan-100 border-round" [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
+                    <i class="pi pi-fw pi-send text-cyan-500 text-xl"></i>
+                </div>
+            </div>
+            <span class="text-green-500 font-medium">520  </span>
+            <span class="text-500">newly registered</span>
+        </div>
+    </div>
+    <div class="col-12 lg:col-6 xl:col-3">
+        <div class="card mb-0">
+            <div class="flex justify-content-between mb-3">
+                <div>
+                    <span class="block text-500 font-medium mb-3">Comments</span>
+                    <div class="text-900 font-medium text-xl">152 Unread</div>
+                </div>
+                <div class="flex align-items-center justify-content-center bg-purple-100 border-round" [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
+                    <i class="pi pi-comment text-purple-500 text-xl"></i>
+                </div>
+            </div>
+            <span class="text-green-500 font-medium">85 </span>
+            <span class="text-500">responded</span>
+        </div>
+    </div>
+    <div class="col-12 xl:col-12">
+        <div class="card">
+            <h5>Bandeja de entrada</h5>
+            <!-- TABLA DE TRAMITES -->
+            <p-table #dt1 [value]="listMovimientosTramite" dataKey="num_movimiento_tramite" [expandedRowKeys]="expandedRows" [rows]="10" [loading]="loading" [rowHover]="true" styleClass="p-datatable-striped" [paginator]="true" [globalFilterFields]="['asunto','sector.sector','expediente_nota','persona_referencia','descripcion']"
+                responsiveLayout="scroll">
+                <ng-template pTemplate="caption">
+                    <div class="flex justify-content-between flex-column sm:flex-row">
+                        <button pButton label="Limpiar" class="p-button-outlined mb-2" icon="pi pi-filter-slash" (click)="clear(dt1)"></button>
+                        <span class="p-input-icon-left mb-2">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" #filter (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Buscar palabra" class="w-full"/>
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 3rem"></th>
+                        <th>Ver</th>
+                        <th>
+                            <div class="flex justify-content-between align-items-center">
+                                N° Tramite
+                                <p-columnFilter type="text" field="numero_tramite" display="menu" placeholder="Buscar por numero_tramite"></p-columnFilter>
+                            </div>
+                        </th>
+                        <th>
+                            <div class="flex justify-content-between align-items-center">
+                                N° Movimiento
+                                <p-columnFilter type="text" field="numero_tramite" display="menu" placeholder="Buscar por numero_tramite"></p-columnFilter>
+                            </div>
+                        </th>
+
+
+                        <th>
+                            <div class="flex justify-content-between align-items-center">
+                                Asunto
+                                <p-columnFilter type="text" field="asunto" display="menu" placeholder="Buscar por asunto"></p-columnFilter>
+
+                            </div>
+                        </th>
+                        <th>
+                            <div class="flex justify-content-between align-items-center">
+                                Remite
+                                <p-columnFilter type="text" field="expediente_nota" display="menu" placeholder="Buscar por exp/nota"></p-columnFilter>
+
+                            </div>
+                        </th>
+                        <th>
+                            <div class="flex justify-content-between align-items-center">
+                                fecha salida
+                                <p-columnFilter type="text" field="persona_referencia" display="menu" placeholder="Buscar por pers. ref."></p-columnFilter>
+
+                            </div>
+                        </th>
+                        <th>
+                            <div class="flex justify-content-between align-items-center">
+                                Destino
+                                <p-columnFilter type="text" field="descripcion" display="menu" placeholder="Buscar por descripción"></p-columnFilter>
+
+                            </div>
+                        </th>
+                        <th>
+                            <div class="flex justify-content-between align-items-center">
+                                Tipo
+                            </div>
+                        </th>
+                        <th>
+                            <div class="flex justify-content-between align-items-center">
+                                Usuario
+                                <p-columnFilter type="text" field="usuario.apellido" display="menu" placeholder="Buscar por apellido"></p-columnFilter>
+
+                            </div>
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-movimiento let-expanded="expanded">
+                    <tr [ngStyle]="{'font-weight':asignarNegrita(movimiento.recibido_destino)}">
+                        <!-- <td> -->
+                        <!-- <button type="button" pButton pRipple [pRowToggler]="tramite" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'" (click)="expanded ?listarHistorialTramite(null):listarHistorialTramite(tramite)"></button>
+                        </td> -->
+                        <td></td>
+                        <td style="width: 100px;">
+                            <button pButton pRipple *ngIf="!movimiento.recibido_destino" type="button" icon="pi pi-search-plus" class="p-button-rounded p-button-warning mr-2 mb-2" (click)="openDialogRecibir(movimiento)"></button>
+                            <button pButton pRipple *ngIf="movimiento.recibido_destino" type="button" icon="pi pi-search-plus" class="p-button-rounded p-button-secondary mr-2 mb-2" (click)="openDialogRecibir(movimiento)"></button>
+                        </td>
+                        <td style="min-width: 10rem;">
+                            {{movimiento.tramite_numero}}
+                        </td>
+                        <td style="min-width: 10rem;">
+                            {{movimiento.num_movimiento_tramite}}
+                        </td>
+
+                        <td style="min-width: 15rem;">
+                            {{movimiento.tramite.asunto}}
+                        </td>
+                        <td style="min-width: 15rem;">
+                            <span class="text-orange-600">{{movimiento.sector.sector}}</span><br>{{movimiento.sector.organismo.organismo}}
+                        </td>
+                        <td style="min-width: 10rem;">
+                            {{movimiento.fecha_salida | date: 'dd/MM/yyyy'}}
+                        </td>
+                        <td style="min-width: 15rem;">
+                            <span class="text-orange-600 font-bold">{{movimiento.sector_destino.sector}}</span><br>{{movimiento.sector_destino.organismo.organismo}}
+                        </td>
+
+                        <td style="min-width: 5rem;">
+                            {{movimiento.tramite.tipo_tramite.tipo_tramite}}
+                        </td>
+                        <td style="min-width: 10rem;">
+                            {{movimiento.tramite.usuario.apellido}} {{movimiento.tramite.usuario.nombre}}
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="rowexpansion" let-tramite>
+                    <tr>
+                        <td colspan="10">
+                            <div class="p-3">
+
+                            </div>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="8">No se encontraron tramites.</td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="loadingbody">
+                    <tr>
+                        <td colspan="8">Cargando Tramites... .</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+            <!-- FIN TABLA DE TRAMITES -->
+
+        </div>
+
+    </div>
