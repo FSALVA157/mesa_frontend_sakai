@@ -9,15 +9,18 @@
     <app-topbar></app-topbar>
     <div class="layout-sidebar">
         <!-- ORGANISMO Y SECTOR DEL USUARIO -->
-        <button pButton pRipple type="button" label="buscar Sector" class="p-button-outlined mr-2 mb-2" (click)="openDialogSector()"></button>
-        <h6>
-            <b>{{sector.organismo?.organismo}}</b>
-            <br> {{sector.sector}}
-        </h6>
-
+        <p-card class="mb-2">
+            <h5>Seleccionar un sector</h5>
+            <button pButton pRipple type="button" label="buscar Sector" class="p-button-outlined mr-2" (click)="openDialogSector()"></button>
+            <h5>
+                <span class="text-cyan-600"><b>{{sector.organismo?.organismo}}</b></span>
+                <span class="text-cyan-500"><br> {{sector.sector}}</span>
+            </h5>
+        </p-card>
+        <br>
         <app-menu></app-menu>
     </div>
-    <div class="layout-main-container">
+    <div class="layout-main-container ">
         <div class="layout-main">
             <router-outlet></router-outlet>
         </div>
