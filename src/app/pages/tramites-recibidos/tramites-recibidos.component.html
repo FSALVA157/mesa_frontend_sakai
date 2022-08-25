@@ -1,6 +1,10 @@
 <div class="grid">
     <div class="col-12">
         <div class="card">
+            <h5>
+                <span class="text-orange-600"><b>{{(sector != null)?sector.organismo.organismo : "Sin organismo"}}</b></span>
+                <span class="text-orange-500"> - {{(sector != null)?sector.sector : "sin sector"}}</span>
+            </h5>
             <h5>Tramites Recibidos</h5>
             <!-- TABLA DE TRAMITES -->
             <p-table #dt1 [value]="listMovimientosTramite" dataKey="num_movimiento_tramite" [expandedRowKeys]="expandedRows" [rows]="10" [loading]="loading" [rowHover]="true" styleClass="p-datatable-striped" [paginator]="true" [globalFilterFields]="['asunto','sector.sector','expediente_nota','persona_referencia','descripcion']"

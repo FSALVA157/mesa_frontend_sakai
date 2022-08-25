@@ -4,14 +4,13 @@
             <div class="flex justify-content-between mb-3">
                 <div>
                     <span class="block text-500 font-medium mb-3">En espera</span>
-                    <div class="text-900 font-medium text-xl">152</div>
+                    <div class="text-900 font-medium text-xl">{{cantEnEspera}}</div>
                 </div>
                 <div class="flex align-items-center justify-content-center bg-blue-100 border-round" [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
                     <i class="pi pi-fw pi-clock text-blue-500 text-xl"></i>
                 </div>
             </div>
-            <span class="text-green-500 font-medium">24 new </span>
-            <span class="text-500">since last visit</span>
+
         </div>
     </div>
     <div class="col-12 lg:col-6 xl:col-3">
@@ -19,14 +18,13 @@
             <div class="flex justify-content-between mb-3">
                 <div>
                     <span class="block text-500 font-medium mb-3">Recibidos</span>
-                    <div class="text-900 font-medium text-xl">$2.100</div>
+                    <div class="text-900 font-medium text-xl">{{cantRecibidos}}</div>
                 </div>
                 <div class="flex align-items-center justify-content-center bg-orange-100 border-round" [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
                     <i class="pi pi-fw pi-envelope text-orange-500 text-xl"></i>
                 </div>
             </div>
-            <span class="text-green-500 font-medium">%52+ </span>
-            <span class="text-500">since last week</span>
+
         </div>
     </div>
     <div class="col-12 lg:col-6 xl:col-3">
@@ -34,38 +32,24 @@
             <div class="flex justify-content-between mb-3">
                 <div>
                     <span class="block text-500 font-medium mb-3">Enviados</span>
-                    <div class="text-900 font-medium text-xl">28441</div>
+                    <div class="text-900 font-medium text-xl">{{cantEnviados}}</div>
                 </div>
                 <div class="flex align-items-center justify-content-center bg-cyan-100 border-round" [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
                     <i class="pi pi-fw pi-send text-cyan-500 text-xl"></i>
                 </div>
             </div>
-            <span class="text-green-500 font-medium">520  </span>
-            <span class="text-500">newly registered</span>
+
         </div>
     </div>
-    <div class="col-12 lg:col-6 xl:col-3">
-        <div class="card mb-0">
-            <div class="flex justify-content-between mb-3">
-                <div>
-                    <span class="block text-500 font-medium mb-3">Comments</span>
-                    <div class="text-900 font-medium text-xl">152 Unread</div>
-                </div>
-                <div class="flex align-items-center justify-content-center bg-purple-100 border-round" [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
-                    <i class="pi pi-comment text-purple-500 text-xl"></i>
-                </div>
-            </div>
-            <span class="text-green-500 font-medium">85 </span>
-            <span class="text-500">responded</span>
-        </div>
-    </div>
+
     <div class="col-12 xl:col-12">
         <div class="card">
-            <h5>Bandeja de entrada</h5>
             <h5>
-                <span class="text-cyan-600"><b>{{sector.organismo?.organismo}}</b></span>
-                <span class="text-cyan-500"> - {{sector.sector}}</span>
+                <span class="text-orange-600"><b>{{(sector != null)?sector.organismo.organismo : "Sin organismo"}}</b></span>
+                <span class="text-orange-500"> - {{(sector != null)?sector.sector : "sin sector"}}</span>
             </h5>
+            <h5>Bandeja de entrada</h5>
+
             <!-- TABLA DE TRAMITES -->
             <p-table #dt1 [value]="listMovimientosTramite" dataKey="num_movimiento_tramite" [expandedRowKeys]="expandedRows" [rows]="10" [loading]="loading" [rowHover]="true" styleClass="p-datatable-striped" [paginator]="true" [globalFilterFields]="['asunto','sector.sector','expediente_nota','persona_referencia','descripcion']"
                 responsiveLayout="scroll">

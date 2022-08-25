@@ -19,6 +19,8 @@ import { globalConstants } from '../../common/global-constants';
   ]
 })
 export class TramitesEnviadosComponent implements OnInit {
+  //TEMPORAL
+  sector: SectorModel;
 
   //para mensajes
   msgs: Message[] = [];
@@ -54,7 +56,9 @@ export class TramitesEnviadosComponent implements OnInit {
     private movimientosTramiteService: MovimientosTramiteService,
     public readonly datePipe: DatePipe,
 
-  ) { }
+  ) { 
+    this.sector = globalConstants.sector;
+  }
 
   ngOnInit(): void {
     this.listarTramitesEnviados(globalConstants.sector.id_sector);

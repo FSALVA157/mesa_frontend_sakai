@@ -23,6 +23,8 @@ import { globalConstants } from '../../common/global-constants';
   ]
 })
 export class TramitesPendientesComponent implements OnInit {
+  //TEMPORAL
+  sector: SectorModel;
 
   submitted: boolean;
 
@@ -69,6 +71,8 @@ export class TramitesPendientesComponent implements OnInit {
     //public readonly datePipe: DatePipe,
     private fb: FormBuilder
   ) { 
+    this.sector = globalConstants.sector;
+    
     //FORMULARIO MOVIMIENTOS    
     this.formaMovimientosTramite = this.fb.group({
       tramite_numero: [0,[Validators.required,Validators.pattern(/^[0-9]*$/)]],
