@@ -62,6 +62,10 @@
     <div class="col-12 xl:col-12">
         <div class="card">
             <h5>Bandeja de entrada</h5>
+            <h5>
+                <span class="text-cyan-600"><b>{{sector.organismo?.organismo}}</b></span>
+                <span class="text-cyan-500"> - {{sector.sector}}</span>
+            </h5>
             <!-- TABLA DE TRAMITES -->
             <p-table #dt1 [value]="listMovimientosTramite" dataKey="num_movimiento_tramite" [expandedRowKeys]="expandedRows" [rows]="10" [loading]="loading" [rowHover]="true" styleClass="p-datatable-striped" [paginator]="true" [globalFilterFields]="['asunto','sector.sector','expediente_nota','persona_referencia','descripcion']"
                 responsiveLayout="scroll">

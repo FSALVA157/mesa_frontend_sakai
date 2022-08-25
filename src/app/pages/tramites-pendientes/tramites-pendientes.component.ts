@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ConfirmationService, Message, MessageService } from 'primeng/api';
@@ -65,6 +66,7 @@ export class TramitesPendientesComponent implements OnInit {
     private movimientosTramiteService: MovimientosTramiteService,
     private sectoresService: SectoresService,
     private tiposTramiteService: TiposTramiteService,
+    //public readonly datePipe: DatePipe,
     private fb: FormBuilder
   ) { 
     //FORMULARIO MOVIMIENTOS    

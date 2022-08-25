@@ -16,6 +16,9 @@ import { MovimientosTramiteService } from 'src/app/service/movimientos-tramite.s
 export class BandejaEntradaComponent implements OnInit {
   submitted: boolean;
 
+  //TEMPORAL
+  sector: SectorModel;
+
   //para mensajes
   msgs: Message[] = [];
  
@@ -42,7 +45,9 @@ export class BandejaEntradaComponent implements OnInit {
   listMovimientosTramite: MovimientoTramiteModel[]=[];
   constructor(
     private movimientosTramiteService: MovimientosTramiteService,
-  ) { }
+  ) { 
+    this.sector = globalConstants.sector;
+  }
 
   
 

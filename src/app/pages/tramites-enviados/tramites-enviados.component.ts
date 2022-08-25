@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Cell, Table as TablaPdf, PdfMakeWrapper, Img, Txt, Canvas, Rect, Polyline, Ellipse, Line } from 'pdfmake-wrapper';
 import { ConfirmationService, Message, MessageService } from 'primeng/api';
@@ -50,7 +51,8 @@ export class TramitesEnviadosComponent implements OnInit {
   tramiteInfoDialog: boolean;
 
   constructor(
-    private movimientosTramiteService: MovimientosTramiteService
+    private movimientosTramiteService: MovimientosTramiteService,
+    public readonly datePipe: DatePipe,
 
   ) { }
 
@@ -105,7 +107,7 @@ export class TramitesEnviadosComponent implements OnInit {
       new TablaPdf([
         [
           new Cell (new Txt(this.movimientoTramite.sector.organismo.organismo.toUpperCase() + " S.P.P.S").bold().fontSize(14).alignment('left').end).end,
-          new Cell (new Txt("05/10/2022").fontSize(11).alignment("right").end).end
+          new Cell (new Txt(this.datePipe.transform(this.movimientoTramite.fecha_salida, "dd/MM/yyyy")).fontSize(11).alignment("right").end).end
         ],
         [
           new Cell (new Txt(this.movimientoTramite.sector.sector.toUpperCase() + " S.P.P.S").bold().fontSize(11).alignment('left').end).end,

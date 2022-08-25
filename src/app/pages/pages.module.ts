@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { LocationStrategy, HashLocationStrategy, CommonModule } from '@angular/common';
+import { LocationStrategy, HashLocationStrategy, CommonModule, DatePipe } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ToolbarModule } from 'primeng/toolbar';
@@ -42,7 +42,7 @@ PdfMakeWrapper.setFonts(pdfFonts);
     InputTextareaModule,
     ToolbarModule,
     FormsModule,
-    ReactiveFormsModule,
+    ReactiveFormsModule
   ],
   declarations: [
     //TramitesComponent,
@@ -54,7 +54,10 @@ PdfMakeWrapper.setFonts(pdfFonts);
     
   ],
   providers: [
-    {provide: LocationStrategy, useClass: HashLocationStrategy}, MenuService, ConfigService
+    {provide: LocationStrategy, useClass: HashLocationStrategy}, 
+      MenuService, 
+      ConfigService,
+      DatePipe
   ],
   bootstrap: [AppComponent]
   
