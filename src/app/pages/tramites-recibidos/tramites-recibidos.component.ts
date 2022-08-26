@@ -199,6 +199,13 @@ export class TramitesRecibidosComponent implements OnInit {
   }
   //FIN CARGAR ISTADOS DROP..................................................
 
+   //LIMPIAR
+   clear(table: Table) {
+    table.clear();
+    this.filter.nativeElement.value = '';
+  } 
+  //FIN LIMPIAR  
+
 
 
 

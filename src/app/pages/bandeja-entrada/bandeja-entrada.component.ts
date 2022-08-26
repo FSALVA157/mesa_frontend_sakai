@@ -128,4 +128,11 @@ export class BandejaEntradaComponent implements OnInit {
   }
   //FIN LISTADO MOVIMIENTO DE TRAMITE...................................................
 
+  //LIMPIAR
+  clear(table: Table) {
+    table.clear();
+    this.filter.nativeElement.value = '';
+  } 
+  //FIN LIMPIAR  
+
 }

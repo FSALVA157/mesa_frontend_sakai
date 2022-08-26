@@ -187,4 +187,11 @@ export class TramitesEnviadosComponent implements OnInit {
   }    
   //FIN MANEJO DIALOG INFO....................................
 
+   //LIMPIAR
+   clear(table: Table) {
+    table.clear();
+    this.filter.nativeElement.value = '';
+  } 
+  //FIN LIMPIAR  
+
 }

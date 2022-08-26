@@ -413,6 +413,17 @@ export const sectores = [
         }
     },
     {
+        "id_sector": 82,
+        "sector": "Mesa de Entrada de Ministerio Seguridad",
+        "es_mesa_entrada": true,
+        "tiene_sistema": true,
+        "organismo_id": 23,
+        "organismo": {
+            "id_organismo": 23,
+            "organismo": "Ministerio de Seguridad"
+        }
+    },
+    {
         "id_sector": 35,
         "sector": "Mesa de Entradas - Correccional",
         "es_mesa_entrada": true,
