@@ -52,6 +52,7 @@ export class TramitesRecibidosComponent implements OnInit {
   movimientoTramiteEnviar: MovimientoTramiteModel;
   tramiteSalidaDialog: boolean;
   enviarTramite: boolean = false;
+  
   //LISTAS    
   //listaTramites: TramiteModel[]=[];
   listSectores: SectorModel[]=[];
