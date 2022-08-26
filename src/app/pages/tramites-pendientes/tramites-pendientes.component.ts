@@ -166,4 +166,11 @@ export class TramitesPendientesComponent implements OnInit {
   }    
   //FIN MANEJO FORMULARIO RECIBIR DIALOG....................................
 
+   //LIMPIAR
+   clear(table: Table) {
+    table.clear();
+    this.filter.nativeElement.value = '';
+  } 
+  //FIN LIMPIAR  
+
 }

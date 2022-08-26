@@ -1,4 +1,12 @@
 <div class="grid">
+    <div class="col-12 xl:col-12">
+        <div class="card">
+            <h5>
+                <span class="text-orange-600"><b>{{(sector != null)?sector.organismo.organismo : "Sin organismo"}}</b></span>
+                <span class="text-orange-500"> - {{(sector != null)?sector.sector : "sin sector"}}</span>
+            </h5>
+        </div>
+    </div>
     <div class="col-12 lg:col-6 xl:col-3">
         <div class="card mb-0">
             <div class="flex justify-content-between mb-3">
@@ -44,14 +52,11 @@
 
     <div class="col-12 xl:col-12">
         <div class="card">
-            <h5>
-                <span class="text-orange-600"><b>{{(sector != null)?sector.organismo.organismo : "Sin organismo"}}</b></span>
-                <span class="text-orange-500"> - {{(sector != null)?sector.sector : "sin sector"}}</span>
-            </h5>
+
             <h5>Bandeja de entrada</h5>
 
             <!-- TABLA DE TRAMITES -->
-            <p-table #dt1 [value]="listMovimientosTramite" dataKey="num_movimiento_tramite" [expandedRowKeys]="expandedRows" [rows]="10" [loading]="loading" [rowHover]="true" styleClass="p-datatable-striped" [paginator]="true" [globalFilterFields]="['asunto','sector.sector','expediente_nota','persona_referencia','descripcion']"
+            <p-table #dt1 [value]="listMovimientosTramite" dataKey="num_movimiento_tramite" [expandedRowKeys]="expandedRows" [rows]="10" [loading]="loading" [rowHover]="true" styleClass="p-datatable-striped" [paginator]="true" [globalFilterFields]="['tramite_numero','num_movimiento_tramite','tramite.asunto','sector.sector','tramite.persona_referencia']"
                 responsiveLayout="scroll">
                 <ng-template pTemplate="caption">
                     <div class="flex justify-content-between flex-column sm:flex-row">
@@ -69,13 +74,13 @@
                         <th>
                             <div class="flex justify-content-between align-items-center">
                                 N° Tramite
-                                <p-columnFilter type="text" field="numero_tramite" display="menu" placeholder="Buscar por numero_tramite"></p-columnFilter>
+                                <p-columnFilter type="text" field="tramite_numero" display="menu" placeholder="Buscar por numero_tramite"></p-columnFilter>
                             </div>
                         </th>
                         <th>
                             <div class="flex justify-content-between align-items-center">
                                 N° Movimiento
-                                <p-columnFilter type="text" field="numero_tramite" display="menu" placeholder="Buscar por numero_tramite"></p-columnFilter>
+                                <p-columnFilter type="text" field="num_movimiento_tramite" display="menu" placeholder="Buscar por numero movimiento"></p-columnFilter>
                             </div>
                         </th>
 
@@ -83,14 +88,21 @@
                         <th>
                             <div class="flex justify-content-between align-items-center">
                                 Asunto
-                                <p-columnFilter type="text" field="asunto" display="menu" placeholder="Buscar por asunto"></p-columnFilter>
+                                <p-columnFilter type="text" field="tramite.asunto" display="menu" placeholder="Buscar por asunto"></p-columnFilter>
+
+                            </div>
+                        </th>
+                        <th>
+                            <div class="flex justify-content-between align-items-center">
+                                Persona Ref.
+                                <p-columnFilter type="text" field="tramite.persona_referencia" display="menu" placeholder="Buscar por pers. ref."></p-columnFilter>
 
                             </div>
                         </th>
                         <th>
                             <div class="flex justify-content-between align-items-center">
                                 Remite
-                                <p-columnFilter type="text" field="expediente_nota" display="menu" placeholder="Buscar por exp/nota"></p-columnFilter>
+                                <p-columnFilter type="text" field="movimiento.sector.sector" display="menu" placeholder="Buscar por persona referencia"></p-columnFilter>
 
                             </div>
                         </th>
@@ -141,6 +153,9 @@
 
                         <td style="min-width: 15rem;">
                             {{movimiento.tramite.asunto}}
+                        </td>
+                        <td style="min-width: 15rem;">
+                            {{movimiento.tramite.persona_referencia}}
                         </td>
                         <td style="min-width: 15rem;">
                             <span class="text-orange-600">{{movimiento.sector.sector}}</span><br>{{movimiento.sector.organismo.organismo}}
