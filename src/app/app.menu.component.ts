@@ -50,6 +50,13 @@ export class AppMenuComponent implements OnInit {
                     
                 ]
             },
+            {
+                label: 'Usuarios',
+                items:[
+                    {label: 'Mantenimiento',icon: 'pi pi-fw pi-book', routerLink: ['/admin/usuarios']},                     
+                    
+                ]
+            },
             // {
             //     label: 'UI Components',
             //     items: [

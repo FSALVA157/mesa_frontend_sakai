@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ConfigService } from '../../service/app.config.service';
 import { AppConfig } from '../../api/appconfig';
 import { Subscription } from 'rxjs';
+import { FormBuilder, Validators } from '@angular/forms';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -34,7 +35,16 @@ export class LoginComponent implements OnInit, OnDestroy {
   
   subscription: Subscription;
 
-  constructor(public configService: ConfigService){ }
+  constructor(
+    private fb: FormBuilder,
+    public configService: ConfigService
+    ){ }
+
+  public loginForm = this.fb.group({
+    correo: [localStorage.getItem('email') || ' ',[Validators.required, Validators.email]],
+    clave: ['',Validators.required],
+    recuerdame: [false]
+  });
 
   ngOnInit(): void {
     this.config = this.configService.config;

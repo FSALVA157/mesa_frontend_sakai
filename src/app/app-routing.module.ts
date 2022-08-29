@@ -36,6 +36,7 @@ import { TramitesRecibidosComponent } from './pages/tramites-recibidos/tramites-
 import { TramitesPendientesComponent } from './pages/tramites-pendientes/tramites-pendientes.component';
 import { TramitesPrincipalComponent } from './pages/tramites-principal/tramites-principal.component';
 import { BandejaEntradaComponent } from './pages/bandeja-entrada/bandeja-entrada.component';
+import { UsuariosComponent } from './pages/usuarios/usuarios.component';
 @NgModule({
     imports: [
         RouterModule.forRoot([
@@ -48,6 +49,7 @@ import { BandejaEntradaComponent } from './pages/bandeja-entrada/bandeja-entrada
                     {path: 'home/tramites-pendientes', component: TramitesPendientesComponent},
                     {path: 'home/tramite-recibidos', component: TramitesRecibidosComponent},
                     {path: 'home/tramites-enviados', component: TramitesEnviadosComponent},
+                    {path: 'admin/usuarios', component: UsuariosComponent},
 
                     {path: 'uikit/formlayout', component: FormLayoutComponent},
                     {path: 'uikit/input', component: InputComponent},
