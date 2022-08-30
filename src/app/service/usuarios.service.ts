@@ -6,7 +6,7 @@ import { IUsuarioModel } from '../models/usuario.model';
 const base_url = environment.URL_BASE
 
 interface ILoginData {
-  'correo': string,
+  'usuario': string,
   'clave' : string,
   'recuerdame': boolean
 }
@@ -20,10 +20,11 @@ export class UsuariosService {
     private http: HttpClient
   ) { }
 
-  login(dataLogin: ILoginData ){
+  login(usuario: string, clave: string ){
     // delete dataLogin.recuerdame;
+    let data:any;
     console.log("url",base_url);
-     return this.http.post(`${base_url}/auth/login`, dataLogin);    
+     return this.http.post(`${base_url}/auth/login?user=maren&password=123456`,data);    
    }
 
   listarUsuarios(){
