@@ -128,10 +128,11 @@ export class LoginComponent implements OnInit, OnDestroy {
         // }else{
         //   localStorage.removeItem('email');
         // }
-      }, err => {
+      }, (err) => {
+        console.log("error", err);
         Swal.fire({
           title: 'Error Login!',
-          text: err.error.message,
+          text: err.error.error.message,
           icon: 'error'                                            
         })
         //globalConstants.validado = false;

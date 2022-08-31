@@ -37,6 +37,7 @@ import { TramitesPendientesComponent } from './pages/tramites-pendientes/tramite
 import { TramitesPrincipalComponent } from './pages/tramites-principal/tramites-principal.component';
 import { BandejaEntradaComponent } from './pages/bandeja-entrada/bandeja-entrada.component';
 import { UsuariosComponent } from './pages/usuarios/usuarios.component';
+import { AuthGuard } from './guards/auth.guard';
 @NgModule({
     imports: [
         RouterModule.forRoot([
@@ -44,7 +45,7 @@ import { UsuariosComponent } from './pages/usuarios/usuarios.component';
                 path: '', component: AppMainComponent,
                 children: [
                     //{path: '', component: DashboardComponent},
-                    {path: '', component: BandejaEntradaComponent},
+                    {path: '', component: BandejaEntradaComponent, canActivate: [AuthGuard]},
                     {path: 'home/tramites-principal', component: TramitesPrincipalComponent},
                     {path: 'home/tramites-pendientes', component: TramitesPendientesComponent},
                     {path: 'home/tramite-recibidos', component: TramitesRecibidosComponent},
