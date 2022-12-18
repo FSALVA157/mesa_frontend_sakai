@@ -293,13 +293,7 @@
                         <div class="field">
                             <label for="descripcion">Descripción</label>
                             <textarea pInputTextarea id="descripcion" formControlName="descripcion" rows="3" cols="20"></textarea>
-                            <small *ngIf="descripcionNotaNoValido" class="p-error">
-                                <div *ngFor="let validation of user_validation_messages.descripcion" >
-                                    <div  *ngIf="formaTramites.get('descripcion')?.hasError(validation.type)">
-                                        {{validation.message}}
-                                    </div>
-                                </div>
-                            </small>
+
                         </div>
                     </form>
                     <!--  FIN FORMULARIO TRAMITES -->
