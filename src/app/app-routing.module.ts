@@ -36,6 +36,8 @@ import { TramitesRecibidosComponent } from './pages/tramites-recibidos/tramites-
 import { TramitesPendientesComponent } from './pages/tramites-pendientes/tramites-pendientes.component';
 import { TramitesPrincipalComponent } from './pages/tramites-principal/tramites-principal.component';
 import { BandejaEntradaComponent } from './pages/bandeja-entrada/bandeja-entrada.component';
+import { UsuariosComponent } from './pages/usuarios/usuarios.component';
+import { AuthGuard } from './guards/auth.guard';
 @NgModule({
     imports: [
         RouterModule.forRoot([
@@ -43,11 +45,12 @@ import { BandejaEntradaComponent } from './pages/bandeja-entrada/bandeja-entrada
                 path: '', component: AppMainComponent,
                 children: [
                     //{path: '', component: DashboardComponent},
-                    {path: '', component: BandejaEntradaComponent},
+                    {path: '', component: BandejaEntradaComponent, canActivate: [AuthGuard]},
                     {path: 'home/tramites-principal', component: TramitesPrincipalComponent},
                     {path: 'home/tramites-pendientes', component: TramitesPendientesComponent},
                     {path: 'home/tramite-recibidos', component: TramitesRecibidosComponent},
                     {path: 'home/tramites-enviados', component: TramitesEnviadosComponent},
+                    {path: 'admin/usuarios', component: UsuariosComponent},
 
                     {path: 'uikit/formlayout', component: FormLayoutComponent},
                     {path: 'uikit/input', component: InputComponent},

@@ -23,10 +23,7 @@ export class TramitesEnviadosComponent implements OnInit {
   sector: SectorModel;
 
   //para mensajes
-  msgs: Message[] = [];
- 
-  //representatives: Representative[];
-  statuses: any[];
+  msgs: Message[] = [];  
 
   activityValues: number[] = [0, 100];
   idFrozen: boolean = false;

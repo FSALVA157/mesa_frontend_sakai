@@ -23,6 +23,7 @@ import { BandejaEntradaComponent } from './bandeja-entrada/bandeja-entrada.compo
 // Importar pdfmake-wrapper y las fonts para usar
 import { PdfMakeWrapper } from 'pdfmake-wrapper';
 import * as pdfFonts from "pdfmake/build/vfs_fonts";
+import { UsuariosComponent } from './usuarios/usuarios.component';
 
 
 // registrar las fuentes
@@ -50,7 +51,8 @@ PdfMakeWrapper.setFonts(pdfFonts);
     TramitesRecibidosComponent,
     TramitesEnviadosComponent,
     TramitesPrincipalComponent,
-    BandejaEntradaComponent  
+    BandejaEntradaComponent,
+    UsuariosComponent  
     
   ],
   providers: [

@@ -262,7 +262,7 @@ export class TramitesPrincipalComponent implements OnInit {
             });
         }         
     }
-    //FIN LISTADO MOVIMIENTO DE TRAMITE...................................................
+    //FIN LISTADO MOVIMIENTO DE TRAMITE.............................................
    
     //LIMPIAR
     clear(table: Table) {
