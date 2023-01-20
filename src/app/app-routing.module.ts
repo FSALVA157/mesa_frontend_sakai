@@ -46,6 +46,7 @@ import { AuthGuard } from './guards/auth.guard';
                 children: [
                     //{path: '', component: DashboardComponent},
                     {path: '', component: BandejaEntradaComponent, canActivate: [AuthGuard]},
+                    {path: 'home/bandeja-entrada', component: BandejaEntradaComponent},
                     {path: 'home/tramites-principal', component: TramitesPrincipalComponent},
                     {path: 'home/tramites-pendientes', component: TramitesPendientesComponent},
                     {path: 'home/tramite-recibidos', component: TramitesRecibidosComponent},
