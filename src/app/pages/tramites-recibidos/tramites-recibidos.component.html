@@ -61,7 +61,7 @@
                         </th>
                         <th>
                             <div class="flex justify-content-between align-items-center">
-                                Remite
+                                Sec. Origen
                                 <p-columnFilter type="text" field="expediente_nota" display="menu" placeholder="Buscar por exp/nota"></p-columnFilter>
 
                             </div>
@@ -75,7 +75,7 @@
                         </th>
                         <th>
                             <div class="flex justify-content-between align-items-center">
-                                Ingresa
+                                Sec. Ingresa
                                 <p-columnFilter type="text" field="descripcion" display="menu" placeholder="Buscar por descripción"></p-columnFilter>
 
                             </div>
@@ -126,11 +126,11 @@
                             {{movimiento.tramite.asunto}}
                         </td>
                         <td style="min-width: 15rem;">
-                            <span class="text-orange-600">{{movimiento.sector_origen.sector}}</span><br>{{movimiento.sector_origen.organismo.organismo}}
-
+                            {{movimiento.tramite.persona_referencia}}                            
                         </td>
                         <td style="min-width: 15rem;">
-                            {{movimiento.tramite.persona_referencia}}
+                            <span class="text-orange-600">{{movimiento.sector_origen.sector}}</span><br>{{movimiento.sector_origen.organismo.organismo}}
+
                         </td>
                         <td style="min-width: 10rem;">
                             {{movimiento.fecha_ingreso | date: 'dd/MM/yyyy'}}
