@@ -121,11 +121,34 @@ export class TramitesPendientesComponent implements OnInit {
     }
     //GUARDAR MOVIMIENTO
     this.movimientosTramiteService.recibirMovimientoTramite(dataMovimientoTramite, this.movimientoTramiteRecibir.num_movimiento_tramite)
-        .subscribe(resMovimiento => {
-            this.hideDialogRecibir();
-            Swal.fire('Exito',`El Tramite fue recibido con Exito`,"success");
-            this.listarTramitesPendientes(globalConstants.sector.id_sector);
-        })
+          .subscribe({
+            next: (resultado) => {
+              this.hideDialogRecibir();
+              Swal.fire('Exito',`El Tramite fue recibido con Exito`,"success");
+              this.listarTramitesPendientes(globalConstants.sector.id_sector);
+            },
+            error: (err) => {
+              //Swal.fire('error',`El Tramite no fue recibido con Exito`,"error")
+              this.msgs = [];
+              this.msgs.push({ severity: 'error', summary: 'Error al recibir el tramite', detail: ` ${err.error.message}` });
+          
+            }
+          })    
+    
+    
+
+        // .subscribe({
+        //   next: (resultado) => {
+        //     let centroRes: CentroMediacionModel = resultado;
+        //     this.hideDialogCentroMediacion();            
+        //     Swal.fire('Exito',`El registro se realizó correctamente`,"success");
+        //     this.listarCentrosMediacion();
+        //   },
+        //   error: (err) => {
+        //     this.msgs = [];
+        //     this.msgs.push({ severity: 'error', summary: 'Error al guardar', detail: ` ${err.error.message}` });
+        //   }
+        // });
     //FIN GUARDAR MOVIMIENTO
 
   } 
