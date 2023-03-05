@@ -24,6 +24,8 @@ import { BandejaEntradaComponent } from './bandeja-entrada/bandeja-entrada.compo
 import { PdfMakeWrapper } from 'pdfmake-wrapper';
 import * as pdfFonts from "pdfmake/build/vfs_fonts";
 import { UsuariosComponent } from './usuarios/usuarios.component';
+import { MessageModule } from 'primeng/message';
+import { MessagesModule } from 'primeng/messages';
 
 
 // registrar las fuentes
@@ -38,6 +40,8 @@ PdfMakeWrapper.setFonts(pdfFonts);
     DialogModule,
     DropdownModule,
     InputTextModule,
+    MessageModule,
+    MessagesModule,
     TableModule,
     TabViewModule,//funciona ng-template
     InputTextareaModule,

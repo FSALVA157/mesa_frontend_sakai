@@ -169,9 +169,6 @@
 
                     <!-- FORMULARIO MOVIMIENTOS -->
                     <form [formGroup]="formaMovimientosTramite">
-                        <p-messages [value]="msgs" [showTransitionOptions]="'200ms'" [hideTransitionOptions]="'200ms'" [escape]="true"></p-messages>
-                        <p-toast key="tst" [baseZIndex]="99999"></p-toast>
-
                         <!-- Card Tramite -->
                         <div class="card mb-0 bg-cyan-600">
                             <span class="block text-white  font-bold font-medium mb-3">TRAMITE</span>
@@ -259,6 +256,8 @@
                         <!-- Card Formulario Recibir -->
                         <div class="card mt-2" *ngIf="recibirTramite">
                             <span class="block font-bold font-medium mb-3">RECEPCION DEL TRAMITE</span>
+                            <!-- MENSAJE DE ERROR -->
+                            <p-messages [(value)]="msgs" [enableService]="false"></p-messages>
                             <div class="field col-6">
                                 <label for="fojas">Fojas Ingreso</label>
                                 <input type="text" pInputText id="fojas" formControlName="fojas" />

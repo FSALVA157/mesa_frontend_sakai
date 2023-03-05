@@ -129,30 +129,16 @@ export class TramitesPendientesComponent implements OnInit {
             },
             error: (err) => {
               //Swal.fire('error',`El Tramite no fue recibido con Exito`,"error")
+              console.log("error recibir", err);
               this.msgs = [];
-              this.msgs.push({ severity: 'error', summary: 'Error al recibir el tramite', detail: ` ${err.error.message}` });
+              this.msgs.push({ severity: 'error', summary: 'Error al recibir el tramite', detail: ` ${err.error.error.message}` });
           
             }
-          })    
-    
-    
-
-        // .subscribe({
-        //   next: (resultado) => {
-        //     let centroRes: CentroMediacionModel = resultado;
-        //     this.hideDialogCentroMediacion();            
-        //     Swal.fire('Exito',`El registro se realizó correctamente`,"success");
-        //     this.listarCentrosMediacion();
-        //   },
-        //   error: (err) => {
-        //     this.msgs = [];
-        //     this.msgs.push({ severity: 'error', summary: 'Error al guardar', detail: ` ${err.error.message}` });
-        //   }
-        // });
+          })        
     //FIN GUARDAR MOVIMIENTO
 
   } 
-  //FIN RECIBIR TRAMITE
+  //FIN RECIBIR TRAMITE....................................................
 
   //LISTADO MOVIMIENTOS DE TRAMITE
   listarTramitesPendientes(id_sector: number){ 
