@@ -275,6 +275,9 @@
                         <!-- Card Formulario salida del tramite -->
                         <div class="card mt-2" *ngIf="enviarTramite">
                             <span class="block font-bold font-medium mb-3">SALIDA DEL TRAMITE</span>
+                            <!-- MENSAJE DE ERROR -->
+                            <p-messages [(value)]="msgs" [enableService]="false"></p-messages>
+
                             <div class="field">
                                 <label for="organismo_id">Organismo destino</label>
                                 <p-dropdown id="organismo_id" [options]="listOrganismos" formControlName="organismo_id" optionLabel="organismo" optionValue="id_organismo" filter="true" appendTo="body" (onChange)="onChangeOrganismos()" placeholder="Seleccionar...">

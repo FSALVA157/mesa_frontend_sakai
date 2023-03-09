@@ -11,6 +11,7 @@ import { TipoTramiteModel } from 'src/app/models/tipo-tramite.model';
 import { MovimientosTramiteService } from 'src/app/service/movimientos-tramite.service';
 import { SectoresService } from 'src/app/service/sectores.service';
 import Swal from 'sweetalert2';
+import { FuncionesPersonalizadasService } from '../../service/funciones-personalizadas.service';
 
 @Component({
   selector: 'app-tramites-recibidos',
@@ -64,6 +65,7 @@ export class TramitesRecibidosComponent implements OnInit {
   constructor(
     private movimientosTramiteService: MovimientosTramiteService,
     private sectoresService: SectoresService,
+    private funcionesPersonalizadasService: FuncionesPersonalizadasService,
     private fb: FormBuilder
 
   ) { 
@@ -108,6 +110,7 @@ export class TramitesRecibidosComponent implements OnInit {
       this.tramiteSalidaDialog = false;
       this.enviarTramite= false;
       this.submitted = false;
+      this.msgs = [];
   }    
   //FIN MANEJO FORMULARIO SALIDA DIALOG....................................
 
@@ -130,18 +133,26 @@ export class TramitesRecibidosComponent implements OnInit {
       tramite_numero: this.movimientoTramiteEnviar.tramite_numero,
       //num_movimiento_tramite: parseInt(this.formaMovimientosTramite.get('num_movimiento_tramite')?.value),
       sector_destino_id: parseInt(this.formaMovimientosTramite.get('sector_id')?.value),                    
-      fojas_salida: parseInt(this.formaMovimientosTramite.get('fojas')?.value),
+      fojas_salida: this.funcionesPersonalizadasService.getCadenaANumero(this.formaMovimientosTramite.get('fojas')?.value),
       descripcion_salida: this.formaMovimientosTramite.get('descripcion')?.value,
       usuario_id: globalConstants.id_usuario,
       sector_id: globalConstants.sector.id_sector
         
     }
+    console.log("fojas salidas: ", dataMovimientoTramite.fojas_salida);
     //GUARDAR SALIDA MOVIMIENTO
     this.movimientosTramiteService.salidaMovimientoTramite(parseInt(this.formaMovimientosTramite.get('num_movimiento_tramite')?.value),dataMovimientoTramite)
-        .subscribe(resMovimiento => {
+        .subscribe({
+          next: (resultado) => {
             this.hideDialogSalida();
             Swal.fire('Exito',`El Tramite fue enviado con Exito`,"success");
             this.listarTramitesRecibidos(globalConstants.sector.id_sector);
+          },
+          error: (err) => {
+            this.msgs = [];
+            this.msgs.push({ severity: 'error', summary: 'Error al dar salida al tramite', detail: ` ${err.error.error.message}` });
+          }
+            
         })
     //FIN GUARDAR SALIDA MOVIMIENTO
 

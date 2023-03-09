@@ -1,4 +1,5 @@
 import { DatePipe } from '@angular/common';
+import { isNull } from '@angular/compiler/src/output/output_ast';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ConfirmationService, Message, MessageService } from 'primeng/api';
@@ -13,6 +14,7 @@ import { TiposTramiteService } from 'src/app/service/tipos-tramite.service';
 import { TramitesService } from 'src/app/service/tramites.service';
 import Swal from 'sweetalert2';
 import { globalConstants } from '../../common/global-constants';
+import { FuncionesPersonalizadasService } from '../../service/funciones-personalizadas.service';
 
 @Component({
   selector: 'app-tramites-pendientes',
@@ -68,6 +70,7 @@ export class TramitesPendientesComponent implements OnInit {
     private movimientosTramiteService: MovimientosTramiteService,
     private sectoresService: SectoresService,
     private tiposTramiteService: TiposTramiteService,
+    private funcionesPersonalizadas: FuncionesPersonalizadasService,
     //public readonly datePipe: DatePipe,
     private fb: FormBuilder
   ) { 
@@ -113,12 +116,14 @@ export class TramitesPendientesComponent implements OnInit {
     dataMovimientoTramite = {
         tramite_numero: this.movimientoTramiteRecibir.tramite_numero,
         sector_origen_id: this.movimientoTramiteRecibir.sector_id,                    
-        fojas_ingreso: parseInt(this.formaMovimientosTramite.get('fojas')?.value),
+        //fojas_ingreso: (this.formaMovimientosTramite.get('fojas')?.value) !== "" ? Number(this.formaMovimientosTramite.get('fojas')?.value) : NaN,
+        fojas_ingreso: this.funcionesPersonalizadas.getCadenaANumero(this.formaMovimientosTramite.get('fojas')?.value),
         descripcion_ingreso: this.formaMovimientosTramite.get('descripcion')?.value,
         usuario_id: globalConstants.id_usuario,
         sector_id: globalConstants.sector.id_sector
         
     }
+    console.log("numero movimiento anterior", this.movimientoTramiteRecibir.num_movimiento_tramite);
     console.log("fojas_ingreso: ", dataMovimientoTramite.fojas_ingreso);
     //GUARDAR MOVIMIENTO
     this.movimientosTramiteService.recibirMovimientoTramite(dataMovimientoTramite, this.movimientoTramiteRecibir.num_movimiento_tramite)
@@ -173,6 +178,7 @@ export class TramitesPendientesComponent implements OnInit {
     this.tramiteRecibirDialog = false;
     this.recibirTramite= false;
     this.submitted = false;
+    this.msgs = [];
   }    
   //FIN MANEJO FORMULARIO RECIBIR DIALOG....................................
 
