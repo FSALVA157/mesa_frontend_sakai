@@ -119,6 +119,7 @@ export class TramitesPendientesComponent implements OnInit {
         sector_id: globalConstants.sector.id_sector
         
     }
+    console.log("fojas_ingreso: ", dataMovimientoTramite.fojas_ingreso);
     //GUARDAR MOVIMIENTO
     this.movimientosTramiteService.recibirMovimientoTramite(dataMovimientoTramite, this.movimientoTramiteRecibir.num_movimiento_tramite)
           .subscribe({
