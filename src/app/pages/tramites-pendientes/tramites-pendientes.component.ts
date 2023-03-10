@@ -114,9 +114,7 @@ export class TramitesPendientesComponent implements OnInit {
 
     let dataMovimientoTramite: Partial <MovimientoTramiteModel>;
     dataMovimientoTramite = {
-        tramite_numero: this.movimientoTramiteRecibir.tramite_numero,
-        sector_origen_id: this.movimientoTramiteRecibir.sector_id,                    
-        //fojas_ingreso: (this.formaMovimientosTramite.get('fojas')?.value) !== "" ? Number(this.formaMovimientosTramite.get('fojas')?.value) : NaN,
+        tramite_numero: this.movimientoTramiteRecibir.tramite_numero,                
         fojas_ingreso: this.funcionesPersonalizadas.getCadenaANumero(this.formaMovimientosTramite.get('fojas')?.value),
         descripcion_ingreso: this.formaMovimientosTramite.get('descripcion')?.value,
         usuario_id: globalConstants.id_usuario,
