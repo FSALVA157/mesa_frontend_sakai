@@ -117,6 +117,7 @@ export class TramitesPendientesComponent implements OnInit {
         tramite_numero: this.movimientoTramiteRecibir.tramite_numero,                
         fojas_ingreso: this.funcionesPersonalizadas.getCadenaANumero(this.formaMovimientosTramite.get('fojas')?.value),
         descripcion_ingreso: this.formaMovimientosTramite.get('descripcion')?.value,
+        sector_origen_id: this.movimientoTramiteRecibir.sector_origen_id,
         usuario_id: globalConstants.id_usuario,
         sector_id: globalConstants.sector.id_sector
         
