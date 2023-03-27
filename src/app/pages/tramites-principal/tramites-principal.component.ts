@@ -22,6 +22,8 @@ import { organismos, sectores } from 'src/app/common/data-mockeada';
   styleUrls: ['../../../assets/demo/badges.scss'],
 })
 export class TramitesPrincipalComponent implements OnInit {
+    //TEMPORAL
+  sector: SectorModel;
 
   msgs: Message[] = [];    
     
@@ -73,6 +75,7 @@ export class TramitesPrincipalComponent implements OnInit {
         private tiposTramiteService: TiposTramiteService,
         private fb: FormBuilder
     ) {
+        this.sector = globalConstants.sector;
         
         //FORMULARIO TRAMITES    
         this.formaTramites = this.fb.group({
@@ -259,7 +262,7 @@ export class TramitesPrincipalComponent implements OnInit {
             });
         }         
     }
-    //FIN LISTADO MOVIMIENTO DE TRAMITE...................................................
+    //FIN LISTADO MOVIMIENTO DE TRAMITE.............................................
    
     //LIMPIAR
     clear(table: Table) {

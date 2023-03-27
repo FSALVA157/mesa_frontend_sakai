@@ -1,9 +1,17 @@
 <div class="grid">
+    <div class="col-12 xl:col-12">
+        <div class="card">
+            <h5>
+                <span class="text-orange-600"><b>{{(sector != null)?sector.organismo.organismo : "Sin organismo"}}</b></span>
+                <span class="text-orange-500"> - {{(sector != null)?sector.sector : "sin sector"}}</span>
+            </h5>
+        </div>
+    </div>
     <div class="col-12">
         <div class="card">
             <h5>Tramites Recibidos</h5>
             <!-- TABLA DE TRAMITES -->
-            <p-table #dt1 [value]="listMovimientosTramite" dataKey="num_movimiento_tramite" [expandedRowKeys]="expandedRows" [rows]="10" [loading]="loading" [rowHover]="true" styleClass="p-datatable-striped" [paginator]="true" [globalFilterFields]="['asunto','sector.sector','expediente_nota','persona_referencia','descripcion']"
+            <p-table #dt1 [value]="listMovimientosTramite" dataKey="num_movimiento_tramite" [expandedRowKeys]="expandedRows" [rows]="10" [loading]="loading" [rowHover]="true" styleClass="p-datatable-striped" [paginator]="true" [globalFilterFields]="['tramite_numero','num_movimiento_tramite','tramite.asunto','sector.sector','tramite.persona_referencia']"
                 responsiveLayout="scroll">
                 <ng-template pTemplate="caption">
                     <div class="flex justify-content-between flex-column sm:flex-row">
@@ -22,13 +30,13 @@
                         <th>
                             <div class="flex justify-content-between align-items-center">
                                 N° Tramite
-                                <p-columnFilter type="text" field="numero_tramite" display="menu" placeholder="Buscar por numero_tramite"></p-columnFilter>
+                                <p-columnFilter type="text" field="tramite_numero" display="menu" placeholder="Buscar por numero tramite"></p-columnFilter>
                             </div>
                         </th>
                         <th>
                             <div class="flex justify-content-between align-items-center">
                                 N° Movimiento
-                                <p-columnFilter type="text" field="numero_tramite" display="menu" placeholder="Buscar por numero_tramite"></p-columnFilter>
+                                <p-columnFilter type="text" field="num_movimiento_tramite" display="menu" placeholder="Buscar por numero movimiento"></p-columnFilter>
                             </div>
                         </th>
                         <th>
@@ -40,13 +48,20 @@
                         <th>
                             <div class="flex justify-content-between align-items-center">
                                 Asunto
-                                <p-columnFilter type="text" field="asunto" display="menu" placeholder="Buscar por asunto"></p-columnFilter>
+                                <p-columnFilter type="text" field="tramite.asunto" display="menu" placeholder="Buscar por asunto"></p-columnFilter>
 
                             </div>
                         </th>
                         <th>
                             <div class="flex justify-content-between align-items-center">
-                                Remite
+                                Persona Ref.
+                                <p-columnFilter type="text" field="tramite.persona_referencia" display="menu" placeholder="Buscar por pers. ref."></p-columnFilter>
+
+                            </div>
+                        </th>
+                        <th>
+                            <div class="flex justify-content-between align-items-center">
+                                Sec. Origen
                                 <p-columnFilter type="text" field="expediente_nota" display="menu" placeholder="Buscar por exp/nota"></p-columnFilter>
 
                             </div>
@@ -60,7 +75,7 @@
                         </th>
                         <th>
                             <div class="flex justify-content-between align-items-center">
-                                Ingresa
+                                Sec. Ingresa
                                 <p-columnFilter type="text" field="descripcion" display="menu" placeholder="Buscar por descripción"></p-columnFilter>
 
                             </div>
@@ -109,6 +124,9 @@
 
                         <td style="min-width: 15rem;">
                             {{movimiento.tramite.asunto}}
+                        </td>
+                        <td style="min-width: 15rem;">
+                            {{movimiento.tramite.persona_referencia}}
                         </td>
                         <td style="min-width: 15rem;">
                             <span class="text-orange-600">{{movimiento.sector_origen.sector}}</span><br>{{movimiento.sector_origen.organismo.organismo}}
@@ -164,41 +182,45 @@
                             <div class="col-12 border-bottom-1 surface-border">
                                 <div class="grid">
                                     <div class="col-12 lg:col-6 xl:col-6">
-                                        <span class="text-teal-900 font-medium text-1xl">Tramite N°:<span class="text-white ml-1 font-medium"> {{movimientoTramiteEnviar.tramite_numero}} </span></span>
+                                        <span class="text-white font-bold font-medium text-1xl">Tramite N°:<span class="text-white ml-1 font-medium"> {{movimientoTramiteEnviar.tramite_numero}} </span></span>
 
                                     </div>
                                     <div class="col-12 lg:col-6 xl:col-6">
-                                        <span class="text-teal-900 font-medium text-1xl">Tipo tramite:<span class="text-white ml-1 font-medium"> {{movimientoTramiteEnviar.tramite?.tipo_tramite?.tipo_tramite}} </span></span>
+                                        <span class="text-white font-bold font-medium text-1xl">Tipo tramite:<span class="text-white ml-1 font-medium"> {{movimientoTramiteEnviar.tramite?.tipo_tramite?.tipo_tramite}} </span></span>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-12 border-bottom-1 surface-border">
                                 <div class="grid">
                                     <div class="col-12 lg:col-6 xl:col-6 py-2">
-                                        <span class="text-teal-900 font-medium text-1xl">Fecha inicia:<span class="text-white ml-1 font-medium"> {{movimientoTramiteEnviar.tramite?.fecha| date: 'dd/MM/yyyy'}}</span></span>
+                                        <span class="text-white font-bold font-medium text-1xl">Fecha inicia:<span class="text-white ml-1 font-medium"> {{movimientoTramiteEnviar.tramite?.fecha| date: 'dd/MM/yyyy'}}</span></span>
                                     </div>
                                     <div class="col-12 lg:col-6 xl:col-6 py-2">
-                                        <span class="text-teal-900 font-medium text-1xl">Expediente/Nota:<span class="text-white ml-1 font-medium"> {{movimientoTramiteEnviar.tramite?.expediente_nota}}</span></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 border-bottom-1 surface-border">
-                                <div class="grid">
-                                    <div class="col-12 lg:col-6 xl:col-6 py-2">
-                                        <span class="text-teal-900 font-medium text-1xl">Asunto:<br><span class="text-white ml-1 font-medium"> {{movimientoTramiteEnviar.tramite?.asunto}}</span></span>
-                                    </div>
-                                    <div class="col-12 lg:col-6 xl:col-6 py-2">
-                                        <span class="text-teal-900 font-medium text-1xl">Descripción:<br><span class="text-white ml-1 font-medium"> {{movimientoTramiteEnviar.tramite?.descripcion}}</span></span>
+                                        <span class="text-white font-bold font-medium text-1xl">Expediente/Nota:<span class="text-white ml-1 font-medium"> {{movimientoTramiteEnviar.tramite?.expediente_nota}}</span></span>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-12 border-bottom-1 surface-border">
                                 <div class="grid">
                                     <div class="col-12 lg:col-6 xl:col-6 py-2">
-                                        <span class="text-teal-900 font-medium text-1xl">Persona referencia:<br><span class="text-white ml-1 font-medium"> {{movimientoTramiteEnviar.tramite?.persona_referencia}}</span></span>
+                                        <span class="text-white font-bold font-medium text-1xl">Asunto:<br><span class="text-white ml-1 font-medium"> {{movimientoTramiteEnviar.tramite?.asunto}}</span></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 border-bottom-1 surface-border">
+                                <div class="grid">
+                                    <div class="col-12 lg:col-6 xl:col-6 py-2">
+                                        <span class="text-white font-bold font-medium text-1xl">Descripción:<br><span class="text-white ml-1 font-medium"> {{movimientoTramiteEnviar.tramite?.descripcion}}</span></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 border-bottom-1 surface-border">
+                                <div class="grid">
+                                    <div class="col-12 lg:col-6 xl:col-6 py-2">
+                                        <span class="text-white font-bold font-medium text-1xl">Persona referencia:<br><span class="text-white ml-1 font-medium"> {{movimientoTramiteEnviar.tramite?.persona_referencia}}</span></span>
                                     </div>
                                     <div class="col-12 lg:col-6 xl:col-6 py-2">
-                                        <span class="text-teal-900 font-medium text-1xl">Sector inicia:<br><span class="text-white ml-1 font-medium"> {{movimientoTramiteEnviar.tramite?.sector?.organismo?.organismo}}<br>{{movimientoTramiteEnviar.tramite?.sector?.sector}}</span></span>
+                                        <span class="text-white font-bold font-medium text-1xl">Sector inicia:<br><span class="text-white ml-1 font-medium"> {{movimientoTramiteEnviar.tramite?.sector?.organismo?.organismo}}<br>{{movimientoTramiteEnviar.tramite?.sector?.sector}}</span></span>
                                     </div>
                                 </div>
                             </div>
@@ -210,45 +232,52 @@
                             <div class="col-12 border-bottom-1 surface-border">
                                 <div class="grid">
                                     <div class="col-12 lg:col-6 xl:col-6 py-2">
-                                        <span class="text-teal-900 font-medium text-1xl">Movimiento N°:<span class="text-white ml-1 font-medium"> {{movimientoTramiteEnviar.num_movimiento_tramite}}</span></span>
+                                        <span class="text-white font-bold font-medium text-1xl">Movimiento N°:<span class="text-white ml-1 font-medium"> {{movimientoTramiteEnviar.num_movimiento_tramite}}</span></span>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-12 border-bottom-1 surface-border">
                                 <div class="grid">
                                     <div class="col-12 lg:col-12 xl:col-12 py-2">
-                                        <span class="text-teal-900 font-medium text-1xl">Sector remite:<br><span class="text-white ml-1 font-medium"> {{movimientoTramiteEnviar.sector_origen?.organismo?.organismo}} - {{movimientoTramiteEnviar.sector_origen?.sector}}</span></span>
+                                        <span class="text-white font-bold font-medium text-1xl">Sector remite:<br><span class="text-white ml-1 font-medium"> {{movimientoTramiteEnviar.sector_origen?.organismo?.organismo}} - {{movimientoTramiteEnviar.sector_origen?.sector}}</span></span>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-12 border-bottom-1 surface-border">
                                 <div class="grid">
                                     <div class="col-12 lg:col-8 xl:col-8 py-2">
-                                        <span class="text-teal-900 font-medium text-1xl">Sector ingresa:<br><span class="text-white ml-1 font-medium"> {{movimientoTramiteEnviar.sector?.organismo?.organismo}}<br>{{movimientoTramiteEnviar.sector?.sector}}</span></span>
+                                        <span class="text-white font-bold font-medium text-1xl">Sector ingresa:<br><span class="text-white ml-1 font-medium"> {{movimientoTramiteEnviar.sector?.organismo?.organismo}}<br>{{movimientoTramiteEnviar.sector?.sector}}</span></span>
                                     </div>
                                     <div class="col-12 lg:col-4 xl:col-4 py-2">
-                                        <span class="text-teal-900 font-medium text-1xl">Fecha ingreso:<span class="text-white ml-1 font-medium"> {{movimientoTramiteEnviar.fecha_ingreso| date: 'dd/MM/yyyy'}}</span></span>
+                                        <span class="text-white font-bold font-medium text-1xl">Fecha ingreso:<span class="text-white ml-1 font-medium"> {{movimientoTramiteEnviar.fecha_ingreso| date: 'dd/MM/yyyy'}}</span></span>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-12 border-bottom-1 surface-border">
                                 <div class="grid">
                                     <div class="col-12 lg:col-8 xl:col-8 py-2">
-                                        <span class="text-teal-900 font-medium text-1xl">Descripción ingreso:<br><span class="text-white ml-1 font-medium"> {{movimientoTramiteEnviar.descripcion_ingreso}}</span></span>
+                                        <span class="text-white font-bold font-medium text-1xl">Descripción ingreso:<br><span class="text-white ml-1 font-medium"> {{movimientoTramiteEnviar.descripcion_ingreso}}</span></span>
                                     </div>
+                                </div>
+                            </div>
+                            <div class="col-12 border-bottom-1 surface-border">
+                                <div class="grid">
                                     <div class="col-12 lg:col-4 xl:col-4 py-2">
-                                        <span class="text-teal-900 font-medium text-1xl">Fojas ingreso:<span class="text-white ml-1 font-medium"> {{movimientoTramiteEnviar.fojas_ingreso}}</span></span>
+                                        <span class="text-white font-bold font-medium text-1xl">Fojas ingreso:<span class="text-white ml-1 font-medium"> {{movimientoTramiteEnviar.fojas_ingreso}}</span></span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <!-- FIN Card movimiento -->
 
-                        <button *ngIf="!enviarTramite" pButton pRipple type="button" label="Salida del Tramite" class="p-button-outlined p-button-warning mt-2 mr-2 mb-2" (click)="autorizarEnviarTramite()"></button>
+                        <button *ngIf="!enviarTramite" pButton pRipple type="button" label="Salida del Tramite" class="p-button-outlined p-button-help mt-2 mr-2 mb-2" (click)="autorizarEnviarTramite()"></button>
 
                         <!-- Card Formulario salida del tramite -->
                         <div class="card mt-2" *ngIf="enviarTramite">
                             <span class="block font-bold font-medium mb-3">SALIDA DEL TRAMITE</span>
+                            <!-- MENSAJE DE ERROR -->
+                            <p-messages [(value)]="msgs" [enableService]="false"></p-messages>
+
                             <div class="field">
                                 <label for="organismo_id">Organismo destino</label>
                                 <p-dropdown id="organismo_id" [options]="listOrganismos" formControlName="organismo_id" optionLabel="organismo" optionValue="id_organismo" filter="true" appendTo="body" (onChange)="onChangeOrganismos()" placeholder="Seleccionar...">

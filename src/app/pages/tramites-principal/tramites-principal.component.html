@@ -1,6 +1,15 @@
 <div class="grid">
+    <div class="col-12 xl:col-12">
+        <div class="card">
+            <h5>
+                <span class="text-orange-600"><b>{{(sector != null)?sector.organismo.organismo : "Sin organismo"}}</b></span>
+                <span class="text-orange-500"> - {{(sector != null)?sector.sector : "sin sector"}}</span>
+            </h5>
+        </div>
+    </div>
     <div class="col-12">
         <div class="card">
+
             <h5>Tramites</h5>
             <p-toolbar styleClass="mb-4">
                 <ng-template pTemplate="left">
@@ -284,13 +293,7 @@
                         <div class="field">
                             <label for="descripcion">Descripción</label>
                             <textarea pInputTextarea id="descripcion" formControlName="descripcion" rows="3" cols="20"></textarea>
-                            <small *ngIf="descripcionNotaNoValido" class="p-error">
-                                <div *ngFor="let validation of user_validation_messages.descripcion" >
-                                    <div  *ngIf="formaTramites.get('descripcion')?.hasError(validation.type)">
-                                        {{validation.message}}
-                                    </div>
-                                </div>
-                            </small>
+
                         </div>
                     </form>
                     <!--  FIN FORMULARIO TRAMITES -->

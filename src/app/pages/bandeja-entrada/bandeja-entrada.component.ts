@@ -16,6 +16,9 @@ import { MovimientosTramiteService } from 'src/app/service/movimientos-tramite.s
 export class BandejaEntradaComponent implements OnInit {
   submitted: boolean;
 
+  //TEMPORAL
+  sector: SectorModel;
+
   //para mensajes
   msgs: Message[] = [];
  
@@ -34,21 +37,32 @@ export class BandejaEntradaComponent implements OnInit {
 
   @ViewChild('filter') filter: ElementRef;
 
+  //CANTIDADES
+  cantEnEspera: number = 0;
+  cantRecibidos: number = 0;
+  cantEnviados: number = 0;
 
   //LISTAS    
   listSectores: SectorModel[]=[];
   listOrganismos: OrganismoModel[]= [];
   listTiposTramite: TipoTramiteModel[]=[];
   listMovimientosTramite: MovimientoTramiteModel[]=[];
+
   constructor(
     private movimientosTramiteService: MovimientosTramiteService,
-  ) { }
+  ) { 
+    this.sector = globalConstants.sector;
+  }
+  //FIN CONSTRUCTOR......................................
 
   
 
   ngOnInit(): void {
     if(globalConstants.sector){
       this.listarTramitesBandeja(globalConstants.sector.id_sector);
+      this.contarEnEspera(globalConstants.sector.id_sector);
+      this.contarRecibidos(globalConstants.sector.id_sector);
+      this.contarEnviados(globalConstants.sector.id_sector);
     }
     else{
       this.loading=false;
@@ -70,6 +84,39 @@ export class BandejaEntradaComponent implements OnInit {
   }
   //FIN LISTADO MOVIMIENTO DE TRAMITE...................................................
 
+  //LISTADO EN ESPERA
+  contarEnEspera(id_sector: number){ 
+    if(id_sector){
+      this.movimientosTramiteService.listarTramitesPendientes(id_sector).
+      subscribe(respuesta => {
+        this.cantEnEspera= respuesta[1];      
+      });
+    }     
+  }
+  //FIN LISTADO EN ESPERA...................................................
+
+  //LISTADO RECIBIDOS
+  contarRecibidos(id_sector: number){ 
+    if(id_sector){
+      this.movimientosTramiteService.listarTramitesRecibidos(id_sector).
+      subscribe(respuesta => {
+        this.cantRecibidos= respuesta[1];      
+      });
+    }     
+  }
+  //FIN LISTADO RECIBIDOS...................................................
+
+  //LISTADO ENVIADOS
+  contarEnviados(id_sector: number){ 
+    if(id_sector){
+      this.movimientosTramiteService.listarTramitesEnviados(id_sector).
+      subscribe(respuesta => {
+        this.cantEnviados = respuesta[1];      
+      });
+    }     
+  }
+  //FIN LISTADO ENVIADOS...................................................
+
    //VALOR DE NEGRITA O NO
    asignarNegrita(valor: boolean){ 
     if(!valor){
@@ -80,5 +127,12 @@ export class BandejaEntradaComponent implements OnInit {
     }
   }
   //FIN LISTADO MOVIMIENTO DE TRAMITE...................................................
+
+  //LIMPIAR
+  clear(table: Table) {
+    table.clear();
+    this.filter.nativeElement.value = '';
+  } 
+  //FIN LIMPIAR  
 
 }

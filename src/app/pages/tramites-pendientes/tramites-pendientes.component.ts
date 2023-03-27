@@ -1,3 +1,5 @@
+import { DatePipe } from '@angular/common';
+import { isNull } from '@angular/compiler/src/output/output_ast';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ConfirmationService, Message, MessageService } from 'primeng/api';
@@ -12,6 +14,7 @@ import { TiposTramiteService } from 'src/app/service/tipos-tramite.service';
 import { TramitesService } from 'src/app/service/tramites.service';
 import Swal from 'sweetalert2';
 import { globalConstants } from '../../common/global-constants';
+import { FuncionesPersonalizadasService } from '../../service/funciones-personalizadas.service';
 
 @Component({
   selector: 'app-tramites-pendientes',
@@ -22,6 +25,8 @@ import { globalConstants } from '../../common/global-constants';
   ]
 })
 export class TramitesPendientesComponent implements OnInit {
+  //TEMPORAL
+  sector: SectorModel;
 
   submitted: boolean;
 
@@ -65,8 +70,12 @@ export class TramitesPendientesComponent implements OnInit {
     private movimientosTramiteService: MovimientosTramiteService,
     private sectoresService: SectoresService,
     private tiposTramiteService: TiposTramiteService,
+    private funcionesPersonalizadas: FuncionesPersonalizadasService,
+    //public readonly datePipe: DatePipe,
     private fb: FormBuilder
   ) { 
+    this.sector = globalConstants.sector;
+    
     //FORMULARIO MOVIMIENTOS    
     this.formaMovimientosTramite = this.fb.group({
       tramite_numero: [0,[Validators.required,Validators.pattern(/^[0-9]*$/)]],
@@ -105,25 +114,35 @@ export class TramitesPendientesComponent implements OnInit {
 
     let dataMovimientoTramite: Partial <MovimientoTramiteModel>;
     dataMovimientoTramite = {
-        tramite_numero: this.movimientoTramiteRecibir.tramite_numero,
-        sector_origen_id: this.movimientoTramiteRecibir.sector_id,                    
-        fojas_ingreso: parseInt(this.formaMovimientosTramite.get('fojas')?.value),
+        tramite_numero: this.movimientoTramiteRecibir.tramite_numero,                
+        fojas_ingreso: this.funcionesPersonalizadas.getCadenaANumero(this.formaMovimientosTramite.get('fojas')?.value),
         descripcion_ingreso: this.formaMovimientosTramite.get('descripcion')?.value,
         usuario_id: globalConstants.id_usuario,
         sector_id: globalConstants.sector.id_sector
         
     }
+    console.log("numero movimiento anterior", this.movimientoTramiteRecibir.num_movimiento_tramite);
+    console.log("fojas_ingreso: ", dataMovimientoTramite.fojas_ingreso);
     //GUARDAR MOVIMIENTO
     this.movimientosTramiteService.recibirMovimientoTramite(dataMovimientoTramite, this.movimientoTramiteRecibir.num_movimiento_tramite)
-        .subscribe(resMovimiento => {
-            this.hideDialogRecibir();
-            Swal.fire('Exito',`El Tramite fue recibido con Exito`,"success");
-            this.listarTramitesPendientes(globalConstants.sector.id_sector);
-        })
+          .subscribe({
+            next: (resultado) => {
+              this.hideDialogRecibir();
+              Swal.fire('Exito',`El Tramite fue recibido con Exito`,"success");
+              this.listarTramitesPendientes(globalConstants.sector.id_sector);
+            },
+            error: (err) => {
+              //Swal.fire('error',`El Tramite no fue recibido con Exito`,"error")
+              console.log("error recibir", err);
+              this.msgs = [];
+              this.msgs.push({ severity: 'error', summary: 'Error al recibir el tramite', detail: ` ${err.error.error.message}` });
+          
+            }
+          })        
     //FIN GUARDAR MOVIMIENTO
 
   } 
-  //FIN RECIBIR TRAMITE
+  //FIN RECIBIR TRAMITE....................................................
 
   //LISTADO MOVIMIENTOS DE TRAMITE
   listarTramitesPendientes(id_sector: number){ 
@@ -157,7 +176,15 @@ export class TramitesPendientesComponent implements OnInit {
     this.tramiteRecibirDialog = false;
     this.recibirTramite= false;
     this.submitted = false;
+    this.msgs = [];
   }    
   //FIN MANEJO FORMULARIO RECIBIR DIALOG....................................
+
+   //LIMPIAR
+   clear(table: Table) {
+    table.clear();
+    this.filter.nativeElement.value = '';
+  } 
+  //FIN LIMPIAR  
 
 }

@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Cell, Table as TablaPdf, PdfMakeWrapper, Img, Txt, Canvas, Rect, Polyline, Ellipse, Line } from 'pdfmake-wrapper';
 import { ConfirmationService, Message, MessageService } from 'primeng/api';
@@ -18,12 +19,11 @@ import { globalConstants } from '../../common/global-constants';
   ]
 })
 export class TramitesEnviadosComponent implements OnInit {
+  //TEMPORAL
+  sector: SectorModel;
 
   //para mensajes
-  msgs: Message[] = [];
- 
-  //representatives: Representative[];
-  statuses: any[];
+  msgs: Message[] = [];  
 
   activityValues: number[] = [0, 100];
   idFrozen: boolean = false;
@@ -50,9 +50,12 @@ export class TramitesEnviadosComponent implements OnInit {
   tramiteInfoDialog: boolean;
 
   constructor(
-    private movimientosTramiteService: MovimientosTramiteService
+    private movimientosTramiteService: MovimientosTramiteService,
+    public readonly datePipe: DatePipe,
 
-  ) { }
+  ) { 
+    this.sector = globalConstants.sector;
+  }
 
   ngOnInit(): void {
     this.listarTramitesEnviados(globalConstants.sector.id_sector);
@@ -105,7 +108,7 @@ export class TramitesEnviadosComponent implements OnInit {
       new TablaPdf([
         [
           new Cell (new Txt(this.movimientoTramite.sector.organismo.organismo.toUpperCase() + " S.P.P.S").bold().fontSize(14).alignment('left').end).end,
-          new Cell (new Txt("05/10/2022").fontSize(11).alignment("right").end).end
+          new Cell (new Txt(this.datePipe.transform(this.movimientoTramite.fecha_salida, "dd/MM/yyyy")).fontSize(11).alignment("right").end).end
         ],
         [
           new Cell (new Txt(this.movimientoTramite.sector.sector.toUpperCase() + " S.P.P.S").bold().fontSize(11).alignment('left').end).end,
@@ -180,5 +183,12 @@ export class TramitesEnviadosComponent implements OnInit {
       //this.nuevoTramite=false;
   }    
   //FIN MANEJO DIALOG INFO....................................
+
+   //LIMPIAR
+   clear(table: Table) {
+    table.clear();
+    this.filter.nativeElement.value = '';
+  } 
+  //FIN LIMPIAR  
 
 }

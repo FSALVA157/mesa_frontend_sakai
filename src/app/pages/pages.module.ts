@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { LocationStrategy, HashLocationStrategy, CommonModule } from '@angular/common';
+import { LocationStrategy, HashLocationStrategy, CommonModule, DatePipe } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ToolbarModule } from 'primeng/toolbar';
@@ -23,6 +23,9 @@ import { BandejaEntradaComponent } from './bandeja-entrada/bandeja-entrada.compo
 // Importar pdfmake-wrapper y las fonts para usar
 import { PdfMakeWrapper } from 'pdfmake-wrapper';
 import * as pdfFonts from "pdfmake/build/vfs_fonts";
+import { UsuariosComponent } from './usuarios/usuarios.component';
+import { MessageModule } from 'primeng/message';
+import { MessagesModule } from 'primeng/messages';
 
 
 // registrar las fuentes
@@ -37,12 +40,14 @@ PdfMakeWrapper.setFonts(pdfFonts);
     DialogModule,
     DropdownModule,
     InputTextModule,
+    MessageModule,
+    MessagesModule,
     TableModule,
     TabViewModule,//funciona ng-template
     InputTextareaModule,
     ToolbarModule,
     FormsModule,
-    ReactiveFormsModule,
+    ReactiveFormsModule
   ],
   declarations: [
     //TramitesComponent,
@@ -50,11 +55,15 @@ PdfMakeWrapper.setFonts(pdfFonts);
     TramitesRecibidosComponent,
     TramitesEnviadosComponent,
     TramitesPrincipalComponent,
-    BandejaEntradaComponent  
+    BandejaEntradaComponent,
+    UsuariosComponent  
     
   ],
   providers: [
-    {provide: LocationStrategy, useClass: HashLocationStrategy}, MenuService, ConfigService
+    {provide: LocationStrategy, useClass: HashLocationStrategy}, 
+      MenuService, 
+      ConfigService,
+      DatePipe
   ],
   bootstrap: [AppComponent]
   
